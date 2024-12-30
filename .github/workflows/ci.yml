@@ -29,7 +29,7 @@ jobs:
       - name: 💅 Format Check
         run: make format-check
 
-       - name: 🔎 Lint Check
+      - name: 🔎 Lint Check
         run: make lint-check
 
       - name: 🧪 Test
