@@ -26,8 +26,11 @@ jobs:
           uv sync --all-extras --dev
           uv pip install -e .
 
-      - name: 💅 Link & Format Check
-        run: make check_code_quality
+      - name: 💅 Format Check
+        run: make format-check
+
+       - name: 🔎 Lint Check
+        run: make lint-check
 
       - name: 🧪 Test
         run: uv run pytest tests/
