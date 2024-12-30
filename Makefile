@@ -1,5 +1,3 @@
-.PHONY: style check_code_quality
-
 export PYTHONPATH = .
 check_dirs := src
 
