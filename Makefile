@@ -15,3 +15,6 @@ format-check:
 
 lint-check:
 	uv run ruff check $(check_dirs)
+
+test:
+	uv run pytest tests/

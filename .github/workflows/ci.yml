@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 jobs:
-  build-lint-format-and-test:
+  lint-format-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -33,4 +33,4 @@ jobs:
         run: make lint-check
 
       - name: 🧪 Test
-        run: uv run pytest tests/
+        run: make test
