@@ -1,4 +1,4 @@
-from jokes import get_joke
+from second_brain import get_joke
 
 
 def test_jokes():

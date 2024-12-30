@@ -4,7 +4,9 @@ version = "0.1.2"
 description = "Bootcamp on production LLMs and RAG by teaching you how to build an AI engine on top of your second brain, similar to Notion."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "zenml[server]>=0.71.0",
+]
 
 [dependency-groups]
 dev = ["pytest>=8.3.4", "ruff>=0.8.4"]
@@ -13,5 +15,4 @@ dev = ["pytest>=8.3.4", "ruff>=0.8.4"]
 target-version = "py312"
 
 [project.scripts]
-# will run the function by just typing `make_me_laugh` in the cli
-make_me_laugh = "jokes:make_me_laugh"
+make_me_laugh = "second_brain:make_me_laugh"
