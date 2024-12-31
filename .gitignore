@@ -178,3 +178,4 @@ cython_debug/
 # Data
 faiss/
 langflow_poc/
+data/

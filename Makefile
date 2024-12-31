@@ -26,7 +26,7 @@ local-infrastructure-down: local-docker-infrastructure-down local-zenml-server-d
 # --- Pipelines ---
 
 collect-notion-pipeline:
-	uv run python -m tools.run --run-collect-notion
+	uv run python -m tools.run --run-collect-notion --no-cache
 
 # --- Tests ---
 
