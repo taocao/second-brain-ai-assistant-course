@@ -8,17 +8,6 @@ To set it up and run
 uv venv
 uv sync
 ```
-Then
-
-```bash
-python main.py
-```
-
-Will output a random joke
-
-```
-Why did the cow in the pasture get promoted at work? ...  Because he is OUT-STANDING in his field!
-```
 
 ### Development
 
@@ -34,20 +23,52 @@ You can now run, for example, a function defined as `scripts` in the [`pyproject
 make_me_laugh
 ```
 
-### Linting
+### Infrastructure
 
-```
-ruff check
+```bash
+make local-infrastructure-up
 ```
 
+### Run ZenML pipelines
+
+```bash
+make collect-notion-pipeline
+```
 
 ### Formatting
 
 ```
-ruff format
+make format-check
+make format-fix
 ```
 
-## CI/CD
+### Linting
+
+```bash
+make lint-check
+make lint-fix
+```
 
 ### Tests
-Tests inside `/tests` are run using [`pytest`](https://docs.pytest.org/en/stable/) on PR both on `dev` and `main`
+
+```bash
+make test
+```
+
+## Notion
+
+1. Go to [https://www.notion.so/profile].
+2. Create an integration following [this tutorial](https://developers.notion.com/docs/authorization).
+3. Copy your integration secret to programatically read from Notion.
+4. Share your database with the integration:
+   - Open your Notion database
+   - Click the '...' menu in the top right
+   - Click 'Add connections'
+   - Select your integration
+5. Get the correct database ID:
+   - Open your database in Notion
+   - Copy the ID from the URL: 
+     ```
+     https://www.notion.so/{workspace}/{database_id}?v={view_id}
+     ```
+   - The database ID is the part between the workspace name and the question mark
