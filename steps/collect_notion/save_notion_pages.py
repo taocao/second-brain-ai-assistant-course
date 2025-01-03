@@ -1,17 +1,21 @@
+import shutil
 from pathlib import Path
 
 from zenml import step
+
+from second_brain.entities import Page
 
 
 @step
 def save_notion_pages(
     database_id: str,
-    pages: dict[str, str],
+    pages: dict[str, Page],
 ) -> None:
     output_dir = Path("data") / database_id
-    output_dir.mkdir(parents=True, exist_ok=True)
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+    output_dir.mkdir(parents=True)
 
-    for page_name, content in pages.items():
-        file_path = output_dir / f"{page_name}.txt"
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(content)
+    for page_id, page in pages.items():
+        file_path = output_dir / f"{page_id}.json"
+        page.write(file_path)
