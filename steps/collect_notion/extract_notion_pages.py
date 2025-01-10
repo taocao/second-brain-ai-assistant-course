@@ -3,21 +3,23 @@ from loguru import logger
 from typing_extensions import Annotated
 from zenml import step
 
-from second_brain import settings, utils
-from second_brain.entities import Page
+from second_brain import settings
+from second_brain.entities import Page, PageMetadata
 
 
 @step
 def extract_notion_pages(
-    page_ids: list[str],
+    pages_metadata: list[PageMetadata],
 ) -> Annotated[dict[str, Page], "pages"]:
-    page_contents = {}
-    for page_id in page_ids:
-        blocks = _retrieve_child_blocks(page_id)
-        content, metadata = _parse_blocks(blocks)
-        page_contents[page_id] = Page(content=content, metadata=metadata)
+    pages = {}
+    for page_metadata in pages_metadata:
+        blocks = _retrieve_child_blocks(page_metadata.id)
+        content, urls = _parse_blocks(blocks)
+        pages[page_metadata.id] = Page(
+            page_metadata=page_metadata, content=content, urls=urls
+        )
 
-    return page_contents
+    return pages
 
 
 def _retrieve_child_blocks(block_id: str, page_size: int = 100) -> list[dict]:
@@ -50,78 +52,109 @@ def _retrieve_child_blocks(block_id: str, page_size: int = 100) -> list[dict]:
         return []
 
 
-def _parse_blocks(blocks: list, depth: int = 0) -> tuple[str, dict]:
+def _parse_blocks(blocks: list, depth: int = 0) -> tuple[str, list[str]]:
     content = ""
-    metadata = {
-        "urls": [],
-    }
+    urls = []
     for block in blocks:
         block_type = block.get("type")
         block_id = block.get("id")
 
         if block_type in {
-            "paragraph",
             "heading_1",
             "heading_2",
             "heading_3",
+        }:
+            content += (
+                f"# {_parse_rich_text(block[block_type].get('rich_text', []))}\n\n"
+            )
+            urls.extend(_extract_urls(block[block_type].get("rich_text", [])))
+        elif block_type in {
+            "paragraph",
             "quote",
         }:
-            text_content = _parse_rich_text(block[block_type].get("rich_text", []))
-            content += text_content + "\n\n"
-            urls = _extract_urls(block[block_type].get("rich_text", []))
-            if urls:
-                metadata["urls"].extend(urls)
-
-            if "has_children" in block and block["has_children"]:
-                child_blocks = _retrieve_child_blocks(block_id)
-                child_content, child_metadata = _parse_blocks(child_blocks, depth + 1)
-                content += (
-                    "\n".join("    " + line for line in child_content.split("\n"))
-                    + "\n\n"
-                )
-                metadata = utils.merge_dicts(metadata, child_metadata)
-
+            content += f"{_parse_rich_text(block[block_type].get('rich_text', []))}\n"
+            urls.extend(_extract_urls(block[block_type].get("rich_text", [])))
         elif block_type in {"bulleted_list_item", "numbered_list_item"}:
-            content += _parse_rich_text(block[block_type].get("rich_text", [])) + "\n"
+            content += f"- {_parse_rich_text(block[block_type].get('rich_text', []))}\n"
+            urls.extend(_extract_urls(block[block_type].get("rich_text", [])))
         elif block_type == "to_do":
-            content += _parse_rich_text(block["to_do"].get("rich_text", [])) + "\n"
+            content += f"[] {_parse_rich_text(block['to_do'].get('rich_text', []))}\n"
+            urls.extend(_extract_urls(block[block_type].get("rich_text", [])))
         elif block_type == "code":
-            content += _parse_rich_text(block["code"].get("rich_text", [])) + "\n\n"
+            content += (
+                f"```\n{_parse_rich_text(block['code'].get('rich_text', []))}\n````\n"
+            )
+            urls.extend(_extract_urls(block[block_type].get("rich_text", [])))
         elif block_type == "image":
-            content += f"[Image: {block['image'].get('external', {}).get('url', 'No URL')}]\n\n"
+            content += (
+                f"[Image]({block['image'].get('external', {}).get('url', 'No URL')})\n"
+            )
         elif block_type == "divider":
             content += "---\n\n"
         elif block_type == "child_page" and depth < 3:
             child_id = block.get("id")
             child_title = block.get("child_page", {}).get("title", "Untitled")
-            content += f"\n### {child_title}\n\n"
+            content += f"\n\n<child_page>\n# {child_title}\n\n"
 
             child_blocks = _retrieve_child_blocks(child_id)
-            child_content, child_metadata = _parse_blocks(child_blocks, depth + 1)
-            content += child_content + "\n\n"
-            metadata = utils.merge_dicts(metadata, child_metadata)
+            child_content, child_urls = _parse_blocks(child_blocks, depth + 1)
+            content += child_content + "\n</child_page>\n\n"
+            urls += child_urls
 
         elif block_type == "link_preview":
             url = block.get("link_preview", {}).get("url", "")
-            content += f"[Link Preview: {url}]\n\n"
+            content += f"[Link Preview]({url})\n"
 
-            metadata["urls"].append(url)
+            urls.append(_normalize_url(url))
         else:
             logger.warning(f"Unknown block type: {block_type}")
 
-    return content.strip("\n "), metadata
+        # Parse child pages that are bullet points, toggles or similar structures.
+        # Subpages (child_page) are parsed individually as a block.
+        if (
+            block_type != "child_page"
+            and "has_children" in block
+            and block["has_children"]
+        ):
+            child_blocks = _retrieve_child_blocks(block_id)
+            child_content, child_urls = _parse_blocks(child_blocks, depth + 1)
+            content += (
+                "\n".join("\t" + line for line in child_content.split("\n")) + "\n\n"
+            )
+            urls += child_urls
+
+    urls = list(set(urls))
+
+    return content.strip("\n "), urls
 
 
 def _parse_rich_text(rich_text: list) -> str:
-    return "".join(segment.get("plain_text", "") for segment in rich_text)
+    text = ""
+    for segment in rich_text:
+        if segment.get("href"):
+            text += f"[{segment.get('plain_text', '')}]({segment.get('href', '')})"
+        else:
+            text += segment.get("plain_text", "")
+    return text
 
 
 def _extract_urls(rich_text: list) -> list:
     """Extract URLs from rich text blocks."""
     urls = []
     for text in rich_text:
+        url = None
         if text.get("href"):
-            urls.append(text["href"])
-        if "url" in text.get("annotations", {}):
-            urls.append(text["annotations"]["url"])
+            url = text["href"]
+        elif "url" in text.get("annotations", {}):
+            url = text["annotations"]["url"]
+
+        if url:
+            urls.append(_normalize_url(url))
+
     return urls
+
+
+def _normalize_url(url: str) -> str:
+    if not url.endswith("/"):
+        url += "/"
+    return url

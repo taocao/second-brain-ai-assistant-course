@@ -13,13 +13,13 @@ local-docker-infrastructure-down:
 	docker compose stop
 
 local-zenml-server-down:
-	uv run zenml down
+	uv run zenml logout --local
 
 local-zenml-server-up:
 ifeq ($(shell uname), Darwin)
-	OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES uv run zenml up
+	OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES uv run zenml login --local
 else
-	uv run zenml up
+	uv run zenml login --local
 endif
 
 local-infrastructure-up: local-docker-infrastructure-up local-zenml-server-down local-zenml-server-up

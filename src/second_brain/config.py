@@ -10,6 +10,8 @@ class Settings(BaseSettings):
 
     # --- Required settings even when working locally. ---
 
+    AWS_S3_BUCKET_NAME: str = "notion-second-brain-data"
+
     # OpenAI API
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
     OPENAI_API_KEY: str | None = None

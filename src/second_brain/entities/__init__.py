@@ -1,3 +1,3 @@
-from .page import Page
+from .page import Page, PageMetadata
 
-__all__ = ["Page"]
+__all__ = ["Page", "PageMetadata"]
