@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongodb/mongodb-atlas-local:latest
+    container_name: mongodb-atlas-local
+    restart: always
+    networks:
+      - zenml-network
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017" 
+    command: ["mongod", "--bind_ip_all", "--noauth"]
+    healthcheck:
+      test: ["CMD", "mongosh", "mongodb://127.0.0.1:27017", "--quiet", "--eval", "db.runCommand({ ping: 1 })"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  zenml-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: zenml-runner
+    env_file:
+      - .env
+    environment:
+      - IS_RUNNING_IN_DOCKER=true
+    networks:
+      - zenml-network
+
+networks:
+  zenml-network:
+    name: zenml-network
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
+  mongo-config:
+    driver: local
