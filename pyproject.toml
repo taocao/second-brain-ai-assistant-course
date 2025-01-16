@@ -1,11 +1,7 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel", "uv"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "zenml-rag-pipeline"
+name = "second_brain_course"
 version = "0.1.0"
-description = "Foundational ZenML-based pipeline stack with Local MongoDB Atlas integration."
+description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your second brain."
 authors = [
     {name = "Paul Iusztin", email = "p.b.iusztin@gmail.com"},
     {name = "Jesse Moses", email = "jlmoses@outlook.com"},
@@ -23,10 +19,13 @@ dependencies = [
     "python-dotenv>=1.0.0",
     "pymongo>=4.4.0",
     "zenml[server]>=0.72.0",
+    "boto3>=1.36.0",
 ]
 
-[project.optional-dependencies]
-dev = ["ruff"]  # Include only Ruff for linting
+[dependency-groups]
+dev = [
+    "ruff>=0.7.2",
+]
 
 [tool.ruff]
 line-length = 88
@@ -37,7 +36,11 @@ ignore = [
 [tool.pip]
 extra-index-url = "https://download.pytorch.org/whl/cpu/torch_stable.html"
 
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "uv"]
+build-backend = "setuptools.build_meta"
+
 [tool.setuptools.packages.find]
-where = ["."]
+where = ["src/."]
 include = ["configs", "pipelines", "steps"]
 exclude = ["data", "logs", "temp_store", "model_cache"]

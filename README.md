@@ -3,8 +3,6 @@
   <p class="tagline">Open-source bootcamp by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
 </div>
 
----
-
 # ZenML RAG Pipeline: Foundational Stack
 
 This repository offers a **foundational stack** for building and integrating into ZenML Retrieval-Augmented Generation (RAG) pipelines. By leveraging **ZenML** for pipeline orchestration and **Local MongoDB Atlas** for document storage, this stack is designed to run seamlessly in both local and Dockerized environments. 

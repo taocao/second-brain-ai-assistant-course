@@ -20,7 +20,7 @@ help:
 # --- Infrastructure --- 
 
 local-docker-infrastructure-up:
-	docker compose up -d
+	docker compose up --build -d 
 
 local-docker-infrastructure-down:
 	docker compose stop
@@ -53,6 +53,9 @@ s3-download:  # Download from S3 to local folder using AWS
 
 collect-notion-data-pipeline:
 	uv run python -m tools.run --run-collect-notion-data --no-cache
+
+etl-pipeline:
+	uv run python -m tools.run --run-etl --no-cache
 
 # --- Tests ---
 

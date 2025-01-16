@@ -50,8 +50,5 @@ ENV PATH="/app/.venv/bin:$PATH"
 # Ensure Python output is not buffered
 ENV PYTHONUNBUFFERED=1
 
-# Expose the application port
-EXPOSE 8000
-
 # Default command to allow debugging
-CMD ["tail", "-f", "/dev/null"]
+CMD ["uv", "run", "zenml", "login", "--local", "--port", "8237", "--ip-address", "0.0.0.0"]

@@ -6,6 +6,7 @@ import click
 
 from pipelines import (
     collect_notion_data,
+    etl
 )
 
 
@@ -33,8 +34,8 @@ Examples:
   python run.py --no-cache
   
   \b
-  # Run only the ETL pipeline
-  python run.py --run-collect-notion
+  # Run only the Notion data collection pipeline
+  python run.py --run-collect-notion-data
 
 """
 )
@@ -50,11 +51,18 @@ Examples:
     default=False,
     help="Whether to run the collection data from Notion pipeline.",
 )
+@click.option(
+    "--run-etl",
+    is_flag=True,
+    default=False,
+    help="Whether to run the ETL pipeline.",
+)
 def main(
     no_cache: bool = False,
     run_collect_notion_data: bool = False,
+    run_etl: bool = False,
 ) -> None:
-    assert run_collect_notion_data, "Please specify an action to run."
+    assert run_collect_notion_data or run_etl, "Please specify an action to run."
 
     pipeline_args: dict[str, Any] = {
         "enable_cache": not no_cache,
@@ -62,7 +70,7 @@ def main(
     root_dir = Path(__file__).resolve().parent.parent
 
     if run_collect_notion_data:
-        run_args_end_to_end = {}
+        run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "collect_notion_data.yaml"
         assert pipeline_args[
             "config_path"
@@ -70,8 +78,18 @@ def main(
         pipeline_args["run_name"] = (
             f"collect_notion_data_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
-        collect_notion_data.with_options(**pipeline_args)(**run_args_end_to_end)
+        collect_notion_data.with_options(**pipeline_args)(**run_args)
 
+    if run_etl:
+        run_args = {}
+        pipeline_args["config_path"] = root_dir / "configs" / "etl.yaml"
+        assert pipeline_args[
+            "config_path"
+        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        pipeline_args["run_name"] = (
+            f"etl_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        etl.with_options(**pipeline_args)(**run_args)
 
 if __name__ == "__main__":
     main()

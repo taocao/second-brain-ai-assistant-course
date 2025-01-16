@@ -1,37 +1,7 @@
-"""
-Module:
-mongodb_data_processing.py
-
-Purpose:
-Provides utility functions for interacting with a MongoDB database during ZenML pipeline execution. Includes steps for document ingestion and retrieval.
-
-Features:
-- ZenML step for JSON data ingestion into MongoDB.
-- ZenML step for fetching documents based on a genre query.
-- Comprehensive error handling and logging for MongoDB operations.
-
-Classes:
-- MongoDBService: Handles MongoDB operations such as ingestion, query, and validation.
-
-Steps:
-- ingest_json_to_mongodb_step: Ingests JSON data into MongoDB, with duplicate avoidance and validation.
-- fetch_documents_step: Fetches MongoDB documents based on genre filters with configurable limits.
-
-Dependencies:
-- `pymongo` for MongoDB operations.
-- `ZenML` for pipeline management.
-- `bson` for handling MongoDB-specific data types.
-"""
-
-import json
-import logging
 from typing import List, Dict
 from pymongo import MongoClient, errors
 from bson import ObjectId
-from zenml.steps import step
-
-# TODO: Replace all current logger configurations with loguru.
-logger = logging.getLogger("zenml")  # Use the ZenML logger
+from loguru import logger
 
 
 class MongoDBService:
@@ -186,75 +156,3 @@ class MongoDBService:
         except errors.PyMongoError as e:
             logger.error(f"Error verifying genre '{genre}': {e}")
             raise
-
-
-@step(enable_cache=False)
-def ingest_json_to_mongodb_step(
-    mongodb_uri: str, database_name: str, collection_name: str, json_file_path: str
-):
-    """
-    ZenML step to ingest JSON data into MongoDB.
-
-    Args:
-        mongodb_uri (str): URI for MongoDB connection.
-        database_name (str): Target database name.
-        collection_name (str): Target collection name.
-        json_file_path (str): Path to the JSON file containing data.
-
-    Raises:
-        Exception: If the ingestion process fails.
-    """
-    try:
-        service = MongoDBService(mongodb_uri, database_name, collection_name)
-
-        # Load JSON file
-        with open(json_file_path, "r") as file:
-            documents = json.load(file)
-        if not isinstance(documents, list):
-            raise ValueError("JSON file must contain a list of documents.")
-
-        # Clear and ingest documents
-        service.clear_collection()
-        service.ingest_documents(documents)
-
-        # Log total and genre-specific counts
-        service.verify_collection_count()
-    except Exception as e:
-        logger.error(f"Failed to ingest documents: {e}")
-        raise
-
-
-@step(enable_cache=False)
-def fetch_documents_step(
-    mongodb_uri: str, database_name: str, collection_name: str, limit: int, genre: str
-) -> List[Dict]:
-    """
-    ZenML step to fetch MongoDB documents filtered by genre.
-
-    Args:
-        mongodb_uri (str): URI for MongoDB connection.
-        database_name (str): Target database name.
-        collection_name (str): Target collection name.
-        limit (int): Maximum number of documents to fetch.
-        genre (str): Genre to filter by.
-
-    Returns:
-        List[Dict]: Retrieved documents.
-
-    Raises:
-        Exception: If the fetch process fails.
-    """
-    try:
-        service = MongoDBService(mongodb_uri, database_name, collection_name)
-
-        # Fetch documents
-        query = {"genres": {"$regex": f"^{genre}$", "$options": "i"}}
-        documents = service.fetch_documents(limit, query)
-
-        # Log genre-specific counts
-        service.verify_genre(genre)
-
-        return documents
-    except Exception as e:
-        logger.error(f"Failed to fetch documents: {e}")
-        raise
