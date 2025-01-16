@@ -1,0 +1,16 @@
+{
+    "page_metadata": {
+        "id": "d25536ec4f9b5e0a65981adb4c9dedcf",
+        "url": "https://www.notion.so/Testing-d25536ec4f9b5e0a65981adb4c9dedcf",
+        "title": "Testing",
+        "properties": {
+            "Type": "Leaf"
+        }
+    },
+    "content": "# Articles\n\n\t- [Testing Machine Learning Systems: Code, Data and Models](https://madewithml.com/courses/mlops/testing/)\n\n# Repositories\n\n\t- [https://github.com/GokuMohandas/testing-ml](https://github.com/GokuMohandas/testing-ml)\n\n# Papers\n\n\t- [Beyond Accuracy: Behavioral Testing of NLP models with CheckList](https://arxiv.org/abs/2005.04118)",
+    "urls": [
+        "https://arxiv.org/abs/2005.04118/",
+        "https://github.com/GokuMohandas/testing-ml/",
+        "https://madewithml.com/courses/mlops/testing/"
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "page_metadata": {
+        "id": "c80cae97bc6eb647788a1bdbca3bb9c6",
+        "url": "https://www.notion.so/Programming-Languages-Interpreters-c80cae97bc6eb647788a1bdbca3bb9c6",
+        "title": "Programming Languages Interpreters",
+        "properties": {
+            "Type": [
+                "Leaf"
+            ],
+            "Created": {
+                "id": "tmas",
+                "type": "created_time",
+                "created_time": "2023-12-14T10:53:00.000Z"
+            }
+        }
+    },
+    "content": "# eBooks\n\n\t- [Crafting Interpreters [by Bob Nystrom]](https://craftinginterpreters.com/)",
+    "urls": [
+        "https://craftinginterpreters.com/"
+    ]
+}

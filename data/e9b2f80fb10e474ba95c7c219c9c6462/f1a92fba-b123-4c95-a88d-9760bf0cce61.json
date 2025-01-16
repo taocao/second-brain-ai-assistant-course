@@ -1,0 +1,22 @@
+{
+    "page_metadata": {
+        "id": "fb47db5fb24b4f2a73eedf9eb2d6bdfe",
+        "url": "https://www.notion.so/GitHub-fb47db5fb24b4f2a73eedf9eb2d6bdfe",
+        "title": "GitHub",
+        "properties": {
+            "Type": [
+                "Leaf"
+            ],
+            "Created": {
+                "id": "tmas",
+                "type": "created_time",
+                "created_time": "2023-12-14T10:53:00.000Z"
+            }
+        }
+    },
+    "content": "- [GitHub Foundations](https://learn.microsoft.com/en-us/collections/o1njfe825p602p)\n- [GitHub Actions](https://learn.microsoft.com/en-us/collections/n5p4a5z7keznp5)",
+    "urls": [
+        "https://learn.microsoft.com/en-us/collections/n5p4a5z7keznp5/",
+        "https://learn.microsoft.com/en-us/collections/o1njfe825p602p/"
+    ]
+}

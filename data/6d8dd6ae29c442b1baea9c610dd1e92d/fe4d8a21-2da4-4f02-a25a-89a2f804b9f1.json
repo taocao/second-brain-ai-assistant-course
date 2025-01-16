@@ -1,0 +1,20 @@
+{
+    "page_metadata": {
+        "id": "9c5bd1f502ce7bbc515a95fad6caa7c8",
+        "url": "https://www.notion.so/Monitoring-9c5bd1f502ce7bbc515a95fad6caa7c8",
+        "title": "Monitoring ",
+        "properties": {
+            "Type": "Leaf"
+        }
+    },
+    "content": "- [https://drive.google.com/file/d/1iU_hhgQ3LvWVuyFAFbuMDmxWV_8ivI0K/view?usp=share_link](https://drive.google.com/file/d/1iU_hhgQ3LvWVuyFAFbuMDmxWV_8ivI0K/view?usp=share_link) - PSI, KL, JS, EMD\n- [https://github.com/NannyML/The-Little-Book-of-ML-Metrics](https://github.com/NannyML/The-Little-Book-of-ML-Metrics)\n- [Arize ML Monitoring Course](https://arize.com/blog-course/what-is-observability-data-machine-learning/) - Everything in one place. That is a very nice overview.\n- [Evidently Blog](https://www.evidentlyai.com/blog) - All kinds of goodies.\n\t- [Which test is the best? We compared 5 methods to detect data drift on large datasets](https://www.evidentlyai.com/blog/data-drift-detection-large-datasets)\n\n- [https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/05-monitoring](https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/05-monitoring) - Great videos.\n\n# Tools\n\n\t[https://github.com/NannyML/nannyml](https://github.com/NannyML/nannyml)",
+    "urls": [
+        "https://github.com/NannyML/nannyml/",
+        "https://github.com/DataTalksClub/mlops-zoomcamp/tree/main/05-monitoring/",
+        "https://drive.google.com/file/d/1iU_hhgQ3LvWVuyFAFbuMDmxWV_8ivI0K/view?usp=share_link/",
+        "https://www.evidentlyai.com/blog/",
+        "https://www.evidentlyai.com/blog/data-drift-detection-large-datasets/",
+        "https://github.com/NannyML/The-Little-Book-of-ML-Metrics/",
+        "https://arize.com/blog-course/what-is-observability-data-machine-learning/"
+    ]
+}

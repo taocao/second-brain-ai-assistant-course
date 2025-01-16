@@ -1,0 +1,17 @@
+{
+    "page_metadata": {
+        "id": "ee3af7b0bc6c38f855665d41f87b3a3f",
+        "url": "https://www.notion.so/Configuration-Layer-ee3af7b0bc6c38f855665d41f87b3a3f",
+        "title": "Configuration Layer",
+        "properties": {
+            "Type": "Leaf"
+        }
+    },
+    "content": "# Articles\n\n\t- [Hydra & PyDantic config layer](https://suneeta-mall.github.io/2022/03/15/hydra-pydantic-config-management-for-training-application.html)\n\n\n\n\n# Tools\n\n\t- [pydantic basesettings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/)\n\t- [hydra](https://github.com/facebookresearch/hydra)\n\t- [omegaconf](https://github.com/omry/omegaconf)",
+    "urls": [
+        "https://github.com/omry/omegaconf/",
+        "https://docs.pydantic.dev/latest/concepts/pydantic_settings/",
+        "https://github.com/facebookresearch/hydra/",
+        "https://suneeta-mall.github.io/2022/03/15/hydra-pydantic-config-management-for-training-application.html/"
+    ]
+}

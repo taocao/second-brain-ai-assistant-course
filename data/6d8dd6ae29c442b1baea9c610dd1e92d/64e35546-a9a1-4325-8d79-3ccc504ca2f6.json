@@ -1,0 +1,27 @@
+{
+    "page_metadata": {
+        "id": "80d5fce1aba2141e5cfaeb09cc0c6a57",
+        "url": "https://www.notion.so/Sources-80d5fce1aba2141e5cfaeb09cc0c6a57",
+        "title": "📙 Sources",
+        "properties": {
+            "Type": "Node"
+        }
+    },
+    "content": "# Blogs & YouTube Channels\n\n\t- [https://github.com/visenger/awesome-mlops](https://github.com/visenger/awesome-mlops)\n\t- MLOps.community\n\t\t- [YouTube Channel](https://www.youtube.com/@MLOps)\n\t\n\t- [https://madewithml.com/](https://madewithml.com/)\n\t- [https://huyenchip.com/](https://huyenchip.com/)\n\t- [https://neptune.ai/blog](https://neptune.ai/blog)\n\t- [https://ml-ops.org/](https://ml-ops.org/)\n\t- [https://www.hopsworks.ai/blog](https://www.hopsworks.ai/blog)\n\t- [MLOps: Continuous delivery and automation pipelines in machine learning](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)\n\t- [https://www.newsletter.swirlai.com/](https://www.newsletter.swirlai.com/)\n\t\n\t[https://www.zenml.io/blog](https://www.zenml.io/blog)\n\t[https://www.evidentlyai.com/blog](https://www.evidentlyai.com/blog)\n\n# Awesome Lists\n\n\t- [https://github.com/tensorchord/Awesome-LLMOps](https://github.com/tensorchord/Awesome-LLMOps)\n\t- [https://www.zenml.io/llmops-database](https://www.zenml.io/llmops-database)\n\t-\n\n# Courses\n\n\t[https://mlops-coding-course.fmind.dev/](https://mlops-coding-course.fmind.dev/)",
+    "urls": [
+        "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning/",
+        "https://mlops-coding-course.fmind.dev/",
+        "https://www.zenml.io/blog/",
+        "https://madewithml.com/",
+        "https://github.com/tensorchord/Awesome-LLMOps/",
+        "https://www.youtube.com/@MLOps/",
+        "https://huyenchip.com/",
+        "https://www.evidentlyai.com/blog/",
+        "https://neptune.ai/blog/",
+        "https://www.newsletter.swirlai.com/",
+        "https://github.com/visenger/awesome-mlops/",
+        "https://www.hopsworks.ai/blog/",
+        "https://ml-ops.org/",
+        "https://www.zenml.io/llmops-database/"
+    ]
+}

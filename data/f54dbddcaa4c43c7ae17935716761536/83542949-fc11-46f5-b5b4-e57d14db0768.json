@@ -1,0 +1,19 @@
+{
+    "page_metadata": {
+        "id": "5a15aaa4da0baab1da74b205e0fffc20",
+        "url": "https://www.notion.so/Metrics-5a15aaa4da0baab1da74b205e0fffc20",
+        "title": "Metrics",
+        "properties": {
+            "Type": "Leaf",
+            "Created": {
+                "id": "zegV",
+                "type": "created_time",
+                "created_time": "2024-03-08T13:01:00.000Z"
+            }
+        }
+    },
+    "content": "# Tools\n\n\t- [TorchMetrics:](https://lightning.ai/docs/torchmetrics/stable/) a collection of 100+ PyTorch metrics implementations and an easy-to-use API to create custom metrics",
+    "urls": [
+        "https://lightning.ai/docs/torchmetrics/stable/"
+    ]
+}

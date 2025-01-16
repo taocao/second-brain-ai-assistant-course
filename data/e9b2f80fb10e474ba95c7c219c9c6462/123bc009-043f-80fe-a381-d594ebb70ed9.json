@@ -1,0 +1,22 @@
+{
+    "page_metadata": {
+        "id": "885dd13efee0a37b7fd5dc12ab6e68e0",
+        "url": "https://www.notion.so/Sources-885dd13efee0a37b7fd5dc12ab6e68e0",
+        "title": "Sources",
+        "properties": {
+            "Type": [
+                "Node"
+            ],
+            "Created": {
+                "id": "tmas",
+                "type": "created_time",
+                "created_time": "2024-10-18T14:29:00.000Z"
+            }
+        }
+    },
+    "content": "[https://realpython.com/](https://realpython.com/)\n[https://newsletter.systemdesign.one/](https://newsletter.systemdesign.one/)",
+    "urls": [
+        "https://realpython.com/",
+        "https://newsletter.systemdesign.one/"
+    ]
+}

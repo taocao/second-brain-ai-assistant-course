@@ -1,22 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "uv"]
+build-backend = "setuptools.build_meta"
+
 [project]
-name = "llm-rag-bootcamp"
-version = "0.0.1"
-description = "Bootcamp on production LLMs and RAG by teaching you how to build an AI engine on top of your second brain, similar to Notion."
-readme = "README.md"
+name = "zenml-rag-pipeline"
+version = "0.1.0"
+description = "Foundational ZenML-based pipeline stack with Local MongoDB Atlas integration."
+authors = [
+    {name = "Paul Iusztin", email = "p.b.iusztin@gmail.com"},
+    {name = "Jesse Moses", email = "jlmoses@outlook.com"},
+]
+
+license = { text = "MIT" }
 requires-python = ">=3.12"
 dependencies = [
     "click>=8.1.3",
+    "datasets>=2.14.4",
+    "dnspython>=2.6.0,<3.0",
     "loguru>=0.7.3",
     "pydantic>=2.8.2",
     "pydantic-settings>=2.7.0",
-    "zenml[server]>=0.71.0",
+    "python-dotenv>=1.0.0",
+    "pymongo>=4.4.0",
+    "zenml[server]>=0.72.0",
 ]
 
-[dependency-groups]
-dev = ["pytest>=8.3.4", "ruff>=0.8.4"]
+[project.optional-dependencies]
+dev = ["ruff"]  # Include only Ruff for linting
 
 [tool.ruff]
-target-version = "py312"
+line-length = 88
+ignore = [
+    "E501",  # Disable Ruff's line length checks
+]
 
-[project.scripts]
-make_me_laugh = "second_brain:make_me_laugh"
+[tool.pip]
+extra-index-url = "https://download.pytorch.org/whl/cpu/torch_stable.html"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["configs", "pipelines", "steps"]
+exclude = ["data", "logs", "temp_store", "model_cache"]

@@ -1,0 +1,20 @@
+{
+    "page_metadata": {
+        "id": "aa8b4c3cbb2ef66a37d3aefdd11ff685",
+        "url": "https://www.notion.so/Vector-Index-DB-aa8b4c3cbb2ef66a37d3aefdd11ff685",
+        "title": "Vector Index & DB",
+        "properties": {
+            "Type": [
+                "Leaf"
+            ]
+        }
+    },
+    "content": "# Resources [Community]\n\n\t[https://www.pinecone.io/learn/series/faiss/hnsw/](https://www.pinecone.io/learn/series/faiss/hnsw/)\n\n# Resources [Science]\n\n# Tools\n\n\t[https://superlinked.com/vector-db-comparison?utm_source=network&utm_medium=social&utm_campaign=vdb_launch](https://superlinked.com/vector-db-comparison?utm_source=network&utm_medium=social&utm_campaign=vdb_launch)\n\t\n\t[https://github.com/google-research/google-research/tree/master/scann](https://github.com/google-research/google-research/tree/master/scann)\n\t[Link Preview](https://github.com/facebookresearch/faiss)\n\n# Benchmarks\n\n\t[https://redis.io/blog/benchmarking-results-for-vector-databases/](https://redis.io/blog/benchmarking-results-for-vector-databases/)",
+    "urls": [
+        "https://www.pinecone.io/learn/series/faiss/hnsw/",
+        "https://redis.io/blog/benchmarking-results-for-vector-databases/",
+        "https://superlinked.com/vector-db-comparison?utm_source=network&utm_medium=social&utm_campaign=vdb_launch/",
+        "https://github.com/facebookresearch/faiss/",
+        "https://github.com/google-research/google-research/tree/master/scann/"
+    ]
+}

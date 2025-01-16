@@ -1,0 +1,33 @@
+{
+    "page_metadata": {
+        "id": "0d383aff7ddb71caa2c8af6ecb1380e4",
+        "url": "https://www.notion.so/Python-0d383aff7ddb71caa2c8af6ecb1380e4",
+        "title": "Python ",
+        "properties": {
+            "Type": [
+                "Leaf"
+            ],
+            "Created": {
+                "id": "tmas",
+                "type": "created_time",
+                "created_time": "2023-12-14T10:53:00.000Z"
+            }
+        }
+    },
+    "content": "# Project setups, Templates and QA\n\n# Articles\n\n\t- [Ultimate Setup for Your Next Python Project](https://martinheinz.dev/blog/14)\n\t- [MLOps Python Package](https://github.com/fmind/mlops-python-package/tree/main)\n\t- [https://realpython.com/intro-to-pyenv/](https://realpython.com/intro-to-pyenv/)\n\n# Examples\n\n\t[Link Preview](https://github.com/FrancescoSaverioZuppichini/python-template)\n\t\n\t[MLOps Python Package](https://github.com/fmind/mlops-python-package/tree/main)\n\t[Linters and pre-commit hooks can make your life so much easier.](https://www.linkedin.com/in/hoogvliets/recent-activity/all/) [[GitHub repo](https://github.com/marvelousmlops/precommit-heaven/blob/master/.pre-commit-config.yaml)]\n\t[Copier Poetry](https://github.com/pawamoy/copier-poetry)\n\n# Tools\n\n\t- [Copier](https://copier.readthedocs.io/en/stable/)\n\t- [Cookiecutter](https://github.com/cookiecutter/cookiecutter)\n\t- [Pre-commit](https://github.com/pre-commit/pre-commit)\n\t\n\t[Link Preview](https://github.com/pallets/click)\n\t[Link Preview](https://github.com/fastapi/typer)\n\n\n# Python Syntax\n\n[https://mypy.readthedocs.io/en/latest/generics.html](https://mypy.readthedocs.io/en/latest/generics.html)",
+    "urls": [
+        "https://github.com/FrancescoSaverioZuppichini/python-template/",
+        "https://github.com/cookiecutter/cookiecutter/",
+        "https://github.com/marvelousmlops/precommit-heaven/blob/master/.pre-commit-config.yaml/",
+        "https://copier.readthedocs.io/en/stable/",
+        "https://github.com/pawamoy/copier-poetry/",
+        "https://github.com/fastapi/typer/",
+        "https://github.com/fmind/mlops-python-package/tree/main/",
+        "https://www.linkedin.com/in/hoogvliets/recent-activity/all/",
+        "https://github.com/pallets/click/",
+        "https://mypy.readthedocs.io/en/latest/generics.html/",
+        "https://martinheinz.dev/blog/14/",
+        "https://github.com/pre-commit/pre-commit/",
+        "https://realpython.com/intro-to-pyenv/"
+    ]
+}

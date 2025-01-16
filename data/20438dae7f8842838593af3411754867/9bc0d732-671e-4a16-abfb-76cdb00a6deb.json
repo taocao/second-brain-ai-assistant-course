@@ -1,0 +1,15 @@
+{
+    "page_metadata": {
+        "id": "ef1f08bb4fdd0fe2df92dbf0178f79ce",
+        "url": "https://www.notion.so/Recommender-Systems-ef1f08bb4fdd0fe2df92dbf0178f79ce",
+        "title": "Recommender Systems",
+        "properties": {
+            "Type": "Leaf"
+        }
+    },
+    "content": "# Videos\n\n\t- [Scaling TikTok's Recommendation System: 1M Writes/Second with Hopsworks](https://www.youtube.com/watch?v=MCQfOj9iqig&t=2508s)\n\t- [Lightricks Customer Story: Building A Recommendation Engine From Scratch](https://www.qwak.com/academy/lightricks-customer-story-building-a-recommendation-engine-from-scratch)",
+    "urls": [
+        "https://www.youtube.com/watch?v=MCQfOj9iqig&t=2508s/",
+        "https://www.qwak.com/academy/lightricks-customer-story-building-a-recommendation-engine-from-scratch/"
+    ]
+}

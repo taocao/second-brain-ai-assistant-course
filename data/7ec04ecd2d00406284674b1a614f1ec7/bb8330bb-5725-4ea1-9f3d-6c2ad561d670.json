@@ -1,0 +1,36 @@
+{
+    "page_metadata": {
+        "id": "9082c458f81fe45ed85faf4bd94e0c71",
+        "url": "https://www.notion.so/Sources-9082c458f81fe45ed85faf4bd94e0c71",
+        "title": "Sources",
+        "properties": {
+            "Type": "Node"
+        }
+    },
+    "content": "# Resources [Community]\n\n\t# High-Quality Blogs\n\t\n\t[https://www.philschmid.de/](https://www.philschmid.de/)\n\t[https://parlance-labs.com/education/](https://parlance-labs.com/education/)\n\t[https://vishal-ai.medium.com/](https://vishal-ai.medium.com/)\n\t[https://www.llmwatch.com/](https://www.llmwatch.com/)\n\t[https://www.galileo.ai/blog](https://www.galileo.ai/blog)\n\t[https://magazine.sebastianraschka.com/](https://magazine.sebastianraschka.com/)\n\t\n\t- [https://www.philschmid.de/](https://www.philschmid.de/)\n\t- [https://huyenchip.com/blog/](https://huyenchip.com/blog/)\n\t- [https://eugeneyan.com/writing/](https://eugeneyan.com/writing/)\n\t- [https://lightning.ai/pages/llm-learning-lab/](https://lightning.ai/pages/llm-learning-lab/)\n\t- [https://lilianweng.github.io/](https://lilianweng.github.io/)\n\t- [https://mlabonne.github.io/blog/](https://mlabonne.github.io/blog/)\n\t- [https://www.rungalileo.io/blog](https://www.rungalileo.io/blog)\n\t- [https://huggingface.co/docs](https://huggingface.co/docs)\n\t- [https://www.llmwatch.com/](https://www.llmwatch.com/)\n\t- [https://www.llamaindex.ai/blog](https://www.llamaindex.ai/blog)\n\t- [Prompt Engineering Guide](https://www.promptingguide.ai/)\n\t# Medium-Quality Blogs\n\t\n\t[https://medium.com/@benitomartin](https://medium.com/@benitomartin)\n\t# Awesome Lists\n\t\n\t[https://github.com/SylphAI-Inc/LLM-engineer-handbook](https://github.com/SylphAI-Inc/LLM-engineer-handbook)\n\t[https://docs.llamaindex.ai/en/stable/examples/](https://docs.llamaindex.ai/en/stable/examples/)\n\t[https://github.com/mlabonne/llm-course](https://github.com/mlabonne/llm-course)\n\t# Courses\n\t\n\t[https://www.youtube.com/watch?v=NfnWJUyUJYU&list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC](https://www.youtube.com/watch?v=NfnWJUyUJYU&list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC)\n\t[https://github.com/huggingface/smol-course](https://github.com/huggingface/smol-course)\n\n# Resources [Science]\n\n# Finding models awesome-lists\n\n\t[https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#sentence-embedding-models/](https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#sentence-embedding-models/)\n\t[Link Preview](https://github.com/huggingface/pytorch-image-models)",
+    "urls": [
+        "https://vishal-ai.medium.com/",
+        "https://www.promptingguide.ai/",
+        "https://www.galileo.ai/blog/",
+        "https://mlabonne.github.io/blog/",
+        "https://www.llmwatch.com/",
+        "https://github.com/huggingface/pytorch-image-models/",
+        "https://lightning.ai/pages/llm-learning-lab/",
+        "https://github.com/mlabonne/llm-course/",
+        "https://magazine.sebastianraschka.com/",
+        "https://www.youtube.com/watch?v=NfnWJUyUJYU&list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC/",
+        "https://github.com/SylphAI-Inc/LLM-engineer-handbook/",
+        "https://parlance-labs.com/education/",
+        "https://docs.llamaindex.ai/en/stable/examples/",
+        "https://eugeneyan.com/writing/",
+        "https://www.rungalileo.io/blog/",
+        "https://huyenchip.com/blog/",
+        "https://lilianweng.github.io/",
+        "https://github.com/huggingface/smol-course/",
+        "https://www.philschmid.de/",
+        "https://huggingface.co/docs/",
+        "https://www.llamaindex.ai/blog/",
+        "https://www.sbert.net/docs/sentence_transformer/pretrained_models.html#sentence-embedding-models/",
+        "https://medium.com/@benitomartin/"
+    ]
+}

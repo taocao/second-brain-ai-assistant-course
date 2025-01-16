@@ -1,0 +1,17 @@
+{
+    "page_metadata": {
+        "id": "da2bfeacffb0e27ebd80254ac0edb2ae",
+        "url": "https://www.notion.so/Roadmap-Maturity-assessments-da2bfeacffb0e27ebd80254ac0edb2ae",
+        "title": "Roadmap & Maturity assessments",
+        "properties": {
+            "Type": "Leaf"
+        }
+    },
+    "content": "# Articles\n\n\t- [Machine Learning operations maturity model [by Microsoft]](https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model)\n\t- [MLOps: Continuous delivery and automation pipelines in machine learning [by Google]](https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning)\n\t- [MLOps Maturity Assessment [by Marvelous MLOps]](https://medium.com/marvelous-mlops/mlops-maturity-assessment-7e6df189077b)\n\t- [https://github.com/marvelousmlops/mlops_maturity_assessment](https://github.com/marvelousmlops/mlops_maturity_assessment) [by Marvelous MLOps]",
+    "urls": [
+        "https://github.com/marvelousmlops/mlops_maturity_assessment/",
+        "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning/",
+        "https://learn.microsoft.com/en-us/azure/architecture/ai-ml/guide/mlops-maturity-model/",
+        "https://medium.com/marvelous-mlops/mlops-maturity-assessment-7e6df189077b/"
+    ]
+}

@@ -1,0 +1,47 @@
+{
+    "page_metadata": {
+        "id": "c20f2cbffe421e3c402edc7c61bbeeb4",
+        "url": "https://www.notion.so/RAG-c20f2cbffe421e3c402edc7c61bbeeb4",
+        "title": "RAG",
+        "properties": {
+            "Type": [
+                "Leaf"
+            ]
+        }
+    },
+    "content": "# Resources [Community]\n\n\t[https://ai.gopubby.com/how-document-chunk-overlap-affects-a-rag-pipeline-9b8931845c20](https://ai.gopubby.com/how-document-chunk-overlap-affects-a-rag-pipeline-9b8931845c20)\n\t[https://medium.com/@benitomartin/building-a-multimodal-llm-application-with-pymupdf4llm-59753cb44483](https://medium.com/@benitomartin/building-a-multimodal-llm-application-with-pymupdf4llm-59753cb44483)\n\t[https://github.com/mongodb-developer/GenAI-Showcase/tree/main](https://github.com/mongodb-developer/GenAI-Showcase/tree/main)\n\t[https://towardsdatascience.com/multi-rep-colbert-retrieval-models-for-rags-fe05381b8819](https://towardsdatascience.com/multi-rep-colbert-retrieval-models-for-rags-fe05381b8819)\n\t[https://superlinked.com/vectorhub/articles/improve-rag-with-raptor](https://superlinked.com/vectorhub/articles/improve-rag-with-raptor)\n\t\n\t- [Optimizing RAG with Hybrid Search & Reranking [by VectorHub]](https://superlinked.com/vectorhub/optimizing-rag-with-hybrid-search-and-reranking)\n\t- [Advanced Retrieval-Augmented Generation: From Theory to LlamaIndex Implementation](https://towardsdatascience.com/advanced-retrieval-augmented-generation-from-theory-to-llamaindex-implementation-4de1464a9930)\n\t- [Evaluating Retrieval Augmented Generation - a framework for assessment](https://superlinked.com/vectorhub/evaluating-retrieval-augmented-generation-a-framework-for-assessment?utm_medium=email&_hsmi=295274462&utm_content=295274462&utm_source=hs_email)\n\t- [Evaluating RAG Applications with RAGAs](https://medium.com/towards-data-science/evaluating-rag-applications-with-ragas-81d67b0ee31a)\n\t- [A Guide on 12 Tuning Strategies for Production-Ready RAG Applications](https://towardsdatascience.com/a-guide-on-12-tuning-strategies-for-production-ready-rag-applications-7ca646833439)\n\t- [Visualize your RAG Data — Evaluate your Retrieval-Augmented Generation System with Ragas](https://towardsdatascience.com/visualize-your-rag-data-evaluate-your-retrieval-augmented-generation-system-with-ragas-fc2486308557)\n\t- [https://www.anthropic.com/news/contextual-retrieval](https://www.anthropic.com/news/contextual-retrieval)\n\t- [https://www.pinecone.io/learn/vector-database/](https://www.pinecone.io/learn/vector-database/)\n\t- [Filtering with Metadata](https://www.linkedin.com/posts/marie-stephen-leo_generativeai-llm-nlp-activity-7185079313191301120-k-C3?utm_source=share&utm_medium=member_desktop), [Self-querying](https://python.langchain.com/docs/modules/data_connection/retrievers/self_query/)\n\t- [Binary embeddings](https://www.linkedin.com/posts/marie-stephen-leo_generativeai-llm-nlp-activity-7181093049484111873-jlNX?utm_source=share&utm_medium=member_desktop)\n\t- [LangChain / Llama-Index: RAG with Multi-Query Retrieval](https://teetracker.medium.com/langchain-llama-index-rag-with-multi-query-retrieval-4e7df1a62f83)\n\t- [Improving Retrieval Performance in RAG Pipelines with Hybrid Search](https://towardsdatascience.com/improving-retrieval-performance-in-rag-pipelines-with-hybrid-search-c75203c2f2f5)\n\t- [Sparse Vectors in Qdrant: Pure Vector-based Hybrid Search](https://qdrant.tech/articles/sparse-vectors/), Qdrant Blog\n\t- [Distribution-Based Score Fusion (DBSF), a new approach to Vector Search Ranking](https://medium.com/plain-simple-software/distribution-based-score-fusion-dbsf-a-new-approach-to-vector-search-ranking-f87c37488b18), Medium\n\t- [Advanced RAG 01: Small-to-Big Retrieval](https://towardsdatascience.com/advanced-rag-01-small-to-big-retrieval-172181b396d4), Medium\n\t- [Large Language Models with Semantic Search](https://www.deeplearning.ai/short-courses/large-language-models-semantic-search/)\n\t- [Advanced RAG 01: Small-to-Big Retrieval with LlamaIndex](https://www.youtube.com/watch?v=ihSiRrOUwmg), Youtube\n\t- [Advanced Retrieval for AI with Chroma](https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/), Course\n\n# Resources [Science]\n\n# Tools\n\n\t- [https://github.com/explodinggradients/ragas](https://github.com/explodinggradients/ragas)\n\t- [https://github.com/truera/trulens](https://github.com/truera/trulens)\n\t- [https://github.com/stanford-futuredata/ARES](https://github.com/stanford-futuredata/ARES)\n\n# Blogs\n\n\t- [VectorHub by SuperLinked](https://hub.superlinked.com/)\n\t- [Qdrant Blog](https://qdrant.tech/articles/)\n\t-  [Galileo](https://www.rungalileo.io/blog)\n\t- [iamleonie [on Medium]](https://medium.com/@iamleonie)\n\t- [llamaindex](https://www.llamaindex.ai/blog)",
+    "urls": [
+        "https://hub.superlinked.com/",
+        "https://www.linkedin.com/posts/marie-stephen-leo_generativeai-llm-nlp-activity-7185079313191301120-k-C3?utm_source=share&utm_medium=member_desktop/",
+        "https://superlinked.com/vectorhub/evaluating-retrieval-augmented-generation-a-framework-for-assessment?utm_medium=email&_hsmi=295274462&utm_content=295274462&utm_source=hs_email/",
+        "https://github.com/truera/trulens/",
+        "https://medium.com/towards-data-science/evaluating-rag-applications-with-ragas-81d67b0ee31a/",
+        "https://towardsdatascience.com/visualize-your-rag-data-evaluate-your-retrieval-augmented-generation-system-with-ragas-fc2486308557/",
+        "https://superlinked.com/vectorhub/articles/improve-rag-with-raptor/",
+        "https://www.deeplearning.ai/short-courses/advanced-retrieval-for-ai/",
+        "https://www.rungalileo.io/blog/",
+        "https://python.langchain.com/docs/modules/data_connection/retrievers/self_query/",
+        "https://github.com/stanford-futuredata/ARES/",
+        "https://medium.com/@benitomartin/building-a-multimodal-llm-application-with-pymupdf4llm-59753cb44483/",
+        "https://qdrant.tech/articles/",
+        "https://ai.gopubby.com/how-document-chunk-overlap-affects-a-rag-pipeline-9b8931845c20/",
+        "https://www.anthropic.com/news/contextual-retrieval/",
+        "https://medium.com/@iamleonie/",
+        "https://www.youtube.com/watch?v=ihSiRrOUwmg/",
+        "https://towardsdatascience.com/improving-retrieval-performance-in-rag-pipelines-with-hybrid-search-c75203c2f2f5/",
+        "https://github.com/explodinggradients/ragas/",
+        "https://qdrant.tech/articles/sparse-vectors/",
+        "https://medium.com/plain-simple-software/distribution-based-score-fusion-dbsf-a-new-approach-to-vector-search-ranking-f87c37488b18/",
+        "https://superlinked.com/vectorhub/optimizing-rag-with-hybrid-search-and-reranking/",
+        "https://towardsdatascience.com/multi-rep-colbert-retrieval-models-for-rags-fe05381b8819/",
+        "https://towardsdatascience.com/advanced-rag-01-small-to-big-retrieval-172181b396d4/",
+        "https://towardsdatascience.com/a-guide-on-12-tuning-strategies-for-production-ready-rag-applications-7ca646833439/",
+        "https://www.pinecone.io/learn/vector-database/",
+        "https://www.llamaindex.ai/blog/",
+        "https://www.deeplearning.ai/short-courses/large-language-models-semantic-search/",
+        "https://github.com/mongodb-developer/GenAI-Showcase/tree/main/",
+        "https://towardsdatascience.com/advanced-retrieval-augmented-generation-from-theory-to-llamaindex-implementation-4de1464a9930/",
+        "https://www.linkedin.com/posts/marie-stephen-leo_generativeai-llm-nlp-activity-7181093049484111873-jlNX?utm_source=share&utm_medium=member_desktop/",
+        "https://teetracker.medium.com/langchain-llama-index-rag-with-multi-query-retrieval-4e7df1a62f83/"
+    ]
+}
