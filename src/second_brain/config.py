@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     NOTION_SECRET_KEY: str | None = None
 
     # --- Required settings even when working locally. ---
-
-    AWS_S3_BUCKET_NAME: str = "notion-second-brain-data"
+    AWS_DEFAULT_REGION: str = "eu-central-1"
+    AWS_S3_BUCKET_NAME: str = "decodingml-public-data"
 
     # OpenAI API
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
@@ -34,7 +34,6 @@ class Settings(BaseSettings):
     DATABASE_NAME: str = "twin"
 
     # AWS Authentication
-    AWS_REGION: str = "eu-central-1"
     AWS_ACCESS_KEY: str | None = None
     AWS_SECRET_KEY: str | None = None
     AWS_ARN_ROLE: str | None = None
