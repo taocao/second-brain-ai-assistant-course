@@ -43,16 +43,16 @@ local-infrastructure-down: local-docker-infrastructure-down local-zenml-server-d
 
 s3-upload:  # Upload a local folder to S3
 	@echo "Uploading to S3 bucket: $(AWS_S3_BUCKET_NAME)"
-	uv run python -m tools.use_s3 upload $(LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix "second_brain_course/notion"
+	uv run python -m tools.use_s3 upload $(LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix $(AWS_S3_PREFIX)
 
 s3-download:  # Download from S3 to local folder using AWS 
 	@echo "Downloading from S3 bucket: $(AWS_S3_BUCKET_NAME)"
-	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) "second_brain_course/notion/data.zip" $(LOCAL_DATA_PATH) 
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip" $(LOCAL_DATA_PATH) 
 
 # --- Pipelines ---
 
-collect-notion-pipeline:
-	uv run python -m tools.run --run-collect-notion --no-cache
+collect-notion-data-pipeline:
+	uv run python -m tools.run --run-collect-notion-data --no-cache
 
 # --- Tests ---
 

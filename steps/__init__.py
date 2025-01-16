@@ -1,3 +1,3 @@
-from . import collect_notion, infrastructure
+from . import collect_notion_data, infrastructure
 
-__all__ = ["collect_notion", "infrastructure"]
+__all__ = ["collect_notion_data", "infrastructure"]

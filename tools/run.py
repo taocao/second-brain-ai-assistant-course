@@ -5,7 +5,7 @@ from typing import Any
 import click
 
 from pipelines import (
-    collect_notion,
+    collect_notion_data,
 )
 
 
@@ -45,32 +45,32 @@ Examples:
     help="Disable caching for the pipeline run.",
 )
 @click.option(
-    "--run-collect-notion",
+    "--run-collect-notion-data",
     is_flag=True,
     default=False,
     help="Whether to run the collection data from Notion pipeline.",
 )
 def main(
     no_cache: bool = False,
-    run_collect_notion: bool = False,
+    run_collect_notion_data: bool = False,
 ) -> None:
-    assert run_collect_notion, "Please specify an action to run."
+    assert run_collect_notion_data, "Please specify an action to run."
 
     pipeline_args: dict[str, Any] = {
         "enable_cache": not no_cache,
     }
     root_dir = Path(__file__).resolve().parent.parent
 
-    if run_collect_notion:
+    if run_collect_notion_data:
         run_args_end_to_end = {}
-        pipeline_args["config_path"] = root_dir / "configs" / "collect_notion.yaml"
+        pipeline_args["config_path"] = root_dir / "configs" / "collect_notion_data.yaml"
         assert pipeline_args[
             "config_path"
         ].exists(), f"Config file not found: {pipeline_args['config_path']}"
         pipeline_args["run_name"] = (
-            f"collect_notion_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+            f"collect_notion_data_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
-        collect_notion.with_options(**pipeline_args)(**run_args_end_to_end)
+        collect_notion_data.with_options(**pipeline_args)(**run_args_end_to_end)
 
 
 if __name__ == "__main__":

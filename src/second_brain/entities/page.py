@@ -19,7 +19,7 @@ class Page(BaseModel):
     urls: list[str]
 
     def write(
-        self, file_path: Path, obfuscate: bool = False, save_as_txt: bool = False
+        self, file_path: Path, obfuscate: bool = False, also_save_as_txt: bool = False
     ) -> None:
         """Write page data to file, optionally obfuscating sensitive information."""
 
@@ -36,7 +36,7 @@ class Page(BaseModel):
                 ensure_ascii=False,
             )
 
-        if save_as_txt:
+        if also_save_as_txt:
             txt_path = file_path.with_suffix(".txt")
             with open(txt_path, "w", encoding="utf-8") as f:
                 f.write(self.content)

@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     # --- Required settings even when working locally. ---
     AWS_DEFAULT_REGION: str = "eu-central-1"
     AWS_S3_BUCKET_NAME: str = "decodingml-public-data"
+    AWS_S3_PREFIX: str = "second_brain_course/notion"
 
     # OpenAI API
     OPENAI_MODEL_ID: str = "gpt-4o-mini"
@@ -24,7 +25,7 @@ class Settings(BaseSettings):
 
     # Comet ML (during training)
     COMET_API_KEY: str | None = None
-    COMET_PROJECT: str = "twin"
+    COMET_PROJECT: str = "second_brain_course"
 
     # --- Required settings when deploying the code. ---
     # --- Otherwise, default values values work fine. ---
