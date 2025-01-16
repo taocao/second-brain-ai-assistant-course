@@ -78,9 +78,9 @@ class Settings(BaseSettings):
     AWS_CROSS_ACCOUNT_ROLE_ARN: Optional[str] = (
         None  # ARN for AWS cross-account access role.
     )
-    AWS_REGION: str = "eu-central-1"  # AWS region for cloud services.
+    AWS_DEFAULT_REGION: str = "eu-central-1"  # AWS region for cloud services.
     AWS_S3_BUCKET_NAME: str = (
-        "notion-second-brain-data"  # Name of the S3 bucket for storing application data.
+        "decodingml-public-data"  # Name of the S3 bucket for storing application data.
     )
     AWS_SECRET_KEY: Optional[str] = None  # AWS secret key for authentication.
 

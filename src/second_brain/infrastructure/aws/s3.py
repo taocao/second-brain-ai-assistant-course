@@ -6,11 +6,21 @@ from typing import Union
 
 import boto3
 
+from second_brain.config import settings
+
 
 class S3Client:
-    def __init__(self, bucket_name: str) -> None:
-        """Initialize S3 client and bucket name."""
-        self.s3_client = boto3.client("s3")
+    def __init__(
+        self, bucket_name: str, region: str = settings.AWS_DEFAULT_REGION
+    ) -> None:
+        """Initialize S3 client and bucket name.
+
+        Args:
+            bucket_name: Name of the S3 bucket
+            region: AWS region (defaults to AWS_DEFAULT_REGION or AWS_REGION env var, or 'us-east-1')
+        """
+        self.region = region
+        self.s3_client = boto3.client("s3", region_name=self.region)
         self.bucket_name = bucket_name
 
     def upload_folder(self, local_path: Union[str, Path], s3_prefix: str = "") -> None:
@@ -21,6 +31,9 @@ class S3Client:
             local_path: Path to the local folder
             s3_prefix: Optional prefix (folder path) in S3 bucket
         """
+        # Ensure bucket exists before proceeding
+        self.__create_bucket_if_doesnt_exist()
+
         local_path = Path(local_path)
 
         if not local_path.exists():
@@ -48,6 +61,30 @@ class S3Client:
 
         # Clean up temporary zip file
         os.unlink(temp_zip.name)
+
+    def __create_bucket_if_doesnt_exist(self) -> None:
+        """
+        Check if bucket exists and create it if it doesn't.
+        Raises permission-related exceptions if user lacks necessary permissions.
+        """
+        try:
+            self.s3_client.head_bucket(Bucket=self.bucket_name)
+        except self.s3_client.exceptions.ClientError as e:
+            error_code = e.response["Error"]["Code"]
+            if error_code == "404":
+                try:
+                    self.s3_client.create_bucket(
+                        Bucket=self.bucket_name,
+                        CreateBucketConfiguration={"LocationConstraint": self.region},
+                    )
+                except self.s3_client.exceptions.ClientError as create_error:
+                    raise Exception(
+                        f"Failed to create bucket {self.bucket_name}: {str(create_error)}"
+                    )
+            elif error_code == "403":
+                raise Exception(f"No permission to access bucket {self.bucket_name}")
+            else:
+                raise
 
     def download_folder(self, s3_prefix: str, local_path: Union[str, Path]) -> None:
         """
