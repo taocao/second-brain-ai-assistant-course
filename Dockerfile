@@ -14,9 +14,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     curl \
     gnupg \
-    iputils-ping \ 
-    nano \          
-    dnsutils \      
+    iputils-ping \
+    nano \
+    dnsutils \
+    procps \
     && curl -fsSL https://pgp.mongodb.com/server-6.0.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-archive-keyring.gpg \
     && echo "deb [signed-by=/usr/share/keyrings/mongodb-archive-keyring.gpg] https://repo.mongodb.org/apt/debian buster/mongodb-org/6.0 main" | tee /etc/apt/sources.list.d/mongodb-org-6.0.list \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -34,7 +35,7 @@ COPY pyproject.toml uv.lock ./
 
 # Create virtual environment and install dependencies
 RUN python3 -m venv /app/.venv && \
-    /app/.venv/bin/pip install --no-cache-dir --upgrade pip uv && \
+    /app/.venv/bin/pip install --no-cache-dir --upgrade pip uv zenml[server] && \
     /app/.venv/bin/uv sync --python /app/.venv/bin/python && \
     ls -la /app/.venv/bin
 
@@ -49,6 +50,3 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 # Ensure Python output is not buffered
 ENV PYTHONUNBUFFERED=1
-
-# Default command to allow debugging
-CMD ["uv", "run", "zenml", "login", "--local", "--port", "8237", "--ip-address", "0.0.0.0"]
