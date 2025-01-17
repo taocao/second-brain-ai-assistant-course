@@ -5,7 +5,6 @@ FROM python:3.12-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm
 
-
 # Update and install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
@@ -36,7 +35,7 @@ COPY pyproject.toml uv.lock README.md ./
 
 # Create virtual environment and install dependencies
 RUN python3 -m venv /app/.venv && \
-    /app/.venv/bin/pip install --no-cache-dir --upgrade pip uv zenml[server] && \
+    /app/.venv/bin/pip install --no-cache-dir --upgrade pip uv && \
     /app/.venv/bin/uv sync --python /app/.venv/bin/python && \
     ls -la /app/.venv/bin
 

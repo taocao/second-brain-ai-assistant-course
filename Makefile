@@ -8,7 +8,7 @@ export PYTHONPATH = .
 
 # --- Default Values ---
 
-CHECK_DIRS := src
+CHECK_DIRS := .
 LOCAL_DATA_PATH := data
 
 
@@ -21,6 +21,9 @@ help:
 
 local-docker-infrastructure-up:
 	docker compose up --build -d 
+
+local-docker-infrastructure-up-development:
+	docker compose watch
 
 local-docker-infrastructure-stop:
 	docker compose stop
@@ -52,10 +55,16 @@ s3-download:  # Download from S3 to local folder using AWS
 # --- Pipelines ---
 
 collect-notion-data-pipeline:
-	uv run python -m tools.run --run-collect-notion-data --no-cache
+	uv run python -m tools.run --run-collect-notion-data-pipeline --no-cache
 
 etl-pipeline:
-	uv run python -m tools.run --run-etl --no-cache
+	uv run python -m tools.run --run-etl-pipeline --no-cache
+
+generate-dataset-pipeline:
+	uv run python -m tools.run --run-generate-dataset-pipeline --no-cache
+
+compute-rag-vector-index-pipeline:
+	uv run python -m tools.run --run-compute-rag-vector-index-pipeline --no-cache
 
 # --- Tests ---
 

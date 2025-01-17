@@ -1,10 +1,10 @@
 import os
-from pathlib import Path
 from typing import Optional
-from loguru import logger
 
+from loguru import logger
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 
 class Settings(BaseSettings):
     """
@@ -28,7 +28,6 @@ class Settings(BaseSettings):
         "decodingml-public-data"  # Name of the S3 bucket for storing application data.
     )
     AWS_S3_PREFIX: str = "second_brain_course/notion"
-    
 
     # --- CometML Configuration ---
     COMET_API_KEY: Optional[str] = None  # API key for CometML integration.
@@ -46,7 +45,7 @@ class Settings(BaseSettings):
     ENABLE_OFFLINE_MODE: bool = Field(
         True, description="Flag to enable offline mode (disables online ingestion)."
     )
-    
+
     # --- GROQ Configuration ---
     GROQ_API_KEY: Optional[str] = None  # API key for accessing GROQ services.
 

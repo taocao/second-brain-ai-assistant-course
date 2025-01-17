@@ -38,7 +38,7 @@ class NotionDatabaseClient:
         Returns:
             A list of dictionaries containing the query results.
         """
-        
+
         url = f"https://api.notion.com/v1/databases/{database_id}/query"
         headers = {
             "Authorization": f"Bearer {self.api_key}",

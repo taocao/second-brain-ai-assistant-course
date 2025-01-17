@@ -1,17 +1,15 @@
 import json
 from pathlib import Path
-from zenml.steps import step
+
 from loguru import logger
+from zenml.steps import step
 
 from second_brain.infrastructure.mongo.service import MongoDBService
 
 
 @step
 def ingest_to_mongodb(
-    mongodb_uri: str, 
-    database_name: str, 
-    collection_name: str, 
-    data_directory: str
+    mongodb_uri: str, database_name: str, collection_name: str, data_directory: str
 ) -> None:
     """ZenML step to ingest JSON data from multiple files into MongoDB.
 
@@ -65,10 +63,10 @@ def read_all_json_files(data_directory: str) -> list[dict]:
         if database_dir.is_dir():
             # Find all .json files in the database directory
             json_files = database_dir.glob("*.json")
-            
+
             for json_file in json_files:
                 try:
-                    with open(json_file, 'r', encoding='utf-8') as f:
+                    with open(json_file, "r", encoding="utf-8") as f:
                         document = json.load(f)
                         all_documents.append(document)
                 except json.JSONDecodeError as e:

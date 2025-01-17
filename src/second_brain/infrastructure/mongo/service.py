@@ -1,7 +1,8 @@
-from typing import List, Dict
-from pymongo import MongoClient, errors
+from typing import Dict, List
+
 from bson import ObjectId
 from loguru import logger
+from pymongo import MongoClient, errors
 
 
 class MongoDBService:

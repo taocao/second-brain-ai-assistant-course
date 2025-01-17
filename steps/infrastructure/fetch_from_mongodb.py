@@ -1,5 +1,5 @@
-from zenml.steps import step
 from loguru import logger
+from zenml.steps import step
 
 from second_brain.infrastructure.mongo import MongoDBService
 
@@ -24,7 +24,7 @@ def fetch_from_mongodb(
     Raises:
         Exception: If the fetch process fails.
     """
-    
+
     try:
         service = MongoDBService(mongodb_uri, database_name, collection_name)
 
@@ -39,5 +39,3 @@ def fetch_from_mongodb(
     except Exception as e:
         logger.error(f"Failed to fetch documents: {e}")
         raise
-
-

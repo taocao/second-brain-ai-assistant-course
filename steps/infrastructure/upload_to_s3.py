@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from zenml import step
 
 from second_brain.config import settings

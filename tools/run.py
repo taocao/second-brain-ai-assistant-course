@@ -6,7 +6,9 @@ import click
 
 from pipelines import (
     collect_notion_data,
-    etl
+    compute_rag_vector_index,
+    etl,
+    generate_dataset,
 )
 
 
@@ -46,30 +48,49 @@ Examples:
     help="Disable caching for the pipeline run.",
 )
 @click.option(
-    "--run-collect-notion-data",
+    "--run-collect-notion-data-pipeline",
     is_flag=True,
     default=False,
     help="Whether to run the collection data from Notion pipeline.",
 )
 @click.option(
-    "--run-etl",
+    "--run-etl-pipeline",
     is_flag=True,
     default=False,
     help="Whether to run the ETL pipeline.",
 )
+@click.option(
+    "--run-generate-dataset-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the generate dataset pipeline.",
+)
+@click.option(
+    "--run-compute-rag-vector-index-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the compute RAG vector index pipeline.",
+)
 def main(
     no_cache: bool = False,
-    run_collect_notion_data: bool = False,
-    run_etl: bool = False,
+    run_collect_notion_data_pipeline: bool = False,
+    run_etl_pipeline: bool = False,
+    run_generate_dataset_pipeline: bool = False,
+    run_compute_rag_vector_index_pipeline: bool = False,
 ) -> None:
-    assert run_collect_notion_data or run_etl, "Please specify an action to run."
+    assert (
+        run_collect_notion_data_pipeline
+        or run_etl_pipeline
+        or run_generate_dataset_pipeline
+        or run_compute_rag_vector_index_pipeline
+    ), "Please specify an action to run."
 
     pipeline_args: dict[str, Any] = {
         "enable_cache": not no_cache,
     }
     root_dir = Path(__file__).resolve().parent.parent
 
-    if run_collect_notion_data:
+    if run_collect_notion_data_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "collect_notion_data.yaml"
         assert pipeline_args[
@@ -80,16 +101,39 @@ def main(
         )
         collect_notion_data.with_options(**pipeline_args)(**run_args)
 
-    if run_etl:
+    if run_etl_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "etl.yaml"
         assert pipeline_args[
             "config_path"
         ].exists(), f"Config file not found: {pipeline_args['config_path']}"
-        pipeline_args["run_name"] = (
-            f"etl_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
-        )
+        pipeline_args["run_name"] = f"etl_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         etl.with_options(**pipeline_args)(**run_args)
+
+    if run_generate_dataset_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = root_dir / "configs" / "generate_dataset.yaml"
+        assert pipeline_args[
+            "config_path"
+        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        pipeline_args["run_name"] = (
+            f"generate_dataset_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        generate_dataset.with_options(**pipeline_args)(**run_args)
+
+    if run_compute_rag_vector_index_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = (
+            root_dir / "configs" / "compute_rag_vector_index.yaml"
+        )
+        assert pipeline_args[
+            "config_path"
+        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        pipeline_args["run_name"] = (
+            f"compute_rag_vector_index_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        compute_rag_vector_index.with_options(**pipeline_args)(**run_args)
+
 
 if __name__ == "__main__":
     main()
