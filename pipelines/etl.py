@@ -1,27 +1,14 @@
 from zenml import pipeline
 
-from second_brain.config import settings
+from steps.etl import crawl, read_pages_from_disk
 from steps.infrastructure import (
-    fetch_from_mongodb,
     ingest_to_mongodb,
 )
 
 
 @pipeline
-def etl() -> None:
-    ingest_json_config = {
-        "mongodb_uri": settings.MONGODB_OFFLINE_URI,
-        "database_name": settings.MONGODB_OFFLINE_DATABASE,
-        "collection_name": settings.MONGODB_OFFLINE_COLLECTION,
-        "data_directory": settings.DATA_DIRECTORY,
-    }
-    fetch_documents_config = {
-        "mongodb_uri": settings.MONGODB_OFFLINE_URI,
-        "database_name": settings.MONGODB_OFFLINE_DATABASE,
-        "collection_name": settings.MONGODB_OFFLINE_COLLECTION,
-        "limit": 100,
-    }
+def etl(data_directory: str, load_collection_name: str) -> None:
+    pages = read_pages_from_disk(data_directory=data_directory)
+    documents = crawl(pages=pages)
+    ingest_to_mongodb(documents=documents, collection_name=load_collection_name)
 
-    ingest_to_mongodb(**ingest_json_config)
-
-    fetch_from_mongodb(**fetch_documents_config)

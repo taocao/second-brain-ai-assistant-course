@@ -14,9 +14,28 @@ class PageMetadata(BaseModel):
 
 
 class Page(BaseModel):
-    page_metadata: PageMetadata
+    metadata: PageMetadata
     content: str
     urls: list[str]
+
+    @classmethod
+    def from_file(cls, file_path: Path) -> "Page":
+        """Read a Page object from a JSON file.
+
+        Args:
+            file_path: Path to the JSON file containing page data.
+
+        Returns:
+            Page: A new Page instance constructed from the file data.
+
+        Raises:
+            FileNotFoundError: If the specified file doesn't exist.
+            ValidationError: If the JSON data doesn't match the expected model structure.
+        """
+
+        json_data = file_path.read_text(encoding="utf-8")
+
+        return cls.model_validate_json(json_data)
 
     def write(
         self, file_path: Path, obfuscate: bool = False, also_save_as_txt: bool = False
@@ -44,18 +63,18 @@ class Page(BaseModel):
     def _obfuscate_data(self, data: dict) -> dict:
         """Obfuscate sensitive IDs in the page data."""
 
-        original_id = data["page_metadata"]["id"]
+        original_id = data["metadata"]["id"]
         fake_id = self._generate_random_hex(32)
 
         obfuscated_data = data.copy()
 
         # Obfuscate the page ID (32-char hex)
-        obfuscated_data["page_metadata"]["id"] = fake_id
+        obfuscated_data["metadata"]["id"] = fake_id
 
         # Obfuscate UUID in URL if present
-        url = data["page_metadata"]["url"]
+        url = data["metadata"]["url"]
         flattened_original_id = original_id.replace("-", "")
-        obfuscated_data["page_metadata"]["url"] = url.replace(
+        obfuscated_data["metadata"]["url"] = url.replace(
             flattened_original_id, fake_id
         )
 

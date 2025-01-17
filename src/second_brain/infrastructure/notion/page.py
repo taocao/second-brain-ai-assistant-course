@@ -34,7 +34,7 @@ class NotionPageClient:
         blocks = self.__retrieve_child_blocks(page_metadata.id)
         content, urls = self.__parse_blocks(blocks)
 
-        return Page(page_metadata=page_metadata, content=content, urls=urls)
+        return Page(metadata=page_metadata, content=content, urls=urls)
 
     def __retrieve_child_blocks(
         self, block_id: str, page_size: int = 100

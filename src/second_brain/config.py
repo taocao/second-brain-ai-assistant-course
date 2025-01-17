@@ -33,14 +33,6 @@ class Settings(BaseSettings):
     COMET_API_KEY: Optional[str] = None  # API key for CometML integration.
     COMET_PROJECT_NAME: str = "twin"  # CometML project name for tracking experiments.
 
-    # --- Default Genre ---
-    DEFAULT_GENRE: str = Field("Western", description="Default genre for querying.")
-
-    # --- Docker and Network Configuration ---
-    DOCKER_NETWORK_NAME: str = Field(
-        "zenml-network", description="Docker network for the application."
-    )
-
     # --- Enable Flags ---
     ENABLE_OFFLINE_MODE: bool = Field(
         True, description="Flag to enable offline mode (disables online ingestion)."
@@ -56,32 +48,17 @@ class Settings(BaseSettings):
     # --- Hugging Face Configuration ---
     HUGGINGFACE_ACCESS_TOKEN: Optional[str] = None  # Token for Hugging Face API.
 
-    # --- Local Data File Path ---
-    DATA_DIRECTORY: str = Field(
-        "./data",
-        description="Path to the local JSON file for offline processing.",
-    )
-
-    # --- MongoDB Atlas Local Configuration ---
-    MONGODB_OFFLINE_COLLECTION: str = (
-        "offline_documents"  # Name of the collection in the offline database.
-    )
-    MONGODB_OFFLINE_DATABASE: str = "rag_pipeline"  # Name of the offline database.
+    # --- MongoDB Atlas Configuration ---
+    MONGODB_DATABASE_NAME: str = "second_brain"
     MONGODB_OFFLINE_URI: str = Field(
         default_factory=lambda: os.getenv(
             "MONGODB_OFFLINE_URI", "mongodb://127.0.0.1:27017"
         ),
-        description="Connection URI for local MongoDB Atlas instance.",
+        description="Connection URI for the local MongoDB Atlas instance.",
     )
-
-    # --- MongoDB Atlas Cloud Configuration ---
-    MONGODB_ONLINE_COLLECTION: str = (
-        "movies"  # Name of the collection in the online database.
-    )
-    MONGODB_ONLINE_DATABASE: str = "sample_mflix"  # Name of the online database.
     MONGODB_ONLINE_URI: str | None = Field(
         default=None,
-        description="Connection URI for cloud MongoDB Atlas instance.",
+        description="Connection URI for the Cloud MongoDB Atlas instance.",
     )
 
     # --- Notion API Configuration ---
@@ -93,9 +70,8 @@ class Settings(BaseSettings):
 
     # --- Docker Runtime ---
     IS_RUNNING_IN_DOCKER: bool = Field(
-        default_factory=lambda: os.getenv("IS_RUNNING_IN_DOCKER", "false").lower()
-        in ["true", "1"],
         description="Flag to indicate if the application is running inside a Docker container.",
+        default=False,
     )
 
     def __init__(self, **kwargs):
@@ -104,45 +80,23 @@ class Settings(BaseSettings):
         """
         super().__init__(**kwargs)
 
-        # Adjust MongoDB URI based on runtime conditions, but respect .env
-        if os.getenv("IS_RUNNING_IN_DOCKER", "false").lower() == "true":
-            self.MONGODB_OFFLINE_URI = os.getenv(
-                "MONGODB_OFFLINE_URI", "mongodb://mongodb-atlas-local:27017"
-            )
-
     @property
     def MONGODB_URI(self) -> str:
         """
         Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
         """
 
-        return (
-            self.MONGODB_OFFLINE_URI
-            if self.ENABLE_OFFLINE_MODE
-            else self.MONGODB_ONLINE_URI
-        )
+        if self.IS_RUNNING_IN_DOCKER is True:
+            self.MONGODB_OFFLINE_URI = "mongodb://mongodb-atlas-local:27017"
 
-    @property
-    def DATABASE_NAME(self) -> str:
-        """
-        Returns the appropriate database name based on ENABLE_OFFLINE_MODE.
-        """
-        return (
-            self.MONGODB_OFFLINE_DATABASE
-            if self.ENABLE_OFFLINE_MODE
-            else self.MONGODB_ONLINE_DATABASE
-        )
+        if self.ENABLE_OFFLINE_MODE is True:
+            return self.MONGODB_OFFLINE_URI
 
-    @property
-    def COLLECTION_NAME(self) -> str:
-        """
-        Returns the appropriate collection name based on ENABLE_OFFLINE_MODE.
-        """
-        return (
-            self.MONGODB_OFFLINE_COLLECTION
-            if self.ENABLE_OFFLINE_MODE
-            else self.MONGODB_ONLINE_COLLECTION
-        )
+        assert (
+            self.MONGODB_ONLINE_URI is not None
+        ), "MONGODB_ONLINE_URI is not set, while ENABLE_OFFLINE_MODE is False."
+
+        return self.MONGODB_ONLINE_URI
 
     @property
     def OPENAI_MAX_TOKEN_WINDOW(self) -> int:

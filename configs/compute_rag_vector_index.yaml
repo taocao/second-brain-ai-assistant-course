@@ -1,1 +1,3 @@
 parameters:
+  limit: 100
+  extract_collection_name: raw_data
