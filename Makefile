@@ -22,9 +22,6 @@ help:
 local-docker-infrastructure-up:
 	docker compose up --build -d 
 
-local-docker-infrastructure-up-development:
-	docker compose watch
-
 local-docker-infrastructure-stop:
 	docker compose stop
 

@@ -52,7 +52,7 @@ class Settings(BaseSettings):
     MONGODB_DATABASE_NAME: str = "second_brain"
     MONGODB_OFFLINE_URI: str = Field(
         default_factory=lambda: os.getenv(
-            "MONGODB_OFFLINE_URI", "mongodb://127.0.0.1:27017"
+            "MONGODB_OFFLINE_URI", "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true"
         ),
         description="Connection URI for the local MongoDB Atlas instance.",
     )
@@ -68,26 +68,11 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str  # API key for accessing OpenAI services.
     OPENAI_MODEL_ID: str = "gpt-4o-mini"  # Model identifier for OpenAI.
 
-    # --- Docker Runtime ---
-    IS_RUNNING_IN_DOCKER: bool = Field(
-        description="Flag to indicate if the application is running inside a Docker container.",
-        default=False,
-    )
-
-    def __init__(self, **kwargs):
-        """
-        Dynamically adjusts configurations based on flags like IS_RUNNING_IN_DOCKER or ENABLE_OFFLINE_MODE.
-        """
-        super().__init__(**kwargs)
-
     @property
     def MONGODB_URI(self) -> str:
         """
         Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
         """
-
-        if self.IS_RUNNING_IN_DOCKER is True:
-            self.MONGODB_OFFLINE_URI = "mongodb://mongodb-atlas-local:27017"
 
         if self.ENABLE_OFFLINE_MODE is True:
             return self.MONGODB_OFFLINE_URI

@@ -1,3 +1,4 @@
 parameters:
   limit: 100
   extract_collection_name: raw_data
+  load_collection_name: vector_index

@@ -1,72 +1,16 @@
-version: '3.8'
-
 services:
-  mongodb:
-    image: mongodb/mongodb-atlas-local:latest
-    container_name: mongodb-atlas-local
-    restart: always
-    networks:
-      - zenml-network
-    volumes:
-      - mongo-data:/data/db
+  local_dev_atlas:
+    image: mongodb/mongodb-atlas-local:8.0
+    hostname: local_dev_atlas
     ports:
-      - "27017:27017"
-    command: ["mongod", "--bind_ip_all", "--noauth"]
-    healthcheck:
-      test: ["CMD", "mongosh", "mongodb://127.0.0.1:27017", "--quiet", "--eval", "db.runCommand({ ping: 1 })"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 20s
-
-  zenml-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: zenml-server
-    env_file:
-      - .env
+      - 27017:27017
     environment:
-      - IS_RUNNING_IN_DOCKER=true
+      - MONGODB_INITDB_ROOT_USERNAME=decodingml
+      - MONGODB_INITDB_ROOT_PASSWORD=decodingml
     volumes:
-      - ./data:/app/data
-      - zenml-config:/root/.config/zenml
-    networks:
-      - zenml-network
-    ports:
-      - "8237:8237"
-    command: >
-      /bin/sh -c "
-      zenml init &&
-      zenml analytics get &&
-      zenml analytics opt-out &&
-      zenml analytics get &&
-      zenml version &&
-      zenml login --local --ip-address 0.0.0.0 --port 8237 &&
-      zenml status &&
-      zenml server list &&
-      tail -f /dev/null"
-    develop:
-      watch:
-        # Sync the working directory with the `/app` directory in the container
-        - action: sync
-          path: .
-          target: /app
-          # Exclude the project virtual environment
-          ignore:
-            - .venv/
-
-        # Rebuild the image on changes to the `pyproject.toml`
-        - action: rebuild
-          path: ./pyproject.toml
-
-networks:
-  zenml-network:
-    name: zenml-network
-    driver: bridge
+      - data:/data/db
+      - config:/data/configdb
 
 volumes:
-  mongo-data:
-    driver: local
-  zenml-config:
-    driver: local
+  data:
+  config:
