@@ -19,11 +19,11 @@ services:
       retries: 5
       start_period: 20s
 
-  zenml-runner:
+  zenml-server:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: zenml-runner
+    container_name: zenml-server
     env_file:
       - .env
     environment:

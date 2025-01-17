@@ -22,11 +22,8 @@ help:
 local-docker-infrastructure-up:
 	docker compose up --build -d 
 
-local-docker-infrastructure-down:
+local-docker-infrastructure-stop:
 	docker compose stop
-
-local-zenml-server-down:
-	uv run zenml logout --local
 
 local-zenml-server-up:
 ifeq ($(shell uname), Darwin)
@@ -35,9 +32,12 @@ else
 	uv run zenml login --local
 endif
 
-local-infrastructure-up: local-docker-infrastructure-up local-zenml-server-down local-zenml-server-up
+local-zenml-server-stop:
+	uv run zenml logout --local
 
-local-infrastructure-down: local-docker-infrastructure-down local-zenml-server-down
+local-infrastructure-up: local-docker-infrastructure-up local-zenml-server-stop local-zenml-server-up
+
+local-infrastructure-stop: local-docker-infrastructure-down local-zenml-server-down
 
 # --- AWS ---
 

@@ -1,3 +1,5 @@
+# ruff
+.ruff_cache
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -25,7 +27,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-model_cache/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -36,7 +37,6 @@ model_cache/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-*.txt
 
 # Unit test / coverage reports
 htmlcov/
@@ -100,7 +100,7 @@ ipython_config.py
 #   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
-uv.lock
+#uv.lock
 
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
@@ -137,7 +137,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-.vscode/
 
 # Spyder project settings
 .spyderproject
@@ -170,9 +169,16 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# VSCode
+.vscode/
+
 # PyPI configuration file
 .pypirc
 
-# Logs
-logs/
-log/
+# MacOs
+.DS_Store
+
+# Data
+# faiss/
+# langflow_poc/
+# data/

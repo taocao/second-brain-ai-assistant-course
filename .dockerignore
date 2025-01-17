@@ -26,6 +26,14 @@ dist/
 # macOS-related files
 .DS_Store
 
-# Temporary or large data files
+# IDE files
+.vscode
+
+# Temporary files
+.ruff_cache/
 large_data/
 temp_files/
+
+# Data files
+data/
+faiss/

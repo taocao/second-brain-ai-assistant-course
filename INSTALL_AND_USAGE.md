@@ -5,7 +5,7 @@
 To set it up and run
 
 ```bash
-uv venv
+# uv venv
 uv sync
 ```
 

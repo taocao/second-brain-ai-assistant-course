@@ -5,6 +5,7 @@ FROM python:3.12-slim
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm
 
+
 # Update and install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
@@ -31,7 +32,7 @@ WORKDIR /app
 ENV PIP_ROOT_USER_ACTION=ignore
 
 # Copy project dependency files
-COPY pyproject.toml uv.lock ./
+COPY pyproject.toml uv.lock README.md ./
 
 # Create virtual environment and install dependencies
 RUN python3 -m venv /app/.venv && \
