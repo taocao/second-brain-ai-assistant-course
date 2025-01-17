@@ -179,6 +179,6 @@ cython_debug/
 .DS_Store
 
 # Data
-# faiss/
-# langflow_poc/
-# data/
+faiss/
+langflow_poc/
+data/
