@@ -1,6 +1,6 @@
-## Getting started
+# Getting started
 
-### Installation
+## Installation
 
 To set it up and run
 
@@ -9,7 +9,7 @@ To set it up and run
 uv sync
 ```
 
-### Development
+## Development
 
 You can install in `editable` mode the library
 
@@ -17,40 +17,44 @@ You can install in `editable` mode the library
 uv pip install -e .
 ```
 
-You can now run, for example, a function defined as `scripts` in the [`pyproject.toml`](pyproject.toml)
 
-```bash
-make_me_laugh
-```
-
-### Infrastructure
+## Infrastructure
 
 ```bash
 make local-infrastructure-up
 ```
 
 
-### Run ZenML pipelines
+## Run ZenML pipelines
 
+### Notion (optionl)
 ```bash
 make collect-notion-pipeline
 ```
 
-### Formatting
+### Populate MongoDB vector index
+
+```bash
+make download-raw-dataset
+make etl-pipeline
+make compute-rag-vector-index-pipeline
+```
+
+## Formatting
 
 ```
 make format-check
 make format-fix
 ```
 
-### Linting
+## Linting
 
 ```bash
 make lint-check
 make lint-fix
 ```
 
-### Tests
+## Tests
 
 ```bash
 make test

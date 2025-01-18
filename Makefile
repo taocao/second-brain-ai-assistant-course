@@ -49,6 +49,8 @@ s3-download:  # Download from S3 to local folder using AWS
 	@echo "Downloading from S3 bucket: $(AWS_S3_BUCKET_NAME)"
 	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip" $(LOCAL_DATA_PATH) 
 
+download-raw-dataset: s3-download
+
 # --- Pipelines ---
 
 collect-notion-data-pipeline:
