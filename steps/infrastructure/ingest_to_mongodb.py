@@ -20,7 +20,7 @@ def ingest_to_mongodb(documents: list[dict], collection_name: str) -> None:
         service.clear_collection()
         service.ingest_documents(documents)
 
-        service.verify_collection_count()
+        service.get_collection_count()
     except Exception as e:
         logger.error(f"Failed to ingest documents: {e}")
         raise

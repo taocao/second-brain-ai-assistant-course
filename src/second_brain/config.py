@@ -68,6 +68,10 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str  # API key for accessing OpenAI services.
     OPENAI_MODEL_ID: str = "gpt-4o-mini"  # Model identifier for OpenAI.
 
+    # --- RAG Configuration ---
+    TEXT_EMBEDDING_MODEL_ID: str = "text-embedding-3-small"
+    RAG_MODEL_DEVICE: str = "cpu"
+
     @property
     def MONGODB_URI(self) -> str:
         """

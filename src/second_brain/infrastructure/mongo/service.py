@@ -37,16 +37,42 @@ class MongoDBService:
         Raises:
             Exception: If connection to MongoDB fails.
         """
+
+        self.collection_name = collection_name
+        self.database_name = database_name
+        self.mongodb_uri = mongodb_uri
+
         try:
-            self.client = MongoClient(mongodb_uri)
-            self.database = self.client[database_name]
-            self.collection = self.database[collection_name]
-            logger.info(
-                f"Connected to MongoDB instance:\n URI: {mongodb_uri}\n Database: {database_name}\n Collection: {collection_name}"
-            )
+            self.client = MongoClient(mongodb_uri, appname="second_brain_course")
+            self.client.admin.command("ping")
         except Exception as e:
             logger.error(f"Failed to initialize MongoDBService: {e}")
             raise
+
+        self.database = self.client[database_name]
+        self.collection = self.database[collection_name]
+        logger.info(
+            f"Connected to MongoDB instance:\n URI: {mongodb_uri}\n Database: {database_name}\n Collection: {collection_name}"
+        )
+
+    def __enter__(self) -> "MongoDBService":
+        """Enable context manager support.
+
+        Returns:
+            MongoDBService: The current instance.
+        """
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        """Close MongoDB connection when exiting context.
+
+        Args:
+            exc_type: Type of exception that occurred, if any.
+            exc_val: Exception instance that occurred, if any.
+            exc_tb: Traceback of exception that occurred, if any.
+        """
+
+        self.close()
 
     def clear_collection(self) -> None:
         """Remove all documents from the collection.
@@ -57,9 +83,10 @@ class MongoDBService:
         Raises:
             errors.PyMongoError: If the deletion operation fails.
         """
+
         try:
             result = self.collection.delete_many({})
-            logger.info(
+            logger.debug(
                 f"Cleared collection. Deleted {result.deleted_count} documents."
             )
         except errors.PyMongoError as e:
@@ -77,6 +104,7 @@ class MongoDBService:
             ValueError: If documents is empty or contains non-dictionary items.
             errors.PyMongoError: If the insertion operation fails.
         """
+
         try:
             if not documents or not all(isinstance(doc, dict) for doc in documents):
                 raise ValueError("Documents must be a list of dictionaries.")
@@ -86,7 +114,7 @@ class MongoDBService:
                 doc.pop("_id", None)
 
             self.collection.insert_many(documents)
-            logger.info(f"Inserted {len(documents)} documents into MongoDB.")
+            logger.debug(f"Inserted {len(documents)} documents into MongoDB.")
         except errors.PyMongoError as e:
             logger.error(f"Error inserting documents: {e}")
             raise
@@ -104,9 +132,10 @@ class MongoDBService:
         Raises:
             Exception: If the query operation fails.
         """
+
         try:
             documents = list(self.collection.find(query).limit(limit))
-            logger.info(f"Fetched {len(documents)} documents with query: {query}")
+            logger.debug(f"Fetched {len(documents)} documents with query: {query}")
             return self.convert_objectid_to_str(documents)
         except Exception as e:
             logger.error(f"Error fetching documents: {e}")
@@ -125,13 +154,14 @@ class MongoDBService:
         Returns:
             Same documents with ObjectId fields converted to strings.
         """
+
         for doc in documents:
             for key, value in doc.items():
                 if isinstance(value, ObjectId):
                     doc[key] = str(value)
         return documents
 
-    def verify_collection_count(self) -> int:
+    def get_collection_count(self) -> int:
         """Count the total number of documents in the collection.
 
         Returns:
@@ -140,10 +170,9 @@ class MongoDBService:
         Raises:
             errors.PyMongoError: If the count operation fails.
         """
+
         try:
-            count = self.collection.count_documents({})
-            logger.info(f"Total documents in the collection: {count}")
-            return count
+            return self.collection.count_documents({})
         except errors.PyMongoError as e:
             logger.error(f"Error counting documents in MongoDB: {e}")
             raise
@@ -160,6 +189,7 @@ class MongoDBService:
         Raises:
             errors.PyMongoError: If the query operation fails.
         """
+
         query = {"genres": {"$regex": f"^{genre}$", "$options": "i"}}
         try:
             count = self.collection.count_documents(query)
@@ -168,3 +198,13 @@ class MongoDBService:
         except errors.PyMongoError as e:
             logger.error(f"Error verifying genre '{genre}': {e}")
             raise
+
+    def close(self) -> None:
+        """Close the MongoDB connection.
+
+        This method should be called when the service is no longer needed
+        to properly release resources, unless using the context manager.
+        """
+
+        self.client.close()
+        logger.debug("Closed MongoDB connection.")

@@ -1,44 +1,27 @@
-import asyncio
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Generator
 
 from langchain_core.documents import Document
 from langchain_mongodb.retrievers import (
     MongoDBAtlasParentDocumentRetriever,
 )
-from langchain_openai import OpenAIEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from loguru import logger
-from pymongo import MongoClient
-from pymongo.errors import OperationFailure
-from pymongo.operations import SearchIndexModel
+from tqdm import tqdm
 from zenml.steps import step
 
+from second_brain.application.rag import get_splitter
+from second_brain.application.rag.embeddings import EmbeddingModelBuilder
 from second_brain.config import settings
-
-BATCH_SIZE = 256
-MAX_CONCURRENCY = 4
-
-
-def get_splitter(chunk_size: int) -> RecursiveCharacterTextSplitter:
-    """
-    Returns a token-based text splitter with overlap
-    Args:
-        chunk_size (_type_): Chunk size in number of tokens
-    Returns:
-        RecursiveCharacterTextSplitter: Recursive text splitter object
-    """
-    return RecursiveCharacterTextSplitter.from_tiktoken_encoder(
-        encoding_name="cl100k_base",
-        chunk_size=chunk_size,
-        chunk_overlap=0.15 * chunk_size,
-    )
-
-
-embedding_model = OpenAIEmbeddings(model="text-embedding-3-small")
+from second_brain.infrastructure.mongo import MongoDBService, MongoDBVectorIndex
 
 
 @step
-def chunk_embed_load(pages: list[dict], collection_name: str) -> None:
+def chunk_embed_load(
+    pages: list[dict],
+    collection_name: str,
+    processing_batch_size: int,
+    processing_max_workers: int,
+) -> None:
+    embedding_model = EmbeddingModelBuilder().get_model()
     parent_doc_retriever = MongoDBAtlasParentDocumentRetriever.from_connection_string(
         connection_string=settings.MONGODB_URI,
         embedding_model=embedding_model,
@@ -50,99 +33,90 @@ def chunk_embed_load(pages: list[dict], collection_name: str) -> None:
         search_kwargs={"k": 10},
     )
 
-    mongodb_client = MongoClient(
-        settings.MONGODB_URI, appname="devrel.showcase.parent_doc_retrieval"
-    )
-    mongodb_client.admin.command("ping")
-    collection = mongodb_client[settings.MONGODB_DATABASE_NAME][collection_name]
-    # Delete any existing documents from the collection
-    collection.delete_many({})
-    logger.info(
-        f"Deleted {collection.count_documents({})} documents from {collection_name}"
-    )
+    with MongoDBService(collection_name=collection_name) as mongodb_client:
+        mongodb_client.clear_collection()
 
-    docs = [
-        Document(page_content=page["content"], metadata=page["metadata"])
-        for page in pages
-    ]
-    asyncio.run(process_docs(parent_doc_retriever, docs[:10]))
-
-    VS_INDEX_NAME = "vector_index"
-
-    # Vector search index definition
-    model = SearchIndexModel(
-        definition={
-            "fields": [
-                {
-                    "type": "vector",
-                    "path": "embedding",
-                    "numDimensions": 1536,
-                    "similarity": "cosine",
-                }
-            ]
-        },
-        name=VS_INDEX_NAME,
-        type="vectorSearch",
-    )
-
-    # Check if the index already exists, if not create it
-    try:
-        collection.create_search_index(model=model)
-        print(
-            f"Successfully created index {VS_INDEX_NAME} for collection {collection_name}"
+        docs = [
+            Document(page_content=page["content"], metadata=page["metadata"])
+            for page in pages
+        ]
+        process_docs(
+            parent_doc_retriever,
+            docs,
+            batch_size=processing_batch_size,
+            max_workers=processing_max_workers,
         )
-    except OperationFailure:
-        print(
-            f"Duplicate index {VS_INDEX_NAME} found for collection {collection_name}. Skipping index creation."
+
+        vector_index = MongoDBVectorIndex(
+            index_name="vector_index", mongodb_client=mongodb_client
+        )
+        vector_index.create_vector_index(
+            embedding_attribute_name="embedding", embedding_dim=1536
         )
 
 
-async def process_docs(
-    parent_doc_retriever: MongoDBAtlasParentDocumentRetriever, docs: list[Document]
-) -> list:
-    """
-    Asynchronously ingest LangChain documents into MongoDB
+def process_docs(
+    parent_doc_retriever: MongoDBAtlasParentDocumentRetriever,
+    docs: list[Document],
+    batch_size: int = 256,
+    max_workers: int = 2,
+) -> list[None]:
+    """Process LangChain documents into MongoDB using thread pool.
+
     Args:
-        docs (List[Document]): List of LangChain documents
-    Returns:
-        List[None]: Results of the task executions
-    """
+        parent_doc_retriever: MongoDB Atlas document retriever instance.
+        docs: List of LangChain documents to process.
+        batch_size: Number of documents to process in each batch. Defaults to 256.
+        max_workers: Maximum number of concurrent threads. Defaults to 10.
 
-    semaphore = asyncio.Semaphore(MAX_CONCURRENCY)
-    batches = get_batches(docs, BATCH_SIZE)
-    tasks = []
-    for batch in batches:
-        tasks.append(process_batch(parent_doc_retriever, batch, semaphore))
-    # Gather results from all tasks
-    results = await asyncio.gather(*tasks)
+    Returns:
+        List of None values representing completed batch processing results.
+    """
+    batches = list(get_batches(docs, batch_size))
+    results = []
+    total_docs = len(docs)
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [
+            executor.submit(process_batch, parent_doc_retriever, batch)
+            for batch in batches
+        ]
+
+        with tqdm(total=total_docs, desc="Processing documents") as pbar:
+            for future in as_completed(futures):
+                result = future.result()
+                results.append(result)
+                pbar.update(batch_size)
 
     return results
 
 
-def get_batches(docs: list[Document], batch_size: int) -> Generator:
-    """
-    Return batches of documents to ingest into MongoDB
+def get_batches(
+    docs: list[Document], batch_size: int
+) -> Generator[list[Document], None, None]:
+    """Return batches of documents to ingest into MongoDB.
+
     Args:
-        docs (List[Document]): List of LangChain documents
-        batch_size (int): Batch size
+        docs: List of LangChain documents to batch.
+        batch_size: Number of documents in each batch.
+
     Yields:
-        Generator: Batch of documents
+        Batches of documents of size batch_size.
     """
     for i in range(0, len(docs), batch_size):
         yield docs[i : i + batch_size]
 
 
-async def process_batch(
+def process_batch(
     parent_doc_retriever: MongoDBAtlasParentDocumentRetriever,
-    batch: Generator,
-    semaphore: asyncio.Semaphore,
+    batch: list[Document],
 ) -> None:
-    """
-    Ingest batches of documents into MongoDB
+    """Ingest batches of documents into MongoDB.
+
     Args:
-        batch (Generator): Chunk of documents to ingest
-        semaphore (as): Asyncio semaphore
+        parent_doc_retriever: MongoDB Atlas document retriever instance.
+        batch: List of documents to ingest in this batch.
     """
-    async with semaphore:
-        await parent_doc_retriever.aadd_documents(batch)
-        print(f"Processed {len(batch)} documents")
+
+    parent_doc_retriever.add_documents(batch)
+    print(f"Processed {len(batch)} documents")

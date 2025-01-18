@@ -1,3 +1,4 @@
 from .service import MongoDBService
+from .vector_index import MongoDBVectorIndex
 
-__all__ = ["MongoDBService"]
+__all__ = ["MongoDBService", "MongoDBVectorIndex"]
