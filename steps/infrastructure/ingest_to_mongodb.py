@@ -14,13 +14,12 @@ def ingest_to_mongodb(documents: list[dict], collection_name: str) -> None:
     Raises:
         Exception: If the ingestion process fails.
     """
-    try:
-        service = MongoDBService(collection_name=collection_name)
 
+    with MongoDBService(collection_name=collection_name) as service:
         service.clear_collection()
         service.ingest_documents(documents)
 
-        service.get_collection_count()
-    except Exception as e:
-        logger.error(f"Failed to ingest documents: {e}")
-        raise
+        count = service.get_collection_count()
+        logger.info(
+            f"Successfully ingested {count} documents into MongoDB collection '{collection_name}'"
+        )
