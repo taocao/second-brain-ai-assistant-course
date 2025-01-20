@@ -3,7 +3,7 @@ from pathlib import Path
 
 from zenml import step
 
-from second_brain.entities import Page
+from second_brain.domain import Page
 
 
 @step

@@ -6,7 +6,30 @@ To set it up and run
 
 ```bash
 # uv venv
-uv sync
+# uv sync
+uv pip install -e .
+. ./.venv/bin/activate
+```
+
+Crew4AI:
+```bash
+# Run post-installation setup
+crawl4ai-setup
+
+# Verify your installation
+crawl4ai-doctor
+```
+
+After running the doctor command, you should see something like this:
+```console
+[INIT].... → Running Crawl4AI health check...
+[INIT].... → Crawl4AI 0.4.247
+[TEST].... ℹ Testing crawling capabilities...
+[EXPORT].. ℹ Exporting PDF and taking screenshot took 0.84s
+[FETCH]... ↓ https://crawl4ai.com... | Status: True | Time: 3.91s
+[SCRAPE].. ◆ Processed https://crawl4ai.com... | Time: 11ms
+[COMPLETE] ● https://crawl4ai.com... | Status: True | Total: 3.92s
+[COMPLETE] ● ✅ Crawling test passed!
 ```
 
 ## Development

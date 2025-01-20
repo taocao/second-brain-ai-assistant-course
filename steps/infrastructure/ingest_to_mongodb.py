@@ -1,11 +1,12 @@
 from loguru import logger
+from pydantic import BaseModel
 from zenml.steps import step
 
 from second_brain.infrastructure.mongo.service import MongoDBService
 
 
 @step
-def ingest_to_mongodb(documents: list[dict], collection_name: str) -> None:
+def ingest_to_mongodb(documents: list[BaseModel], collection_name: str) -> None:
     """ZenML step to ingest documents into MongoDB.
 
     Args:

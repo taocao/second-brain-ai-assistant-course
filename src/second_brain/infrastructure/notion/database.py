@@ -5,7 +5,7 @@ import requests
 from loguru import logger
 
 from second_brain import settings
-from second_brain.entities import PageMetadata
+from second_brain.domain import PageMetadata
 
 
 class NotionDatabaseClient:

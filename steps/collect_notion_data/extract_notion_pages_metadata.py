@@ -1,7 +1,7 @@
 from typing_extensions import Annotated
 from zenml import step
 
-from second_brain.entities import PageMetadata
+from second_brain.domain import PageMetadata
 from second_brain.infrastructure.notion import NotionDatabaseClient
 
 

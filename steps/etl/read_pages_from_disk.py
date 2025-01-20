@@ -3,7 +3,7 @@ from pathlib import Path
 from loguru import logger
 from zenml.steps import step
 
-from second_brain.entities.page import Page
+from second_brain.domain.page import Page
 
 
 @step

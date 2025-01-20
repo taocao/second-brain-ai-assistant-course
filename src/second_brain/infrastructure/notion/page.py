@@ -2,7 +2,7 @@ import requests
 from loguru import logger
 
 from second_brain import settings
-from second_brain.entities import Page, PageMetadata
+from second_brain.domain import Page, PageMetadata
 
 
 class NotionPageClient:
@@ -34,7 +34,7 @@ class NotionPageClient:
         blocks = self.__retrieve_child_blocks(page_metadata.id)
         content, urls = self.__parse_blocks(blocks)
 
-        return Page(metadata=page_metadata, content=content, urls=urls)
+        return Page(metadata=page_metadata, content=content, child_urls=urls)
 
     def __retrieve_child_blocks(
         self, block_id: str, page_size: int = 100

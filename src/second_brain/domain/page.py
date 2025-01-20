@@ -12,11 +12,33 @@ class PageMetadata(BaseModel):
     title: str
     properties: dict
 
+    def __eq__(self, other: object) -> bool:
+        """Compare two PageMetadata objects for equality.
+
+        Args:
+            other: Another object to compare with this PageMetadata.
+
+        Returns:
+            bool: True if the other object is a PageMetadata with the same ID.
+        """
+        if not isinstance(other, PageMetadata):
+            return False
+        return self.id == other.id
+
+    def __hash__(self) -> int:
+        """Generate a hash value for the PageMetadata.
+
+        Returns:
+            int: Hash value based on the page's ID.
+        """
+        return hash(self.id)
+
 
 class Page(BaseModel):
     metadata: PageMetadata
+    parent_metadata: PageMetadata | None = None
     content: str
-    urls: list[str]
+    child_urls: list[str]
 
     @classmethod
     def from_file(cls, file_path: Path) -> "Page":
@@ -74,9 +96,7 @@ class Page(BaseModel):
         # Obfuscate UUID in URL if present
         url = data["metadata"]["url"]
         flattened_original_id = original_id.replace("-", "")
-        obfuscated_data["metadata"]["url"] = url.replace(
-            flattened_original_id, fake_id
-        )
+        obfuscated_data["metadata"]["url"] = url.replace(flattened_original_id, fake_id)
 
         return obfuscated_data
 
@@ -85,3 +105,24 @@ class Page(BaseModel):
 
         hex_chars = string.hexdigits.lower()
         return "".join(random.choice(hex_chars) for _ in range(length))
+
+    def __eq__(self, other: object) -> bool:
+        """Compare two Page objects for equality.
+
+        Args:
+            other: Another object to compare with this Page.
+
+        Returns:
+            bool: True if the other object is a Page with the same metadata.
+        """
+        if not isinstance(other, Page):
+            return False
+        return self.metadata == other.metadata
+
+    def __hash__(self) -> int:
+        """Generate a hash value for the Page.
+
+        Returns:
+            int: Hash value based on the page's metadata.
+        """
+        return hash(self.metadata)
