@@ -37,7 +37,7 @@ local-zenml-server-stop:
 
 local-infrastructure-up: local-docker-infrastructure-up local-zenml-server-stop local-zenml-server-up
 
-local-infrastructure-stop: local-docker-infrastructure-down local-zenml-server-down
+local-infrastructure-stop: local-docker-infrastructure-stop local-zenml-server-stop
 
 # --- AWS ---
 
@@ -47,7 +47,8 @@ s3-upload:  # Upload a local folder to S3
 
 s3-download:  # Download from S3 to local folder using AWS 
 	@echo "Downloading from S3 bucket: $(AWS_S3_BUCKET_NAME)"
-	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip" $(LOCAL_DATA_PATH) 
+	@echo "######### TRYING S3 at ..... |  $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip $(LOCAL_DATA_PATH)"
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip $(LOCAL_DATA_PATH)
 
 download-raw-dataset: s3-download
 
@@ -67,9 +68,14 @@ compute-rag-vector-index-pipeline:
 
 # --- Tests ---
 
-test:
-	uv run pytest tests/
+test-download-raw-dataset:
+	uv run pytest tests/test_download_raw_dataset.py -v
 
+test-etl-pipeline:
+	uv run pytest tests/test_etl_pipeline.py -v
+
+test-rag-vector-index-pipeline:
+	uv run pytest tests/test_rag_vector_index_pipeline.py -v
 # --- QA ---
 
 format-fix:

@@ -36,8 +36,11 @@ make collect-notion-pipeline
 
 ```bash
 make download-raw-dataset
+# Validate using test: make test-download-raw-dataset
 make etl-pipeline
+# Validate using test: make test-etl-pipeline
 make compute-rag-vector-index-pipeline
+# Validate using test: make test-rag-vector-index-pipeline
 ```
 
 ## Formatting

@@ -1,83 +1,140 @@
 import os
 from typing import Optional
-
 from loguru import logger
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-
 
 class Settings(BaseSettings):
     """
     A Pydantic-based settings class for managing application configurations.
     """
-
     # --- Pydantic Settings ---
     model_config: SettingsConfigDict = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8"
     )
 
     # --- AWS Configuration ---
-    AWS_ACCESS_KEY: Optional[str] = None  # AWS access key for authentication.
-    AWS_SECRET_KEY: Optional[str] = None  # AWS secret key for authentication.
-    AWS_CROSS_ACCOUNT_ROLE_ARN: Optional[str] = (
-        None  # ARN for AWS cross-account access role.
+    AWS_ACCESS_KEY: Optional[str] = Field(
+        default_factory=lambda: os.getenv("AWS_ACCESS_KEY"),
+        description="AWS access key for authentication with AWS services."
     )
 
-    AWS_DEFAULT_REGION: str = "eu-central-1"  # AWS region for cloud services.
-    AWS_S3_BUCKET_NAME: str = (
-        "decodingml-public-data"  # Name of the S3 bucket for storing application data.
+    AWS_SECRET_KEY: Optional[str] = Field(
+        default_factory=lambda: os.getenv("AWS_SECRET_KEY"),
+        description="AWS secret key for secure authentication with AWS services."
     )
-    AWS_S3_PREFIX: str = "second_brain_course/notion"
+
+    AWS_CROSS_ACCOUNT_ROLE_ARN: Optional[str] = Field(
+        default_factory=lambda: os.getenv("AWS_CROSS_ACCOUNT_ROLE_ARN"),
+        description="ARN for cross-account access role in AWS environments."
+    )
+
+    AWS_DEFAULT_REGION: str = Field(
+        default_factory=lambda: os.getenv("AWS_DEFAULT_REGION", "eu-central-1"),
+        description="AWS region where cloud services are deployed."
+    )
+
+    AWS_S3_NOSIGN_REQUEST: bool = Field(
+        default_factory=lambda: os.getenv("AWS_S3_NOSIGN_REQUEST", False),
+        description="Flag to enable unauthenticated S3 bucket access. If True, bypasses AWS authentication."
+    )
+
+    AWS_S3_BUCKET_NAME: str = Field(
+        default_factory=lambda: os.getenv("AWS_S3_BUCKET_NAME", "decodingml-public-data"),
+        description="Name of the S3 bucket containing application data."
+    )
+
+    AWS_S3_PREFIX: str = Field(
+        default_factory=lambda: os.getenv("AWS_S3_PREFIX", "second_brain_course/notion"),
+        description="Prefix path within the S3 bucket for organizing data."
+    )
 
     # --- CometML Configuration ---
-    COMET_API_KEY: Optional[str] = None  # API key for CometML integration.
-    COMET_PROJECT_NAME: str = "twin"  # CometML project name for tracking experiments.
+    COMET_API_KEY: Optional[str] = Field(
+        default_factory=lambda: os.getenv("COMET_API_KEY"),
+        description="API key for CometML experiment tracking and monitoring."
+    )
+
+    COMET_PROJECT_NAME: str = Field(
+        default_factory=lambda: os.getenv("COMET_PROJECT_NAME", "twin"),
+        description="Project name for organizing experiments in CometML."
+    )
+
+    COMET_PROJECT: str = Field(
+        default_factory=lambda: os.getenv("COMET_PROJECT", "second_brain_course"),
+        description="Project identifier for CometML during training."
+    )
 
     # --- Enable Flags ---
     ENABLE_OFFLINE_MODE: bool = Field(
-        True, description="Flag to enable offline mode (disables online ingestion)."
+        default_factory=lambda: os.getenv("ENABLE_OFFLINE_MODE", True),
+        description="Flag to enable offline mode (disables online ingestion)."
     )
 
     # --- GROQ Configuration ---
-    GROQ_API_KEY: Optional[str] = None  # API key for accessing GROQ services.
-
-    # Comet ML (during training)
-    COMET_API_KEY: str | None = None
-    COMET_PROJECT: str = "second_brain_course"
+    GROQ_API_KEY: Optional[str] = Field(
+        default_factory=lambda: os.getenv("GROQ_API_KEY"),
+        description="API key for accessing GROQ AI services."
+    )
 
     # --- Hugging Face Configuration ---
-    HUGGINGFACE_ACCESS_TOKEN: Optional[str] = None  # Token for Hugging Face API.
+    HUGGINGFACE_ACCESS_TOKEN: Optional[str] = Field(
+        default_factory=lambda: os.getenv("HUGGINGFACE_ACCESS_TOKEN"),
+        description="Access token for Hugging Face model hub and APIs."
+    )
 
     # --- MongoDB Atlas Configuration ---
-    MONGODB_DATABASE_NAME: str = "second_brain"
+    MONGODB_DATABASE_NAME: str = Field(
+        default_factory=lambda: os.getenv("MONGODB_DATABASE_NAME", "second_brain"),
+        description="Name of the MongoDB database for the application."
+    )
+
     MONGODB_OFFLINE_URI: str = Field(
         default_factory=lambda: os.getenv(
-            "MONGODB_OFFLINE_URI", "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true"
+            "MONGODB_OFFLINE_URI", 
+            "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true"
         ),
-        description="Connection URI for the local MongoDB Atlas instance.",
+        description="Connection URI for the local MongoDB instance."
     )
-    MONGODB_ONLINE_URI: str | None = Field(
-        default=None,
-        description="Connection URI for the Cloud MongoDB Atlas instance.",
+
+    MONGODB_ONLINE_URI: Optional[str] = Field(
+        default_factory=lambda: os.getenv("MONGODB_ONLINE_URI"),
+        description="Connection URI for the cloud MongoDB Atlas instance."
     )
 
     # --- Notion API Configuration ---
-    NOTION_SECRET_KEY: str  # Secret key for accessing Notion API.
+    NOTION_SECRET_KEY: str = Field(
+        default_factory=lambda: os.getenv("NOTION_SECRET_KEY"),
+        description="Secret key for authenticating with Notion API."
+    )
 
     # --- OpenAI API Configuration ---
-    OPENAI_API_KEY: str  # API key for accessing OpenAI services.
-    OPENAI_MODEL_ID: str = "gpt-4o-mini"  # Model identifier for OpenAI.
+    OPENAI_API_KEY: str = Field(
+        default_factory=lambda: os.getenv("OPENAI_API_KEY"),
+        description="API key for accessing OpenAI services and models."
+    )
+
+    OPENAI_MODEL_ID: str = Field(
+        default_factory=lambda: os.getenv("OPENAI_MODEL_ID", "gpt-4o-mini"),
+        description="Identifier for the specific OpenAI model to use."
+    )
 
     # --- RAG Configuration ---
-    TEXT_EMBEDDING_MODEL_ID: str = "text-embedding-3-small"
-    RAG_MODEL_DEVICE: str = "cpu"
+    TEXT_EMBEDDING_MODEL_ID: str = Field(
+        default_factory=lambda: os.getenv("TEXT_EMBEDDING_MODEL_ID", "text-embedding-3-small"),
+        description="Model identifier for text embedding generation."
+    )
+
+    RAG_MODEL_DEVICE: str = Field(
+        default_factory=lambda: os.getenv("RAG_MODEL_DEVICE", "cpu"),
+        description="Device to run RAG models on (cpu/cuda)."
+    )
 
     @property
     def MONGODB_URI(self) -> str:
         """
         Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
         """
-
         if self.ENABLE_OFFLINE_MODE is True:
             return self.MONGODB_OFFLINE_URI
 
@@ -92,7 +149,6 @@ class Settings(BaseSettings):
         """
         Calculates the maximum token window for the configured OpenAI model. Returns 90% of the token limit for safety margin.
         """
-
         model_token_limits = {
             "gpt-3.5-turbo": 16385,
             "gpt-4-turbo": 128000,
@@ -101,16 +157,13 @@ class Settings(BaseSettings):
         }
         return int(model_token_limits.get(self.OPENAI_MODEL_ID, 128000) * 0.90)
 
-    @field_validator(
-        "OPENAI_API_KEY",
-    )
+    @field_validator("OPENAI_API_KEY")
     @classmethod
     def check_not_empty(cls, value: str, info) -> str:
         if not value or value.strip() == "":
             logger.error(f"{info.field_name} cannot be empty.")
             raise ValueError(f"{info.field_name} cannot be empty.")
         return value
-
 
 try:
     settings = Settings()

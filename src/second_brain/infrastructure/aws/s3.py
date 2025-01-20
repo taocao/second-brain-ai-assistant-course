@@ -5,23 +5,39 @@ from pathlib import Path
 from typing import Union
 
 import boto3
+import botocore
+import botocore.config
 
 from second_brain.config import settings
 
 
 class S3Client:
     def __init__(
-        self, bucket_name: str, region: str = settings.AWS_DEFAULT_REGION
+        self,
+        bucket_name: str,
+        region: str = settings.AWS_DEFAULT_REGION,
+        aws_s3_no_sign_request: bool = settings.AWS_S3_NOSIGN_REQUEST,
     ) -> None:
         """Initialize S3 client and bucket name.
 
         Args:
             bucket_name: Name of the S3 bucket
             region: AWS region (defaults to AWS_DEFAULT_REGION or AWS_REGION env var, or 'us-east-1')
+            aws_s3_no_sign_request: if True will access S3 un-authenticated for public buckets, if False will use the AWS credentials set by the user
         """
         self.region = region
         self.s3_client = boto3.client("s3", region_name=self.region)
         self.bucket_name = bucket_name
+        if aws_s3_no_sign_request:
+            # Use unsigned mode for public buckets
+            self.s3_client = boto3.client(
+                "s3",
+                region_name=self.region,
+                config=botocore.config.Config(signature_version=botocore.UNSIGNED),
+            )
+        else:
+            # Default authenticated S3 client
+            self.s3_client = boto3.client("s3", region_name=self.region)
 
     def upload_folder(self, local_path: Union[str, Path], s3_prefix: str = "") -> None:
         """

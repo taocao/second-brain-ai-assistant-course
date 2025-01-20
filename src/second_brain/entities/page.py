@@ -2,8 +2,9 @@ import json
 import random
 import string
 from pathlib import Path
+from typing import Any
 
-from pydantic import BaseModel
+from pydantic import BaseModel, model_validator
 
 
 class PageMetadata(BaseModel):
@@ -17,6 +18,15 @@ class Page(BaseModel):
     metadata: PageMetadata
     content: str
     urls: list[str]
+
+    @model_validator(mode="before")
+    @classmethod
+    def check_metadata_field(cls, data: dict[str, Any]) -> dict[str, Any]:
+        """Allow both 'metadata' and 'page_metadata' fields."""
+        if isinstance(data, dict):
+            if "page_metadata" in data and "metadata" not in data:
+                data["metadata"] = data.pop("page_metadata")
+        return data
 
     @classmethod
     def from_file(cls, file_path: Path) -> "Page":
@@ -74,9 +84,7 @@ class Page(BaseModel):
         # Obfuscate UUID in URL if present
         url = data["metadata"]["url"]
         flattened_original_id = original_id.replace("-", "")
-        obfuscated_data["metadata"]["url"] = url.replace(
-            flattened_original_id, fake_id
-        )
+        obfuscated_data["metadata"]["url"] = url.replace(flattened_original_id, fake_id)
 
         return obfuscated_data
 

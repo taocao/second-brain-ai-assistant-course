@@ -14,5 +14,9 @@ def compute_rag_vector_index(
     processing_max_workers: int = 10,
     fetch_limit: int = 100,
 ) -> None:
-    documents = fetch_from_mongodb(limit=fetch_limit, collection_name=extract_collection_name)
-    chunk_embed_load(documents, load_collection_name, processing_batch_size, processing_max_workers)
+    documents = fetch_from_mongodb(
+        limit=fetch_limit, collection_name=extract_collection_name
+    )
+    chunk_embed_load(
+        documents, load_collection_name, processing_batch_size, processing_max_workers
+    )

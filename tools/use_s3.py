@@ -53,6 +53,8 @@ def download(bucket_name: str, s3_path: str, local_path: str) -> None:
 
     try:
         s3_client = S3Client(bucket_name)
+        print(f" MY BUCKET IS :::: {s3_client.bucket_name}")
+        click.echo(f"MY PATH IS s3://{bucket_name}/{s3_path} to {local_path}")
         s3_client.download_folder(s3_path, local_path)
         click.echo(
             f"Successfully downloaded s3://{bucket_name}/{s3_path} to {local_path}"
