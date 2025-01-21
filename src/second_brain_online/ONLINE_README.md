@@ -34,8 +34,13 @@
                            - db.runCommand({ listSearchIndexes: "rag_data" } )
                            - db.rag_data.findOne()
                            - db.rag_data.countDocuments({"embedding": {$exists: true}})
+                           - db.raw_data.find({}, { content: 1, _id: 0 })
                         NOTE: https://www.mongodb.com/docs/mongodb-shell/install/
 
+   ### OPIK
+      - create a free account with Comet: https://www.comet.com/signup
+      - create your project "second_brain_course"
+      - get your api keys
 ### Notion (optional)
       - If you want to use your own data from notion
 1. Go to [https://www.notion.so/profile].

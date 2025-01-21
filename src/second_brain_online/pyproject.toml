@@ -42,6 +42,7 @@ dependencies = [
     "beautifulsoup4>=4.12.3",
     "unstructured>=0.16.13",
     "groq>=0.15.0",
+    "comet_ml>=3.47.6",
 ]
 
 [dependency-groups]
