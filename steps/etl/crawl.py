@@ -5,11 +5,11 @@ from loguru import logger
 from tqdm import tqdm
 from zenml.steps import step
 
-from second_brain.domain import Page, PageMetadata
+from second_brain.domain import Document, DocumentMetadata
 
 
 @step
-def crawl(pages: list[Page]) -> list[Page]:
+def crawl(pages: list[Document]) -> list[Document]:
     """Crawl pages and their child URLs.
 
     Args:
@@ -33,12 +33,12 @@ class Crawl4AICrawler:
     def __init__(self, max_concurrent_requests: int = 10) -> None:
         self.max_concurrent_requests = max_concurrent_requests
 
-    def __call__(self, page: Page) -> list[Page]:
+    def __call__(self, page: Document) -> list[Document]:
         content = asyncio.run(self.__crawl(page))
 
         return content
 
-    async def __crawl(self, page: Page) -> list[Page]:
+    async def __crawl(self, page: Document) -> list[Document]:
         semaphore = asyncio.Semaphore(self.max_concurrent_requests)
 
         async with AsyncWebCrawler(cache_mode=CacheMode.BYPASS) as crawler:
@@ -66,10 +66,10 @@ class Crawl4AICrawler:
     async def __crawl_url(
         self,
         crawler: AsyncWebCrawler,
-        page: Page,
+        page: Document,
         url: str,
         semaphore: asyncio.Semaphore,
-    ) -> Page | None:
+    ) -> Document | None:
         async with semaphore:
             result = await crawler.arun(
                 url=url,
@@ -91,8 +91,8 @@ class Crawl4AICrawler:
             else:
                 title = ""
 
-            return Page(
-                metadata=PageMetadata(
+            return Document(
+                metadata=DocumentMetadata(
                     id=url,
                     url=url,
                     title=title,

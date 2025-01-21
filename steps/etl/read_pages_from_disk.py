@@ -3,12 +3,12 @@ from pathlib import Path
 from loguru import logger
 from zenml.steps import step
 
-from second_brain.domain.page import Page
+from second_brain.domain.document import Document
 
 
 @step
-def read_pages_from_disk(data_directory: Path) -> list[Page]:
-    pages: list[Page] = []
+def read_pages_from_disk(data_directory: Path) -> list[Document]:
+    pages: list[Document] = []
 
     if not data_directory.exists():
         raise FileNotFoundError(f"Directory not found: {data_directory}")
@@ -18,7 +18,7 @@ def read_pages_from_disk(data_directory: Path) -> list[Page]:
             json_files = database_dir.glob("*.json")
 
             for json_file in json_files:
-                page = Page.from_file(json_file)
+                page = Document.from_file(json_file)
                 pages.append(page)
 
     logger.info(f"Successfully read {len(pages)} Page objects files")

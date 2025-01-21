@@ -11,13 +11,13 @@ from zenml.steps import step
 from second_brain.application.rag import get_splitter
 from second_brain.application.rag.embeddings import EmbeddingModelBuilder
 from second_brain.config import settings
-from second_brain.domain import Page
+from second_brain.domain import Document
 from second_brain.infrastructure.mongo import MongoDBService, MongoDBVectorIndex
 
 
 @step
 def chunk_embed_load(
-    pages: list[Page],
+    pages: list[Document],
     collection_name: str,
     processing_batch_size: int,
     processing_max_workers: int,
@@ -34,7 +34,9 @@ def chunk_embed_load(
         search_kwargs={"k": 10},
     )
 
-    with MongoDBService(model=Page, collection_name=collection_name) as mongodb_client:
+    with MongoDBService(
+        model=Document, collection_name=collection_name
+    ) as mongodb_client:
         mongodb_client.clear_collection()
 
         docs = [

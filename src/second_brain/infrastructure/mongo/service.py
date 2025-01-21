@@ -16,10 +16,20 @@ class MongoDBService(Generic[T]):
     This class provides methods to interact with MongoDB collections, including document
     ingestion, querying, and validation operations.
 
+    Args:
+        model: The Pydantic model class to use for document serialization.
+        collection_name: Name of the MongoDB collection to use.
+        database_name: Name of the MongoDB database to use.
+        mongodb_uri: URI for connecting to MongoDB instance.
+
     Attributes:
-        client (MongoClient): MongoDB client instance for database connections.
-        database (Database): Reference to the target MongoDB database.
-        collection (Collection): Reference to the target MongoDB collection.
+        model: The Pydantic model class used for document serialization.
+        collection_name: Name of the MongoDB collection.
+        database_name: Name of the MongoDB database.
+        mongodb_uri: MongoDB connection URI.
+        client: MongoDB client instance for database connections.
+        database: Reference to the target MongoDB database.
+        collection: Reference to the target MongoDB collection.
     """
 
     def __init__(
@@ -104,11 +114,10 @@ class MongoDBService(Generic[T]):
         """Insert multiple documents into the MongoDB collection.
 
         Args:
-            documents: List of document dictionaries to insert.
-                Each dictionary represents a single document.
+            documents: List of Pydantic model instances to insert.
 
         Raises:
-            ValueError: If documents is empty or contains non-dictionary items.
+            ValueError: If documents is empty or contains non-Pydantic model items.
             errors.PyMongoError: If the insertion operation fails.
         """
 
@@ -138,7 +147,7 @@ class MongoDBService(Generic[T]):
             query: MongoDB query filter to apply.
 
         Returns:
-            list[T]: Documents matching the query, with ObjectIds converted to strings.
+            List of Pydantic model instances matching the query criteria.
 
         Raises:
             Exception: If the query operation fails.
@@ -152,16 +161,16 @@ class MongoDBService(Generic[T]):
             raise
 
     def __parse_documents(self, documents: list[dict]) -> list[T]:
-        """Convert MongoDB ObjectId fields to string format.
+        """Convert MongoDB documents to Pydantic model instances.
 
-        This method is used to prepare documents for JSON serialization by converting
-        any ObjectId values to their string representation.
+        Converts MongoDB ObjectId fields to strings and transforms the document structure
+        to match the Pydantic model schema.
 
         Args:
-            documents: List of MongoDB documents potentially containing ObjectId fields.
+            documents: List of MongoDB documents to parse.
 
         Returns:
-            list[T]: Documents with ObjectId fields converted to strings.
+            List of validated Pydantic model instances.
         """
         parsed_documents = []
         for doc in documents:

@@ -1,0 +1,125 @@
+import json
+from pathlib import Path
+
+from pydantic import BaseModel
+
+from second_brain import utils
+
+
+class DocumentMetadata(BaseModel):
+    id: str
+    url: str
+    title: str
+    properties: dict
+
+    def obfuscate(self) -> "DocumentMetadata":
+        """Create an obfuscated copy of the metadata.
+
+        Returns:
+            DocumentMetadata: A new instance with obfuscated ID and URL.
+        """
+        """Create an obfuscated version of this metadata by modifying in place.
+
+        Returns:
+            DocumentMetadata: Self, with ID and URL obfuscated.
+        """
+
+        original_id = self.id.replace("-", "")
+        fake_id = utils.generate_random_hex(len(original_id))
+
+        self.id = fake_id
+        self.url = self.url.replace(original_id, fake_id)
+
+        return self
+
+
+class Document(BaseModel):
+    id: str
+    metadata: DocumentMetadata
+    parent_metadata: DocumentMetadata | None = None
+    content: str
+    child_urls: list[str]
+
+    @classmethod
+    def from_file(cls, file_path: Path) -> "Document":
+        """Read a Document object from a JSON file.
+
+        Args:
+            file_path: Path to the JSON file containing document data.
+
+        Returns:
+            Document: A new Document instance constructed from the file data.
+
+        Raises:
+            FileNotFoundError: If the specified file doesn't exist.
+            ValidationError: If the JSON data doesn't match the expected model structure.
+        """
+
+        json_data = file_path.read_text(encoding="utf-8")
+
+        return cls.model_validate_json(json_data)
+
+    def write(
+        self, file_path: Path, obfuscate: bool = False, also_save_as_txt: bool = False
+    ) -> None:
+        """Write document data to file, optionally obfuscating sensitive information.
+
+        Args:
+            file_path: Path where the JSON file should be written.
+            obfuscate: If True, sensitive information will be obfuscated.
+            also_save_as_txt: If True, content will also be saved as a text file.
+        """
+
+        if obfuscate:
+            self.obfuscate()
+
+        json_page = self.model_dump()
+
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(
+                json_page,
+                f,
+                indent=4,
+                ensure_ascii=False,
+            )
+
+        if also_save_as_txt:
+            txt_path = file_path.with_suffix(".txt")
+            with open(txt_path, "w", encoding="utf-8") as f:
+                f.write(self.content)
+
+    def obfuscate(self) -> "Document":
+        """Create an obfuscated copy of the document.
+
+        Returns:
+            Document: A new instance with obfuscated metadata and parent_metadata.
+        """
+
+        self.metadata = self.metadata.obfuscate()
+        self.parent_metadata = (
+            self.parent_metadata.obfuscate() if self.parent_metadata else None
+        )
+        self.id = self.metadata.id
+
+        return self
+
+    def __eq__(self, other: object) -> bool:
+        """Compare two Document objects for equality.
+
+        Args:
+            other: Another object to compare with this Document.
+
+        Returns:
+            bool: True if the other object is a Document with the same ID.
+        """
+        if not isinstance(other, Document):
+            return False
+        return self.id == other.id
+
+    def __hash__(self) -> int:
+        """Generate a hash value for the Document.
+
+        Returns:
+            int: Hash value based on the document's ID.
+        """
+        return hash(self.id)

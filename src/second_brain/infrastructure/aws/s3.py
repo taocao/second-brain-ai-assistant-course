@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Union
 
 import boto3
+from loguru import logger
 
 from second_brain.config import settings
 
@@ -57,6 +58,9 @@ class S3Client:
             s3_key = f"{s3_prefix.rstrip('/')}/{zip_filename}".lstrip("/")
 
             # Upload zip file
+            logger.debug(
+                f"Uploading {local_path} to {self.bucket_name} with key {s3_key}"
+            )
             self.s3_client.upload_file(temp_zip.name, self.bucket_name, s3_key)
 
         # Clean up temporary zip file

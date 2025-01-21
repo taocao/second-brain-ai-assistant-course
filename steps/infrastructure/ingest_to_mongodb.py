@@ -6,19 +6,27 @@ from second_brain.infrastructure.mongo.service import MongoDBService
 
 
 @step
-def ingest_to_mongodb(documents: list[BaseModel], collection_name: str) -> None:
+def ingest_to_mongodb(models: list[BaseModel], collection_name: str) -> None:
     """ZenML step to ingest documents into MongoDB.
 
     Args:
-        documents (list[dict]): List of document dictionaries to ingest into MongoDB.
+        models: List of Pydantic BaseModel instances to ingest into MongoDB.
+        collection_name: Name of the MongoDB collection to ingest into.
 
     Raises:
-        Exception: If the ingestion process fails.
+        ValueError: If no documents are provided for ingestion.
     """
 
-    with MongoDBService(collection_name=collection_name) as service:
+    if not models:
+        raise ValueError("No documents provided for ingestion")
+
+    model_type = type(models[0])
+    logger.info(
+        f"Ingesting {len(models)} documents of type '{model_type.__name__}' into MongoDB collection '{collection_name}'"
+    )
+    with MongoDBService(model=model_type, collection_name=collection_name) as service:
         service.clear_collection()
-        service.ingest_documents(documents)
+        service.ingest_documents(models)
 
         count = service.get_collection_count()
         logger.info(

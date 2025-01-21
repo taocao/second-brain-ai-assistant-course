@@ -8,5 +8,5 @@ parameters:
     - be6505f5e7544b66a75fe0d444aba1b2
     - f54dbddcaa4c43c7ae17935716761536
     - 31fcaab5a9404d41b922897d32b901b3
-  output_dir: data/
+  data_dir: data/
   to_s3: true

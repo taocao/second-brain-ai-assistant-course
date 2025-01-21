@@ -2,11 +2,11 @@ import requests
 from loguru import logger
 
 from second_brain import settings
-from second_brain.domain import Page, PageMetadata
+from second_brain.domain import Document, DocumentMetadata
 
 
-class NotionPageClient:
-    """Client for interacting with Notion API to extract page content.
+class NotionDocumentClient:
+    """Client for interacting with Notion API to extract document content.
 
     This class handles retrieving and parsing Notion pages, including their blocks,
     rich text content, and embedded URLs.
@@ -19,22 +19,41 @@ class NotionPageClient:
             api_key: The Notion API key to use for authentication.
         """
 
+        assert (
+            api_key is not None
+        ), "NOTION_SECRET_KEY environment variable is required. Set it in your .env file."
+
         self.api_key = api_key
 
-    def extract_page(self, page_metadata: PageMetadata) -> Page:
-        """Extract content from a Notion page.
+    def extract_document(self, document_metadata: DocumentMetadata) -> Document:
+        """Extract content from a Notion document.
 
         Args:
-            page_metadata: Metadata about the page to extract.
+            document_metadata: Metadata about the document to extract.
 
         Returns:
-            Page: A Page object containing the extracted content and metadata.
+            Document: A Document object containing the extracted content and metadata.
         """
 
-        blocks = self.__retrieve_child_blocks(page_metadata.id)
+        blocks = self.__retrieve_child_blocks(document_metadata.id)
         content, urls = self.__parse_blocks(blocks)
 
-        return Page(metadata=page_metadata, content=content, child_urls=urls)
+        parent_metadata = document_metadata.properties.pop("parent", None)
+        if parent_metadata:
+            parent_metadata = DocumentMetadata(
+                id=parent_metadata["id"],
+                url=parent_metadata["url"],
+                title=parent_metadata["title"],
+                properties=parent_metadata["properties"],
+            )
+
+        return Document(
+            id=document_metadata.id,
+            metadata=document_metadata,
+            parent_metadata=parent_metadata,
+            content=content,
+            child_urls=urls,
+        )
 
     def __retrieve_child_blocks(
         self, block_id: str, page_size: int = 100
@@ -69,7 +88,20 @@ class NotionPageClient:
             logger.exception("Error retrieving Notion page content")
             return []
 
-    def __parse_blocks(self, blocks: list, depth: int = 0) -> tuple[str, list[str]]:
+    def __parse_blocks(
+        self, blocks: list[dict], depth: int = 0
+    ) -> tuple[str, list[str]]:
+        """Parse Notion blocks into text content and extract URLs.
+
+        Args:
+            blocks: List of Notion block objects to parse.
+            depth: Current recursion depth for parsing nested blocks.
+
+        Returns:
+            tuple[str, list[str]]: A tuple containing:
+                - Parsed text content as a string
+                - List of extracted URLs
+        """
         content = ""
         urls = []
         for block in blocks:
@@ -103,7 +135,7 @@ class NotionPageClient:
             elif block_type == "divider":
                 content += "---\n\n"
             elif block_type == "child_page" and depth < 3:
-                child_id = block.get("id")
+                child_id = block["id"]
                 child_title = block.get("child_page", {}).get("title", "Untitled")
                 content += f"\n\n<child_page>\n# {child_title}\n\n"
 
@@ -139,7 +171,15 @@ class NotionPageClient:
 
         return content.strip("\n "), urls
 
-    def __parse_rich_text(self, rich_text: list) -> str:
+    def __parse_rich_text(self, rich_text: list[dict]) -> str:
+        """Parse Notion rich text blocks into plain text with markdown formatting.
+
+        Args:
+            rich_text: List of Notion rich text objects to parse.
+
+        Returns:
+            str: Formatted text content.
+        """
         text = ""
         for segment in rich_text:
             if segment.get("href"):
@@ -148,8 +188,15 @@ class NotionPageClient:
                 text += segment.get("plain_text", "")
         return text
 
-    def __extract_urls(self, rich_text: list) -> list:
-        """Extract URLs from rich text blocks."""
+    def __extract_urls(self, rich_text: list[dict]) -> list[str]:
+        """Extract URLs from Notion rich text blocks.
+
+        Args:
+            rich_text: List of Notion rich text objects to extract URLs from.
+
+        Returns:
+            list[str]: List of normalized URLs found in the rich text.
+        """
         urls = []
         for text in rich_text:
             url = None
@@ -164,6 +211,14 @@ class NotionPageClient:
         return urls
 
     def __normalize_url(self, url: str) -> str:
+        """Normalize a URL by ensuring it ends with a forward slash.
+
+        Args:
+            url: URL to normalize.
+
+        Returns:
+            str: Normalized URL with trailing slash.
+        """
         if not url.endswith("/"):
             url += "/"
         return url
