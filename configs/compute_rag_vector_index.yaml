@@ -1,6 +1,6 @@
 parameters:
-  extract_collection_name: raw_data
-  load_collection_name: rag_data
+  extract_collection_name: raw
+  load_collection_name: rag
   processing_batch_size: 256
   processing_max_workers: 2
   fetch_limit: 100

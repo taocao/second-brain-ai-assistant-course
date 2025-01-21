@@ -1,7 +1,7 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Generator
 
-from langchain_core.documents import Document
+from langchain_core.documents import Document as LangChainDocument
 from langchain_mongodb.retrievers import (
     MongoDBAtlasParentDocumentRetriever,
 )
@@ -40,7 +40,7 @@ def chunk_embed_load(
         mongodb_client.clear_collection()
 
         docs = [
-            Document(page_content=page.content, metadata=page.metadata.model_dump())
+            LangChainDocument(page_content=page.content, metadata=page.metadata.model_dump())
             for page in pages
         ]
         process_docs(
@@ -60,7 +60,7 @@ def chunk_embed_load(
 
 def process_docs(
     parent_doc_retriever: MongoDBAtlasParentDocumentRetriever,
-    docs: list[Document],
+    docs: list[LangChainDocument],
     batch_size: int = 256,
     max_workers: int = 2,
 ) -> list[None]:
@@ -95,8 +95,8 @@ def process_docs(
 
 
 def get_batches(
-    docs: list[Document], batch_size: int
-) -> Generator[list[Document], None, None]:
+    docs: list[LangChainDocument], batch_size: int
+) -> Generator[list[LangChainDocument], None, None]:
     """Return batches of documents to ingest into MongoDB.
 
     Args:
@@ -112,7 +112,7 @@ def get_batches(
 
 def process_batch(
     parent_doc_retriever: MongoDBAtlasParentDocumentRetriever,
-    batch: list[Document],
+    batch: list[LangChainDocument],
 ) -> None:
     """Ingest batches of documents into MongoDB.
 

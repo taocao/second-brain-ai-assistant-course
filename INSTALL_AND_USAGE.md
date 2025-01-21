@@ -47,15 +47,19 @@ uv pip install -e .
 make local-infrastructure-up
 ```
 
+## Running the ML pipelines / Lessons
 
-## Run ZenML pipelines
-
-### Notion (optionl)
+## Optional - Collect custom Notion data
 ```bash
 make collect-notion-pipeline
 ```
 
-### Populate MongoDB vector index
+### Lesson 1
+
+NO CODE
+
+
+### Lesson 2: Populate MongoDB NoSQL and vector database
 
 ```bash
 make download-raw-dataset
@@ -63,27 +67,38 @@ make etl-pipeline
 make compute-rag-vector-index-pipeline
 ```
 
-## Formatting
+Or if you have issues with crawling, you can use our pre-computed dataset to populate MongoDB:
+```bash
+make download-crawled-dataset
+make etl-precomputed-pipeline
+make compute-rag-vector-index-pipeline
+```
+
+## Utility commands
+
+### Formatting
 
 ```
 make format-check
 make format-fix
 ```
 
-## Linting
+### Linting
 
 ```bash
 make lint-check
 make lint-fix
 ```
 
-## Tests
+### Tests
 
 ```bash
 make test
 ```
 
-## Notion
+## Others
+
+### Notion
 
 1. Go to [https://www.notion.so/profile].
 2. Create an integration following [this tutorial](https://developers.notion.com/docs/authorization).

@@ -13,11 +13,6 @@ class DocumentMetadata(BaseModel):
     properties: dict
 
     def obfuscate(self) -> "DocumentMetadata":
-        """Create an obfuscated copy of the metadata.
-
-        Returns:
-            DocumentMetadata: A new instance with obfuscated ID and URL.
-        """
         """Create an obfuscated version of this metadata by modifying in place.
 
         Returns:
@@ -60,22 +55,25 @@ class Document(BaseModel):
         return cls.model_validate_json(json_data)
 
     def write(
-        self, file_path: Path, obfuscate: bool = False, also_save_as_txt: bool = False
+        self, output_dir: Path, obfuscate: bool = False, also_save_as_txt: bool = False
     ) -> None:
         """Write document data to file, optionally obfuscating sensitive information.
 
         Args:
-            file_path: Path where the JSON file should be written.
+            output_dir: Directory path where the files should be written.
             obfuscate: If True, sensitive information will be obfuscated.
             also_save_as_txt: If True, content will also be saved as a text file.
         """
+
+        output_dir.mkdir(parents=True, exist_ok=True)
 
         if obfuscate:
             self.obfuscate()
 
         json_page = self.model_dump()
 
-        with open(file_path, "w", encoding="utf-8") as f:
+        output_file = output_dir / f"{self.id}.json"
+        with open(output_file, "w", encoding="utf-8") as f:
             json.dump(
                 json_page,
                 f,
@@ -84,15 +82,15 @@ class Document(BaseModel):
             )
 
         if also_save_as_txt:
-            txt_path = file_path.with_suffix(".txt")
+            txt_path = output_file.with_suffix(".txt")
             with open(txt_path, "w", encoding="utf-8") as f:
                 f.write(self.content)
 
     def obfuscate(self) -> "Document":
-        """Create an obfuscated copy of the document.
+        """Create an obfuscated version of this document by modifying in place.
 
         Returns:
-            Document: A new instance with obfuscated metadata and parent_metadata.
+            Document: Self, with obfuscated metadata and parent_metadata.
         """
 
         self.metadata = self.metadata.obfuscate()

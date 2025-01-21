@@ -27,7 +27,6 @@ class Settings(BaseSettings):
     AWS_S3_BUCKET_NAME: str = (
         "decodingml-public-data"  # Name of the S3 bucket for storing application data.
     )
-    AWS_S3_PREFIX: str = "second_brain_course/notion"
 
     # --- CometML Configuration ---
     COMET_API_KEY: Optional[str] = None  # API key for CometML integration.
@@ -52,7 +51,8 @@ class Settings(BaseSettings):
     MONGODB_DATABASE_NAME: str = "second_brain"
     MONGODB_OFFLINE_URI: str = Field(
         default_factory=lambda: os.getenv(
-            "MONGODB_OFFLINE_URI", "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true"
+            "MONGODB_OFFLINE_URI",
+            "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
         ),
         description="Connection URI for the local MongoDB Atlas instance.",
     )

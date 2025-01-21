@@ -1,104 +1,46 @@
-import asyncio
-
-from crawl4ai import AsyncWebCrawler, CacheMode
 from loguru import logger
 from tqdm import tqdm
-from zenml.steps import step
+from zenml import get_step_context, step
 
-from second_brain.domain import Document, DocumentMetadata
+from second_brain.application.crawlers import Crawl4AICrawler
+from second_brain.domain import Document
 
 
 @step
-def crawl(pages: list[Document]) -> list[Document]:
+def crawl(documents: list[Document], max_workers: int = 10) -> list[Document]:
     """Crawl pages and their child URLs.
 
     Args:
-        pages: List of pages to crawl
+        documents: List of documents to crawl and extract child URLs from.
+        max_workers: Maximum number of concurrent requests. Defaults to 10.
 
     Returns:
-        list[Page]: List of original pages plus crawled child pages
+        list[Document]: List containing original documents plus newly crawled child documents.
     """
 
-    crawler = Crawl4AICrawler()
-    augmented_pages = pages.copy()
+    crawler = Crawl4AICrawler(max_concurrent_requests=max_workers)
+    augmented_pages = documents.copy()
 
-    for page in tqdm(pages, desc="Crawling pages"):
+    for page in tqdm(documents, desc="Crawling child URLs of given documents."):
         child_pages = crawler(page)
         augmented_pages.extend(child_pages)
 
-    return list(set(augmented_pages))
+    augmented_pages = list(set(augmented_pages))
 
+    logger.info(f"Before crawling, we had {len(documents)} documents.")
+    logger.info(f"After crawling, we have a total of {len(augmented_pages)} documents.")
+    logger.info(
+        f"After crawling, we have {len(augmented_pages) - len(documents)} new documents."
+    )
 
-class Crawl4AICrawler:
-    def __init__(self, max_concurrent_requests: int = 10) -> None:
-        self.max_concurrent_requests = max_concurrent_requests
+    step_context = get_step_context()
+    step_context.add_output_metadata(
+        output_name="crawled_documents",
+        metadata={
+            "len_documents_before_crawling": len(documents),
+            "len_documents_after_crawling": len(augmented_pages),
+            "len_documents_new": len(augmented_pages) - len(documents),
+        },
+    )
 
-    def __call__(self, page: Document) -> list[Document]:
-        content = asyncio.run(self.__crawl(page))
-
-        return content
-
-    async def __crawl(self, page: Document) -> list[Document]:
-        semaphore = asyncio.Semaphore(self.max_concurrent_requests)
-
-        async with AsyncWebCrawler(cache_mode=CacheMode.BYPASS) as crawler:
-            tasks = [
-                self.__crawl_url(crawler, page, url, semaphore)
-                for url in page.child_urls
-            ]
-            results = await asyncio.gather(*tasks)
-
-        successful_results = [result for result in results if result is not None]
-
-        success_count = len(successful_results)
-        failed_count = len(results) - success_count
-        total_count = len(results)
-        logger.info(
-            f"Crawling completed: "
-            f"{success_count}/{total_count} succeeded ✓ | "
-            f"{failed_count}/{total_count} failed ✗"
-        )
-
-        results = [result for result in results if result is not None]
-
-        return results
-
-    async def __crawl_url(
-        self,
-        crawler: AsyncWebCrawler,
-        page: Document,
-        url: str,
-        semaphore: asyncio.Semaphore,
-    ) -> Document | None:
-        async with semaphore:
-            result = await crawler.arun(
-                url=url,
-            )
-            if not result or not result.success:
-                logger.warning(f"Failed to crawl {url}")
-                return None
-
-            if result.markdown is None:
-                logger.warning(f"Failed to crawl {url}")
-                return None
-
-            child_links = [
-                link["href"]
-                for link in result.links["internal"] + result.links["external"]
-            ]
-            if result.metadata:
-                title = result.metadata.pop("title", "") or ""
-            else:
-                title = ""
-
-            return Document(
-                metadata=DocumentMetadata(
-                    id=url,
-                    url=url,
-                    title=title,
-                    properties=result.metadata or {},
-                ),
-                parent_metadata=page.metadata,
-                content=str(result.markdown),
-                child_urls=child_links,
-            )
+    return augmented_pages

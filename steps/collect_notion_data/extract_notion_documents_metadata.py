@@ -1,5 +1,6 @@
+from loguru import logger
 from typing_extensions import Annotated
-from zenml import step
+from zenml import get_step_context, step
 
 from second_brain.domain import DocumentMetadata
 from second_brain.infrastructure.notion import NotionDatabaseClient
@@ -20,5 +21,18 @@ def extract_notion_documents_metadata(
 
     client = NotionDatabaseClient()
     documents_metadata = client.query_notion_database(database_id)
+
+    logger.info(
+        f"Extracted {len(documents_metadata)} documents metadata from {database_id}"
+    )
+
+    step_context = get_step_context()
+    step_context.add_output_metadata(
+        output_name="notion_documents_metadata",
+        metadata={
+            "database_id": database_id,
+            "len_documents_metadata": len(documents_metadata),
+        },
+    )
 
     return documents_metadata

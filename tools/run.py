@@ -8,6 +8,7 @@ from pipelines import (
     collect_notion_data,
     compute_rag_vector_index,
     etl,
+    etl_precomputed,
     generate_dataset,
 )
 
@@ -60,6 +61,12 @@ Examples:
     help="Whether to run the ETL pipeline.",
 )
 @click.option(
+    "--run-etl-precomputed-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the ETL precomputed pipeline.",
+)
+@click.option(
     "--run-generate-dataset-pipeline",
     is_flag=True,
     default=False,
@@ -77,12 +84,14 @@ def main(
     run_etl_pipeline: bool = False,
     run_generate_dataset_pipeline: bool = False,
     run_compute_rag_vector_index_pipeline: bool = False,
+    run_etl_precomputed_pipeline: bool = False,
 ) -> None:
     assert (
         run_collect_notion_data_pipeline
         or run_etl_pipeline
         or run_generate_dataset_pipeline
         or run_compute_rag_vector_index_pipeline
+        or run_etl_precomputed_pipeline
     ), "Please specify an action to run."
 
     pipeline_args: dict[str, Any] = {
@@ -109,6 +118,17 @@ def main(
         ].exists(), f"Config file not found: {pipeline_args['config_path']}"
         pipeline_args["run_name"] = f"etl_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         etl.with_options(**pipeline_args)(**run_args)
+
+    if run_etl_precomputed_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = root_dir / "configs" / "etl_precomputed.yaml"
+        assert pipeline_args[
+            "config_path"
+        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        pipeline_args["run_name"] = (
+            f"etl_precomputed_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        etl_precomputed.with_options(**pipeline_args)(**run_args)
 
     if run_generate_dataset_pipeline:
         run_args = {}
