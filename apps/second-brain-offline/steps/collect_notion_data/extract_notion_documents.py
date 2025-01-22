@@ -8,7 +8,7 @@ from second_brain_offline.infrastructure.notion import NotionDocumentClient
 @step
 def extract_notion_documents(
     documents_metadata: list[DocumentMetadata],
-) -> Annotated[list[Document], "documents"]:
+) -> Annotated[list[Document], "notion_documents"]:
     """Extract content from multiple Notion documents.
 
     Args:

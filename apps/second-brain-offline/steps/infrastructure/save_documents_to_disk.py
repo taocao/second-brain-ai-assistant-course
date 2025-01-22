@@ -4,14 +4,14 @@ from pathlib import Path
 from typing_extensions import Annotated
 from zenml import get_step_context, step
 
-from second_brain.domain import Document
+from second_brain_offline.domain import Document
 
 
 @step
 def save_documents_to_disk(
     documents: Annotated[list[Document], "documents"],
     output_dir: Path,
-) -> str:
+) -> Annotated[str, "output"]:
     if output_dir.exists():
         shutil.rmtree(output_dir)
     output_dir.mkdir(parents=True)
@@ -21,9 +21,9 @@ def save_documents_to_disk(
 
     step_context = get_step_context()
     step_context.add_output_metadata(
-        output_name="saved_documents",
+        output_name="output",
         metadata={
-            "len_documents": len(documents),
+            "count": len(documents),
         },
     )
 

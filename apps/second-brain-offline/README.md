@@ -12,18 +12,22 @@ To set it up and run
 
 ```bash
 uv venv .venv-offline
-. ./.venv-offline/bin/activate
+. ./.venv-offline/bin/activate # or source ./.venv-offline/bin/activate
 uv pip install -e .
 ```
 
-Crew4AI:
+Setup `Crew4AI` for crawling:
 ```bash
 # Run post-installation setup
+uv pip install -U "crawl4ai==0.4.247" # We have to upgrade crawl4ai to support these CLI commands (we couldn't add it to pyproject.toml due to ZenML version incompatibility with Pydantic).
 crawl4ai-setup
 
 # Verify your installation
 crawl4ai-doctor
 ```
+
+> [!IMPORTANT]
+> As crawling can often fail, both during installation and while running the crawling logic, you can skip the crawling step and use our pre-computed dataset. More on this in the [Running the ML pipelines / Lessons](#running-the-ml-pipelines--lessons) section.
 
 After running the doctor command, you should see something like this:
 ```console
@@ -36,14 +40,7 @@ After running the doctor command, you should see something like this:
 [COMPLETE] ● https://crawl4ai.com... | Status: True | Total: 3.92s
 [COMPLETE] ● ✅ Crawling test passed!
 ```
-
-## Development
-
-You can install in `editable` mode the library
-
-```bash
-uv pip install -e .
-```
+[More on installing Crawl4AI](https://docs.crawl4ai.com/core/installation/)
 
 
 ## Infrastructure

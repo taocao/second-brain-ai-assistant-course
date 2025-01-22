@@ -3,7 +3,7 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
-from second_brain import utils
+from second_brain_offline import utils
 
 
 class DocumentMetadata(BaseModel):

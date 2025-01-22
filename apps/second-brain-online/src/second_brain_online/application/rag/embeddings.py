@@ -62,3 +62,7 @@ class EmbeddingModelBuilder:
             The OpenAI embeddings model instance.
         """
         return self.__model
+
+
+def get_embedding_model() -> OpenAIEmbeddings:
+    return EmbeddingModelBuilder().get_model()

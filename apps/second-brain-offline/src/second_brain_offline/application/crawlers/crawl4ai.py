@@ -5,8 +5,8 @@ import psutil
 from crawl4ai import AsyncWebCrawler, CacheMode
 from loguru import logger
 
-from second_brain import utils
-from second_brain.domain import Document, DocumentMetadata
+from second_brain_offline import utils
+from second_brain_offline.domain import Document, DocumentMetadata
 
 
 class Crawl4AICrawler:
@@ -24,23 +24,27 @@ class Crawl4AICrawler:
         """
         self.max_concurrent_requests = max_concurrent_requests
 
-    def __call__(self, page: Document) -> list[Document]:
-        """Crawl a document's child URLs.
+    def __call__(self, pages: list[Document]) -> list[Document]:
+        """Crawl multiple documents' child URLs.
 
         Args:
-            page: Document containing child URLs to crawl.
+            pages: List of documents containing child URLs to crawl.
 
         Returns:
             list[Document]: List of new documents created from crawled child URLs.
         """
-        content = asyncio.run(self.__crawl(page))
-        return content
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            return asyncio.run(self.__crawl_batch(pages))
+        else:
+            return loop.run_until_complete(self.__crawl_batch(pages))
 
-    async def __crawl(self, page: Document) -> list[Document]:
-        """Asynchronously crawl all child URLs of a document.
+    async def __crawl_batch(self, pages: list[Document]) -> list[Document]:
+        """Asynchronously crawl all child URLs of multiple documents.
 
         Args:
-            page: Document containing child URLs to crawl.
+            pages: List of documents containing child URLs to crawl.
 
         Returns:
             list[Document]: List of new documents created from successfully crawled URLs.
@@ -53,36 +57,37 @@ class Crawl4AICrawler:
         )
 
         semaphore = asyncio.Semaphore(self.max_concurrent_requests)
+        all_results = []
 
         async with AsyncWebCrawler(cache_mode=CacheMode.BYPASS) as crawler:
-            tasks = [
-                self.__crawl_url(crawler, page, url, semaphore)
-                for url in page.child_urls
-            ]
-            results = await asyncio.gather(*tasks)
+            for page in pages:
+                tasks = [
+                    self.__crawl_url(crawler, page, url, semaphore)
+                    for url in page.child_urls
+                ]
+                results = await asyncio.gather(*tasks)
+                all_results.extend(results)
 
         end_mem = process.memory_info().rss
         crawling_memory_diff = end_mem - start_mem
         logger.debug(
             f"Crawl batch completed. "
             f"Final process memory usage: {end_mem // (1024 * 1024)} MB, "
-            f"Crawling memory usage: {crawling_memory_diff // (1024 * 1024)} MB"
+            f"Crawling memory diff: {crawling_memory_diff // (1024 * 1024)} MB"
         )
 
-        successful_results = [result for result in results if result is not None]
+        successful_results = [result for result in all_results if result is not None]
 
         success_count = len(successful_results)
-        failed_count = len(results) - success_count
-        total_count = len(results)
+        failed_count = len(all_results) - success_count
+        total_count = len(all_results)
         logger.info(
             f"Crawling completed: "
             f"{success_count}/{total_count} succeeded ✓ | "
             f"{failed_count}/{total_count} failed ✗"
         )
 
-        results = [result for result in results if result is not None]
-
-        return results
+        return successful_results
 
     async def __crawl_url(
         self,

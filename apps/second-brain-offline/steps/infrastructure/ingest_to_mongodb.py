@@ -1,12 +1,15 @@
 from loguru import logger
 from pydantic import BaseModel
+from typing_extensions import Annotated
 from zenml.steps import get_step_context, step
 
 from second_brain_offline.infrastructure.mongo.service import MongoDBService
 
 
 @step
-def ingest_to_mongodb(models: list[BaseModel], collection_name: str) -> None:
+def ingest_to_mongodb(
+    models: list[BaseModel], collection_name: str
+) -> Annotated[int, "output"]:
     """ZenML step to ingest documents into MongoDB.
 
     Args:
@@ -35,8 +38,10 @@ def ingest_to_mongodb(models: list[BaseModel], collection_name: str) -> None:
 
     step_context = get_step_context()
     step_context.add_output_metadata(
-        output_name="ingested_documents",
+        output_name="output",
         metadata={
-            "len_documents": count,
+            "count": count,
         },
     )
+
+    return count

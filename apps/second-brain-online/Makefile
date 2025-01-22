@@ -31,8 +31,11 @@ local-infrastructure-stop: local-docker-infrastructure-stop
 
 # --- Run ---
 
-run:
+run_app:
 	uv run python -m tools.app
+
+run_evaluate_app:
+	uv run python -m tools.evaluate_app
 
 
 # --- QA ---

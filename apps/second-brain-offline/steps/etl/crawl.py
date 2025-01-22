@@ -1,5 +1,5 @@
 from loguru import logger
-from tqdm import tqdm
+from typing_extensions import Annotated
 from zenml import get_step_context, step
 
 from second_brain_offline.application.crawlers import Crawl4AICrawler
@@ -7,7 +7,9 @@ from second_brain_offline.domain import Document
 
 
 @step
-def crawl(documents: list[Document], max_workers: int = 10) -> list[Document]:
+def crawl(
+    documents: list[Document], max_workers: int = 10
+) -> Annotated[list[Document], "crawled_documents"]:
     """Crawl pages and their child URLs.
 
     Args:
@@ -17,14 +19,11 @@ def crawl(documents: list[Document], max_workers: int = 10) -> list[Document]:
     Returns:
         list[Document]: List containing original documents plus newly crawled child documents.
     """
-
     crawler = Crawl4AICrawler(max_concurrent_requests=max_workers)
+    child_pages = crawler(documents)  # Process all documents in one batch
+
     augmented_pages = documents.copy()
-
-    for page in tqdm(documents, desc="Crawling child URLs of given documents."):
-        child_pages = crawler(page)
-        augmented_pages.extend(child_pages)
-
+    augmented_pages.extend(child_pages)
     augmented_pages = list(set(augmented_pages))
 
     logger.info(f"Before crawling, we had {len(documents)} documents.")

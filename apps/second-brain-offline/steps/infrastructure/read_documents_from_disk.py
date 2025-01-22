@@ -4,7 +4,7 @@ from loguru import logger
 from typing_extensions import Annotated
 from zenml.steps import get_step_context, step
 
-from second_brain.domain.document import Document
+from second_brain_offline.domain.document import Document
 
 
 @step
@@ -31,7 +31,7 @@ def read_documents_from_disk(
     step_context.add_output_metadata(
         output_name="documents",
         metadata={
-            "len_documents": len(pages),
+            "count": len(pages),
         },
     )
 
