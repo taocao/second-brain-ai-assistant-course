@@ -1,7 +1,7 @@
 [project]
-name = "second-brain-offline"
+name = "second-brain-online-course"
 version = "0.1.0"
-description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your second brain."
+description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your Notion second brain."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [

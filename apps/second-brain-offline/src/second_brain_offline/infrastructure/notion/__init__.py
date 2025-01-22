@@ -1,4 +1,4 @@
 from .database import NotionDatabaseClient
-from .page import NotionPageClient
+from .document import NotionDocumentClient
 
-__all__ = ["NotionDatabaseClient", "NotionPageClient"]
+__all__ = ["NotionDatabaseClient", "NotionDocumentClient"]

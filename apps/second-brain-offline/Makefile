@@ -10,7 +10,8 @@ export PYTHONPATH = .
 # --- Default Values ---
 
 CHECK_DIRS := .
-LOCAL_DATA_PATH := data
+NOTION_LOCAL_DATA_PATH := data/notion
+CRAWLED_LOCAL_DATA_PATH := data/crawled
 
 
 # --- Utilities ---
@@ -42,16 +43,25 @@ local-infrastructure-stop: local-docker-infrastructure-stop local-zenml-server-s
 
 # --- AWS ---
 
-s3-upload:  # Upload a local folder to S3
-	@echo "Uploading to S3 bucket: $(AWS_S3_BUCKET_NAME)"
-	uv run python -m tools.use_s3 upload $(LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix $(AWS_S3_PREFIX)
+s3-upload-raw-dataset:  # Upload raw Notion dataset from local folder to S3
+	@echo "Uploading raw Notion dataset to S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/notion"
+	uv run python -m tools.use_s3 upload $(NOTION_LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix second_brain_course/notion
 
-s3-download:  # Download from S3 to local folder using AWS 
-	@echo "Downloading from S3 bucket: $(AWS_S3_BUCKET_NAME)"
-	@echo "######### TRYING S3 at ..... |  $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip $(LOCAL_DATA_PATH)"
-	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) $(AWS_S3_PREFIX)/data.zip $(LOCAL_DATA_PATH)
+s3-download-raw-dataset:  # Download raw Notion dataset from S3 to local folder
+	@echo "Downloading raw Notion dataset from S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/notion/notion.zip"
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/notion/notion.zip $(NOTION_LOCAL_DATA_PATH)
 
-download-raw-dataset: s3-download
+s3-upload-crawled-dataset:  # Upload processed crawled dataset from local folder to S3
+	@echo "Uploading crawled dataset to S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/crawled"
+	uv run python -m tools.use_s3 upload $(CRAWLED_LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix second_brain_course/crawled
+
+s3-download-crawled-dataset:  # Download processed crawled dataset from S3 to local folder
+	@echo "Downloading crawled dataset from S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/crawled/crawled.zip"
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/crawled/crawled.zip $(CRAWLED_LOCAL_DATA_PATH)
+
+download-raw-dataset: s3-download-raw-dataset
+
+download-crawled-dataset: s3-download-crawled-dataset
 
 # --- Pipelines ---
 
@@ -60,6 +70,9 @@ collect-notion-data-pipeline:
 
 etl-pipeline:
 	uv run python -m tools.run --run-etl-pipeline --no-cache
+
+etl-precomputed-pipeline:
+	uv run python -m tools.run --run-etl-precomputed-pipeline --no-cache
 
 generate-dataset-pipeline:
 	uv run python -m tools.run --run-generate-dataset-pipeline --no-cache

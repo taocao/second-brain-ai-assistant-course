@@ -1,9 +1,7 @@
-from .extract_notion_pages import extract_notion_pages
-from .extract_notion_pages_metadata import extract_notion_pages_metadata
-from .save_notion_pages import save_notion_pages
+from .extract_notion_documents import extract_notion_documents
+from .extract_notion_documents_metadata import extract_notion_documents_metadata
 
 __all__ = [
-    "extract_notion_pages",
-    "extract_notion_pages_metadata",
-    "save_notion_pages",
+    "extract_notion_documents",
+    "extract_notion_documents_metadata",
 ]

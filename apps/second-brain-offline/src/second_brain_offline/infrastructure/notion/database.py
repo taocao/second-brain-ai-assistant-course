@@ -4,8 +4,8 @@ from typing import Any
 import requests
 from loguru import logger
 
-from second_brain_offline import settings
-from second_brain_offline.entities import PageMetadata
+from second_brain_offline.config import settings
+from second_brain_offline.domain import DocumentMetadata
 
 
 class NotionDatabaseClient:
@@ -24,11 +24,15 @@ class NotionDatabaseClient:
             api_key: Optional Notion API key. If not provided, will use settings.NOTION_SECRET_KEY.
         """
 
+        assert (
+            api_key is not None
+        ), "NOTION_SECRET_KEY environment variable is required. Set it in your .env file."
+
         self.api_key = api_key
 
     def query_notion_database(
         self, database_id: str, query_json: str | None = None
-    ) -> list[PageMetadata]:
+    ) -> list[DocumentMetadata]:
         """Query a Notion database and return its results.
 
         Args:
@@ -75,7 +79,7 @@ class NotionDatabaseClient:
 
         return [self.__build_page_metadata(page) for page in results]
 
-    def __build_page_metadata(self, page: dict[str, Any]) -> PageMetadata:
+    def __build_page_metadata(self, page: dict[str, Any]) -> DocumentMetadata:
         """Build a PageMetadata object from a Notion page dictionary.
 
         Args:
@@ -87,7 +91,15 @@ class NotionDatabaseClient:
         properties = self.__flatten_properties(page.get("properties", {}))
         title = properties.pop("Name")
 
-        return PageMetadata(
+        if page.get("parent"):
+            properties["parent"] = {
+                "id": page["parent"]["database_id"],
+                "url": "",
+                "title": "",
+                "properties": {},
+            }
+
+        return DocumentMetadata(
             id=page["id"], url=page["url"], title=title, properties=properties
         )
 
@@ -140,6 +152,8 @@ class NotionDatabaseClient:
                         "start": date_value.get("start"),
                         "end": date_value.get("end"),
                     }
+            elif prop_type == "database_id":
+                flattened[key] = value.get("database_id")
             else:
                 flattened[key] = value
 

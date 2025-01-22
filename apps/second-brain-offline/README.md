@@ -12,9 +12,35 @@ To set it up and run
 
 ```bash
 uv venv .venv-offline
-. ./.venv-offline/bin/activate
+. ./.venv-offline/bin/activate # or source ./.venv-offline/bin/activate
 uv pip install -e .
 ```
+
+Setup `Crew4AI` for crawling:
+```bash
+# Run post-installation setup
+uv pip install -U "crawl4ai==0.4.247" # We have to upgrade crawl4ai to support these CLI commands (we couldn't add it to pyproject.toml due to ZenML version incompatibility with Pydantic).
+crawl4ai-setup
+
+# Verify your installation
+crawl4ai-doctor
+```
+
+> [!IMPORTANT]
+> As crawling can often fail, both during installation and while running the crawling logic, you can skip the crawling step and use our pre-computed dataset. More on this in the [Running the ML pipelines / Lessons](#running-the-ml-pipelines--lessons) section.
+
+After running the doctor command, you should see something like this:
+```console
+[INIT].... → Running Crawl4AI health check...
+[INIT].... → Crawl4AI 0.4.247
+[TEST].... ℹ Testing crawling capabilities...
+[EXPORT].. ℹ Exporting PDF and taking screenshot took 0.84s
+[FETCH]... ↓ https://crawl4ai.com... | Status: True | Time: 3.91s
+[SCRAPE].. ◆ Processed https://crawl4ai.com... | Time: 11ms
+[COMPLETE] ● https://crawl4ai.com... | Status: True | Total: 3.92s
+[COMPLETE] ● ✅ Crawling test passed!
+```
+[More on installing Crawl4AI](https://docs.crawl4ai.com/core/installation/)
 
 
 ## Infrastructure
@@ -23,15 +49,19 @@ uv pip install -e .
 make local-infrastructure-up
 ```
 
+## Running the ML pipelines / Lessons
 
-## Run ZenML pipelines
-
-### Notion (optionl)
+## Optional - Collect custom Notion data
 ```bash
 make collect-notion-data-pipeline   
 ```
 
-### Populate MongoDB vector index
+### Lesson 1
+
+NO CODE
+
+
+### Lesson 2: Populate MongoDB NoSQL and vector database
 
 ```bash
 make download-raw-dataset
@@ -42,27 +72,38 @@ make compute-rag-vector-index-pipeline
 # Validate using test: make test-rag-vector-index-pipeline
 ```
 
-## Formatting
+Or if you have issues with crawling, you can use our pre-computed dataset to populate MongoDB:
+```bash
+make download-crawled-dataset
+make etl-precomputed-pipeline
+make compute-rag-vector-index-pipeline
+```
+
+## Utility commands
+
+### Formatting
 
 ```
 make format-check
 make format-fix
 ```
 
-## Linting
+### Linting
 
 ```bash
 make lint-check
 make lint-fix
 ```
 
-## Tests
+### Tests
 
 ```bash
 make test
 ```
 
-## Notion
+## Others
+
+### Notion
 
 1. Go to [https://www.notion.so/profile].
 2. Create an integration following [this tutorial](https://developers.notion.com/docs/authorization).

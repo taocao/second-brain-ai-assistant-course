@@ -1,26 +1,40 @@
-from typing import Dict, List
+from typing import Generic, Type, TypeVar
 
 from bson import ObjectId
 from loguru import logger
+from pydantic import BaseModel
 from pymongo import MongoClient, errors
 
 from second_brain_offline.config import settings
 
+T = TypeVar("T", bound=BaseModel)
 
-class MongoDBService:
+
+class MongoDBService(Generic[T]):
     """Service class for MongoDB operations, supporting ingestion, querying, and validation.
 
     This class provides methods to interact with MongoDB collections, including document
     ingestion, querying, and validation operations.
 
+    Args:
+        model: The Pydantic model class to use for document serialization.
+        collection_name: Name of the MongoDB collection to use.
+        database_name: Name of the MongoDB database to use.
+        mongodb_uri: URI for connecting to MongoDB instance.
+
     Attributes:
-        client (MongoClient): MongoDB client instance for database connections.
-        database (Database): Reference to the target MongoDB database.
-        collection (Collection): Reference to the target MongoDB collection.
+        model: The Pydantic model class used for document serialization.
+        collection_name: Name of the MongoDB collection.
+        database_name: Name of the MongoDB database.
+        mongodb_uri: MongoDB connection URI.
+        client: MongoDB client instance for database connections.
+        database: Reference to the target MongoDB database.
+        collection: Reference to the target MongoDB collection.
     """
 
     def __init__(
         self,
+        model: Type[T],
         collection_name: str,
         database_name: str = settings.MONGODB_DATABASE_NAME,
         mongodb_uri: str = settings.MONGODB_URI,
@@ -29,6 +43,7 @@ class MongoDBService:
 
         Args:
             collection_name: Name of the MongoDB collection to use.
+            model_class: The Pydantic model class to use for document serialization.
             database_name: Name of the MongoDB database to use.
                 Defaults to value from settings.
             mongodb_uri: URI for connecting to MongoDB instance.
@@ -38,6 +53,7 @@ class MongoDBService:
             Exception: If connection to MongoDB fails.
         """
 
+        self.model = model
         self.collection_name = collection_name
         self.database_name = database_name
         self.mongodb_uri = mongodb_uri
@@ -61,6 +77,7 @@ class MongoDBService:
         Returns:
             MongoDBService: The current instance.
         """
+
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
@@ -93,33 +110,36 @@ class MongoDBService:
             logger.error(f"Error clearing the collection: {e}")
             raise
 
-    def ingest_documents(self, documents: List[Dict]) -> None:
+    def ingest_documents(self, documents: list[T]) -> None:
         """Insert multiple documents into the MongoDB collection.
 
         Args:
-            documents: List of document dictionaries to insert.
-                Each dictionary represents a single document.
+            documents: List of Pydantic model instances to insert.
 
         Raises:
-            ValueError: If documents is empty or contains non-dictionary items.
+            ValueError: If documents is empty or contains non-Pydantic model items.
             errors.PyMongoError: If the insertion operation fails.
         """
 
         try:
-            if not documents or not all(isinstance(doc, dict) for doc in documents):
-                raise ValueError("Documents must be a list of dictionaries.")
+            if not documents or not all(
+                isinstance(doc, BaseModel) for doc in documents
+            ):
+                raise ValueError("Documents must be a list of Pycantic models.")
+
+            dict_documents = [doc.model_dump() for doc in documents]
 
             # Remove '_id' fields to avoid duplicate key errors
-            for doc in documents:
+            for doc in dict_documents:
                 doc.pop("_id", None)
 
-            self.collection.insert_many(documents)
+            self.collection.insert_many(dict_documents)
             logger.debug(f"Inserted {len(documents)} documents into MongoDB.")
         except errors.PyMongoError as e:
             logger.error(f"Error inserting documents: {e}")
             raise
 
-    def fetch_documents(self, limit: int, query: Dict) -> List[Dict]:
+    def fetch_documents(self, limit: int, query: dict) -> list[T]:
         """Retrieve documents from the MongoDB collection based on a query.
 
         Args:
@@ -127,39 +147,44 @@ class MongoDBService:
             query: MongoDB query filter to apply.
 
         Returns:
-            List of documents matching the query, with ObjectIds converted to strings.
+            List of Pydantic model instances matching the query criteria.
 
         Raises:
             Exception: If the query operation fails.
         """
-
         try:
             documents = list(self.collection.find(query).limit(limit))
             logger.debug(f"Fetched {len(documents)} documents with query: {query}")
-            return self.convert_objectid_to_str(documents)
+            return self.__parse_documents(documents)
         except Exception as e:
             logger.error(f"Error fetching documents: {e}")
             raise
 
-    @staticmethod
-    def convert_objectid_to_str(documents: List[Dict]) -> List[Dict]:
-        """Convert MongoDB ObjectId fields to string format.
+    def __parse_documents(self, documents: list[dict]) -> list[T]:
+        """Convert MongoDB documents to Pydantic model instances.
 
-        This method is used to prepare documents for JSON serialization by converting
-        any ObjectId values to their string representation.
+        Converts MongoDB ObjectId fields to strings and transforms the document structure
+        to match the Pydantic model schema.
 
         Args:
-            documents: List of MongoDB documents potentially containing ObjectId fields.
+            documents: List of MongoDB documents to parse.
 
         Returns:
-            Same documents with ObjectId fields converted to strings.
+            List of validated Pydantic model instances.
         """
-
+        parsed_documents = []
         for doc in documents:
             for key, value in doc.items():
                 if isinstance(value, ObjectId):
                     doc[key] = str(value)
-        return documents
+
+            _id = doc.pop("_id", None)
+            doc["id"] = _id
+
+            parsed_doc = self.model.model_validate(doc)
+            parsed_documents.append(parsed_doc)
+
+        return parsed_documents
 
     def get_collection_count(self) -> int:
         """Count the total number of documents in the collection.
@@ -175,28 +200,6 @@ class MongoDBService:
             return self.collection.count_documents({})
         except errors.PyMongoError as e:
             logger.error(f"Error counting documents in MongoDB: {e}")
-            raise
-
-    def verify_genre(self, genre: str) -> int:
-        """Count documents matching a specific genre using case-insensitive matching.
-
-        Args:
-            genre: Genre string to search for.
-
-        Returns:
-            Number of documents containing the specified genre.
-
-        Raises:
-            errors.PyMongoError: If the query operation fails.
-        """
-
-        query = {"genres": {"$regex": f"^{genre}$", "$options": "i"}}
-        try:
-            count = self.collection.count_documents(query)
-            logger.info(f"Found {count} documents for genre '{genre}'.")
-            return count
-        except errors.PyMongoError as e:
-            logger.error(f"Error verifying genre '{genre}': {e}")
             raise
 
     def close(self) -> None:

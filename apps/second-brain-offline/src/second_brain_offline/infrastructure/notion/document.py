@@ -1,7 +1,7 @@
 import requests
 from loguru import logger
 
-from second_brain_offline import settings
+from second_brain_offline.config import settings
 from second_brain_offline.domain import Document, DocumentMetadata
 
 

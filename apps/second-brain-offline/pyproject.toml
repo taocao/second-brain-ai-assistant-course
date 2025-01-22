@@ -1,7 +1,7 @@
 [project]
-name = "second_brain_course"
+name = "second-brain-offline-course"
 version = "0.1.0"
-description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your second brain."
+description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your Notion second brain."
 readme = "README.md"
 authors = [
     {name = "Paul Iusztin", email = "p.b.iusztin@gmail.com"},
@@ -15,12 +15,13 @@ dependencies = [
     "pydantic>=2.8.2",
     "pydantic-settings>=2.7.0",
     "pymongo>=4.4.0",
-    "zenml[server]>=0.72.0",
+    "zenml[server]>=0.73.0",
     "boto3>=1.36.0",
     "langchain>=0.3.14",
     "langchain-mongodb>=0.4.0",
     "langchain-openai>=0.3.0",
     "ipykernel>=6.29.5",
+    "crawl4ai>=0.3.745",
 ]
 
 [dependency-groups]
