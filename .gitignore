@@ -133,6 +133,8 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.venv-offline
+.venv-online
 env/
 venv/
 ENV/
@@ -172,6 +174,7 @@ cython_debug/
 
 # VSCode
 .vscode/
+*.code-workspace
 
 # PyPI configuration file
 .pypirc
