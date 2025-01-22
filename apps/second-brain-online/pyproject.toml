@@ -1,0 +1,46 @@
+[project]
+name = "second-brain-offline"
+version = "0.1.0"
+description = "Self-paced course on production LLMs and RAG by teaching you how to build an AI assistant on top of your second brain."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [
+    {name = "Paul Iusztin", email = "p.b.iusztin@gmail.com"},
+    {name = "Ernesto Larios", email = "elsoloscuro@hotmail.com"},
+]
+license = { text = "MIT" }
+
+dependencies = [
+    "loguru>=0.7.3",
+    "pydantic>=2.8.2",
+    "pydantic-settings>=2.7.0",
+    "pymongo>=4.10.1",
+    "boto3>=1.36.0",
+    "langchain>=0.3.14",
+    "langchain-mongodb>=0.4.0",
+    "langchain-openai>=0.3.1",
+    "langchain-core>=0.3.30",
+    "gradio>=5.12.0",
+    "smolagents>=1.4.1",
+    "opik>=0.1.0",
+    "comet_ml>=3.47.6",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "ruff>=0.7.2",
+]
+
+[tool.pip]
+extra-index-url = "https://download.pytorch.org/whl/cpu/torch_stable.html"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/second_brain_online"]
+
+[tool.ruff]
+target-version = "py311"
