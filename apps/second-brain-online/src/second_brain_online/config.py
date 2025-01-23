@@ -1,6 +1,3 @@
-import os
-from typing import Optional
-
 from loguru import logger
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,43 +14,54 @@ class Settings(BaseSettings):
     )
 
     # --- AWS Configuration ---
-    AWS_ACCESS_KEY: Optional[str] = None  # AWS access key for authentication.
-    AWS_SECRET_KEY: Optional[str] = None  # AWS secret key for authentication.
-    AWS_CROSS_ACCOUNT_ROLE_ARN: Optional[str] = (
-        None  # ARN for AWS cross-account access role.
+    AWS_ACCESS_KEY: str | None = Field(
+        default=None, description="AWS access key for authentication."
+    )
+    AWS_SECRET_KEY: str | None = Field(
+        default=None, description="AWS secret key for authentication."
+    )
+    AWS_CROSS_ACCOUNT_ROLE_ARN: str | None = Field(
+        default=None, description="ARN for AWS cross-account access role."
+    )
+    AWS_DEFAULT_REGION: str = Field(
+        default="eu-central-1", description="AWS region for cloud services."
+    )
+    AWS_S3_BUCKET_NAME: str = Field(
+        default="decodingml-public-data",
+        description="Name of the S3 bucket for storing application data.",
+    )
+    AWS_S3_NOSIGN_REQUEST: bool = Field(
+        default=False,
+        description="Flag to enable unauthenticated S3 bucket access. If True, bypasses AWS authentication.",
     )
 
-    AWS_DEFAULT_REGION: str = "eu-central-1"  # AWS region for cloud services.
-    AWS_S3_BUCKET_NAME: str = (
-        "decodingml-public-data"  # Name of the S3 bucket for storing application data.
+    # --- Comet ML & Opik Configuration ---
+    COMET_API_KEY: str | None = Field(
+        default=None, description="API key for Comet ML and Opik services."
+    )
+    COMET_PROJECT: str = Field(
+        default="second_brain_course",
+        description="Project name for Comet ML and Opik tracking.",
     )
 
-    # --- CometML Configuration ---
-    COMET_API_KEY: Optional[str] = None  # API key for CometML integration.
-    COMET_PROJECT_NAME: str = "twin"  # CometML project name for tracking experiments.
-
-    # --- Enable Flags ---
-    ENABLE_OFFLINE_MODE: bool = Field(
-        True, description="Flag to enable offline mode (disables online ingestion)."
+    # --- Flags ---
+    IS_OFFLINE_MODE: bool = Field(
+        default=True,
+        description="Flag to enable offline mode (disables online/cloud services).",
     )
-
-    # --- GROQ Configuration ---
-    GROQ_API_KEY: Optional[str] = None  # API key for accessing GROQ services.
-
-    # Comet ML (during training)
-    COMET_API_KEY: str | None = None
-    COMET_PROJECT: str = "second_brain_course"
 
     # --- Hugging Face Configuration ---
-    HUGGINGFACE_ACCESS_TOKEN: Optional[str] = None  # Token for Hugging Face API.
+    HUGGINGFACE_ACCESS_TOKEN: str | None = Field(
+        default=None, description="Access token for Hugging Face API authentication."
+    )
 
     # --- MongoDB Atlas Configuration ---
-    MONGODB_DATABASE_NAME: str = "second_brain"
+    MONGODB_DATABASE_NAME: str = Field(
+        default="second_brain_course",
+        description="Name of the MongoDB database.",
+    )
     MONGODB_OFFLINE_URI: str = Field(
-        default_factory=lambda: os.getenv(
-            "MONGODB_OFFLINE_URI",
-            "mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
-        ),
+        default="mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
         description="Connection URI for the local MongoDB Atlas instance.",
     )
     MONGODB_ONLINE_URI: str | None = Field(
@@ -62,28 +70,44 @@ class Settings(BaseSettings):
     )
 
     # --- Notion API Configuration ---
-    NOTION_SECRET_KEY: str  # Secret key for accessing Notion API.
+    NOTION_SECRET_KEY: str | None = Field(
+        default=None, description="Secret key for Notion API authentication."
+    )
+
+    # --- Groq Configuration ---
+    GROQ_API_KEY: str | None = Field(
+        default=None, description="API key for Groq service authentication."
+    )
 
     # --- OpenAI API Configuration ---
-    OPENAI_API_KEY: str  # API key for accessing OpenAI services.
-    OPENAI_MODEL_ID: str = "gpt-4o-mini"  # Model identifier for OpenAI.
+    OPENAI_API_KEY: str = Field(
+        description="API key for OpenAI service authentication.",
+    )
+    OPENAI_MODEL_ID: str = Field(
+        default="gpt-4o-mini", description="Identifier for the OpenAI model to be used."
+    )
 
     # --- RAG Configuration ---
-    TEXT_EMBEDDING_MODEL_ID: str = "text-embedding-3-small"
-    RAG_MODEL_DEVICE: str = "cpu"
+    TEXT_EMBEDDING_MODEL_ID: str = Field(
+        default="text-embedding-3-small",
+        description="Model identifier for text embedding generation.",
+    )
+    RAG_MODEL_DEVICE: str = Field(
+        default="cpu",
+        description="Device to run RAG models on (cpu/cuda).",
+    )
 
     @property
     def MONGODB_URI(self) -> str:
         """
         Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
         """
-
-        if self.ENABLE_OFFLINE_MODE is True:
+        if self.IS_OFFLINE_MODE is True:
             return self.MONGODB_OFFLINE_URI
 
-        assert (
-            self.MONGODB_ONLINE_URI is not None
-        ), "MONGODB_ONLINE_URI is not set, while ENABLE_OFFLINE_MODE is False."
+        assert self.MONGODB_ONLINE_URI is not None, (
+            "MONGODB_ONLINE_URI is not set, while ENABLE_OFFLINE_MODE is False."
+        )
 
         return self.MONGODB_ONLINE_URI
 
@@ -92,7 +116,6 @@ class Settings(BaseSettings):
         """
         Calculates the maximum token window for the configured OpenAI model. Returns 90% of the token limit for safety margin.
         """
-
         model_token_limits = {
             "gpt-3.5-turbo": 16385,
             "gpt-4-turbo": 128000,
@@ -101,9 +124,7 @@ class Settings(BaseSettings):
         }
         return int(model_token_limits.get(self.OPENAI_MODEL_ID, 128000) * 0.90)
 
-    @field_validator(
-        "OPENAI_API_KEY",
-    )
+    @field_validator("OPENAI_API_KEY")
     @classmethod
     def check_not_empty(cls, value: str, info) -> str:
         if not value or value.strip() == "":
