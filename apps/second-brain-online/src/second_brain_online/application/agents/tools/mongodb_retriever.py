@@ -34,7 +34,7 @@ class MongoDBRetrieverTool(Tool):
     @track(name="MongoDBRetrieverTool.forward")
     def forward(self, query: str) -> str:
         opik_context.update_current_trace(
-            tags=["rag"],
+            tags=["agent"],
             metadata={
                 "search": self.retriever.search_kwargs,
                 "embedding_model_id": self.retriever.vectorstore.embeddings.model,
@@ -50,11 +50,21 @@ class MongoDBRetrieverTool(Tool):
                 formatted_docs.append(
                     f"""
 <document id="{i}">
-{doc.page_content.strip()}
-</document>"""
+<title>{doc.metadata.get("title")}</title>
+<url>{doc.metadata.get("url")}</url>
+<content>{doc.page_content.strip()}</content>
+</document>
+"""
                 )
 
-            return "\n".join(["<search_results>", *formatted_docs, "</search_results>"])
+            result = "\n".join(formatted_docs)
+            result = f"""
+<search_results>
+{result}
+</search_results>
+When using context from any document, also include the document URL as reference, which is found in the <url> tag.
+"""
+            return result
         except Exception:
             logger.opt(exception=True).debug("Error retrieving documents.")
 

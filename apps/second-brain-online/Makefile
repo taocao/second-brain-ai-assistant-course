@@ -31,10 +31,13 @@ local-infrastructure-stop: local-docker-infrastructure-stop
 
 # --- Run ---
 
-run_app:
-	uv run python -m tools.app
+run_agent_app:
+	uv run python -m tools.app --ui
 
-run_evaluate_app:
+run_agent_query:
+	uv run python -m tools.app --query "What is the feature/training/inference (FTI) pipelines architecture?"
+
+evaluate_agent:
 	uv run python -m tools.evaluate_app
 
 

@@ -1,4 +1,4 @@
-import json
+from typing import Any
 
 import opik
 from opik import opik_context
@@ -41,31 +41,26 @@ class AgentWrapper:
         return cls(agent)
 
     @opik.track(name="Agent.run")
-    def run(self, task: str, **kwargs) -> str:
+    def run(self, task: str, **kwargs) -> Any:
         result = self.__agent.run(task, **kwargs)
 
         model = self.__agent.model
+        metadata = {
+            "system_prompt": self.__agent.system_prompt,
+            "system_prompt_template": self.__agent.system_prompt_template,
+            "tool_description_template": self.__agent.tool_description_template,
+            "tools": self.__agent.tools,
+            "model_id": self.__agent.model.model_id,
+            "api_base": self.__agent.model.api_base,
+            "input_token_count": model.last_input_token_count,
+            "output_token_count": model.last_output_token_count,
+        }
+        if hasattr(self.__agent, "step_number"):
+            metadata["step_number"] = self.__agent.step_number
         opik_context.update_current_trace(
             tags=["agent"],
-            metadata={
-                "system_prompt": self.__agent.system_prompt,
-                "system_prompt_template": self.__agent.system_prompt_template,
-                "tool_description_template": self.__agent.tool_description_template,
-                "tools": self.__agent.tools,
-                "model_id": self.__agent.model.model_id,
-                "api_base": self.__agent.model.api_base,
-                "step_number": self.__agent.step_number,
-                "embedding_model_id": settings.TEXT_EMBEDDING_MODEL_ID,
-                "input_token_count": model.last_input_token_count,
-                "output_token_count": model.last_output_token_count,
-            },
+            metadata=metadata,
         )
-
-        return self.__parse_result(result)
-
-    @opik.track(name="Agent.parse_result")
-    def __parse_result(self, result: str) -> str:
-        result = json.loads(result)
 
         return result
 
