@@ -33,7 +33,9 @@ class EmbeddingModelBuilder:
         self._model_id = model_id
         self._device = device
 
-        self.__model = OpenAIEmbeddings(model=self._model_id)
+        self.__model = OpenAIEmbeddings(
+            model=self._model_id, allowed_special={"<|endoftext|>"}
+        )
 
     @property
     def model_id(self) -> str:
@@ -62,3 +64,7 @@ class EmbeddingModelBuilder:
             The OpenAI embeddings model instance.
         """
         return self.__model
+
+
+def get_embedding_model() -> OpenAIEmbeddings:
+    return EmbeddingModelBuilder().get_model()

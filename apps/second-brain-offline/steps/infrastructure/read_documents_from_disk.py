@@ -16,7 +16,7 @@ def read_documents_from_disk(
     logger.info(f"Reading documents from '{data_directory}'")
 
     if not data_directory.exists():
-        raise FileNotFoundError(f"Directory not found: {data_directory}")
+        raise FileNotFoundError(f"Directory not found: '{data_directory}'")
 
     json_files = __get_json_files(
         data_directory=data_directory, nesting_level=nesting_level

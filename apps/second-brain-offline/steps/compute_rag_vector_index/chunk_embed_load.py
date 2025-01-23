@@ -5,12 +5,11 @@ from langchain_core.documents import Document as LangChainDocument
 from langchain_mongodb.retrievers import (
     MongoDBAtlasParentDocumentRetriever,
 )
+from loguru import logger
 from tqdm import tqdm
 from zenml.steps import step
 
-from second_brain_offline.application.rag import get_splitter
-from second_brain_offline.application.rag.embeddings import EmbeddingModelBuilder
-from second_brain_offline.config import settings
+from second_brain_offline.application.rag import get_retriever
 from second_brain_offline.domain import Document
 from second_brain_offline.infrastructure.mongo import MongoDBService, MongoDBVectorIndex
 
@@ -22,17 +21,7 @@ def chunk_embed_load(
     processing_batch_size: int,
     processing_max_workers: int,
 ) -> None:
-    embedding_model = EmbeddingModelBuilder().get_model()
-    parent_doc_retriever = MongoDBAtlasParentDocumentRetriever.from_connection_string(
-        connection_string=settings.MONGODB_URI,
-        embedding_model=embedding_model,
-        child_splitter=get_splitter(200),
-        parent_splitter=get_splitter(800),
-        database_name=settings.MONGODB_DATABASE_NAME,
-        collection_name=collection_name,
-        text_key="page_content",
-        search_kwargs={"k": 10},
-    )
+    retriever = get_retriever()
 
     with MongoDBService(
         model=Document, collection_name=collection_name
@@ -46,7 +35,7 @@ def chunk_embed_load(
             for page in pages
         ]
         process_docs(
-            parent_doc_retriever,
+            retriever,
             docs,
             batch_size=processing_batch_size,
             max_workers=processing_max_workers,
@@ -123,5 +112,8 @@ def process_batch(
         batch: List of documents to ingest in this batch.
     """
 
-    parent_doc_retriever.add_documents(batch)
-    print(f"Processed {len(batch)} documents")
+    try:
+        parent_doc_retriever.add_documents(batch)
+        logger.info(f"Successfully processed {len(batch)} documents")
+    except Exception:
+        logger.warning(f"Error processing batch of {len(batch)} documents")
