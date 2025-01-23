@@ -37,6 +37,7 @@ def evaluate_agent(prompts: list[str]) -> None:
         "embedding_model": settings.TEXT_EMBEDDING_MODEL_ID,
         "agent_config": {"max_steps": 3},
     }
+    # TODO: We could also write a custom metric that checks for references to the context.
     scoring_metrics = [Hallucination(), AnswerRelevance(), Moderation()]
 
     if dataset:

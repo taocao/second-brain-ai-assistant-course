@@ -31,8 +31,7 @@ class AgentWrapper:
         )
 
         agent = ToolCallingAgent(
-            # tools=[retriever_tool, what_can_i_do, summarizer_tool],
-            tools=[retriever_tool, what_can_i_do],
+            tools=[retriever_tool, what_can_i_do, summarizer_tool],
             model=model,
             max_steps=3,
             verbosity_level=2,
