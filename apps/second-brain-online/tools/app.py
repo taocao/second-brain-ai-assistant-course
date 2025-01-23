@@ -1,7 +1,7 @@
 ### IMPORTS: Core dependencies and type hints
 
 
-from second_brain_online.application.agents import get_agent
+from second_brain_online.application.agents import extract_tool_responses, get_agent
 
 # @track
 # def process_query_with_agent(question: str) -> Tuple[str, str]:
@@ -72,7 +72,10 @@ from second_brain_online.application.agents import get_agent
 if __name__ == "__main__":
     # demo = create_gradio_interface()
     # demo.launch()
-    from smolagents import GradioUI
 
     agent = get_agent()
-    GradioUI(agent).launch()
+    result = agent.run(
+        "What is the feature/training/inference (FTI) pipelines architecture?"
+    )
+    print(result)
+    # GradioUI(agent).launch()

@@ -1,6 +1,8 @@
+import opik
 from smolagents import tool
 
 
+@opik.track(name="what_can_i_do")
 @tool
 def what_can_i_do(question: str) -> str:
     """

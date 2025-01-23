@@ -1,5 +1,7 @@
+import json
+
 from loguru import logger
-from opik import track
+from opik import opik_context, track
 from smolagents import Tool
 
 from second_brain_online.application.rag import get_retriever
@@ -29,13 +31,22 @@ class MongoDBRetrieverTool(Tool):
 
         self.retriever = get_retriever()
 
-    @track
+    @track(name="MongoDBRetrieverTool.forward")
     def forward(self, query: str) -> str:
+        opik_context.update_current_trace(
+            tags=["rag"],
+            metadata={
+                "search": self.retriever.search_kwargs,
+                "embedding_model_id": self.retriever.vectorstore.embeddings.model,
+            },
+        )
+
         try:
-            raw_docs = self.retriever.invoke(query)
+            query = self.__parse_query(query)
+            relevant_docs = self.retriever.invoke(query)
 
             formatted_docs = []
-            for i, doc in enumerate(raw_docs, 1):
+            for i, doc in enumerate(relevant_docs, 1):
                 formatted_docs.append(
                     f"""
 <document id="{i}">
@@ -48,3 +59,9 @@ class MongoDBRetrieverTool(Tool):
             logger.opt(exception=True).debug("Error retrieving documents.")
 
             return "Error retrieving documents."
+
+    @track(name="MongoDBRetrieverTool.parse_query")
+    def __parse_query(self, query: str) -> str:
+        query_dict = json.loads(query)
+
+        return query_dict["query"]
