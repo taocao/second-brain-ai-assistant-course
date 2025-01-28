@@ -4,6 +4,7 @@ import os
 import psutil
 from litellm import acompletion
 from loguru import logger
+from tqdm.asyncio import tqdm
 
 from second_brain_offline.domain import Document
 
@@ -22,21 +23,20 @@ class SummarizationAgent:
         max_concurrent_requests: Maximum number of concurrent API requests.
     """
 
-    SYSTEM_PROMPT = """You are a helpful assistant specialized in summarizing documents.
+    SYSTEM_PROMPT_TEMPLATE = """You are a helpful assistant specialized in summarizing documents.
 Your task is to create a clear, concise TL;DR summary in markdown format.
 Things to keep in mind while summarizing:
-- titles of sections and sub-sections should be kept
+- titles of sections and sub-sections
 - tags such as Generative AI, LLMs, etc.
 - entities such as persons, organizations, processes, people, etc.
 - the style such as the type, sentiment and writing style of the document
 - the main findings and insights while preserving key information and main ideas
 - ignore any irrelevant information such as cookie policies, privacy policies, HTTP errors,etc.
-"""
 
-    USER_PROMPT_TEMPLATE = """Document content:
+Document content:
 {content}
 
-Generate a concise TL;DR summary having a maximum of 1000 characters of the key findings from the provided documents, highlighting the most significant insights and implications.
+Generate a concise TL;DR summary having a maximum of {characters} characters of the key findings from the provided documents, highlighting the most significant insights and implications.
 Return the document in markdown format regardless of the original format.
 """
 
@@ -89,19 +89,35 @@ Return the document in markdown format regardless of the original format.
         Returns:
             list[Document]: Documents with generated summaries.
         """
-
         process = psutil.Process(os.getpid())
         start_mem = process.memory_info().rss
+        total_docs = len(documents)
         logger.debug(
             f"Starting summarization batch with {self.max_concurrent_requests} concurrent requests. "
             f"Current process memory usage: {start_mem // (1024 * 1024)} MB"
         )
 
-        semaphore = asyncio.Semaphore(self.max_concurrent_requests)
-        tasks = [
-            self.__summarize(document, semaphore, temperature) for document in documents
+        summarized_documents = await self.__process_batch(
+            documents, temperature, await_time_seconds=7
+        )
+        documents_with_summaries = [
+            result for result in summarized_documents if result is not None
         ]
-        results = await asyncio.gather(*tasks)
+        documents_without_summaries = [
+            doc for doc in documents if doc not in documents_with_summaries
+        ]
+
+        # Retry failed documents with increased await time
+        if documents_without_summaries:
+            logger.info(
+                f"Retrying {len(documents_without_summaries)} failed documents with increased await time..."
+            )
+            retry_results = await self.__process_batch(
+                documents_without_summaries, temperature, await_time_seconds=20
+            )
+            documents_with_summaries += [
+                result for result in retry_results if result is not None
+            ]
 
         end_mem = process.memory_info().rss
         memory_diff = end_mem - start_mem
@@ -111,25 +127,54 @@ Return the document in markdown format regardless of the original format.
             f"Memory diff: {memory_diff // (1024 * 1024)} MB"
         )
 
-        successful_results = [result for result in results if result is not None]
-
-        success_count = len(successful_results)
-        failed_count = len(results) - success_count
-        total_count = len(results)
+        success_count = len(documents_with_summaries)
+        failed_count = total_docs - success_count
         logger.info(
             f"Summarization completed: "
-            f"{success_count}/{total_count} succeeded ✓ | "
-            f"{failed_count}/{total_count} failed ✗"
+            f"{success_count}/{total_docs} succeeded ✓ | "
+            f"{failed_count}/{total_docs} failed ✗"
         )
 
-        return successful_results
+        return documents_with_summaries
+
+    async def __process_batch(
+        self, documents: list[Document], temperature: float, await_time_seconds: int
+    ) -> list[Document]:
+        """Process a batch of documents with specified await time.
+
+        Args:
+            documents: List of documents to summarize.
+            temperature: Temperature for the summarization model.
+            await_time_seconds: Time to wait between requests.
+        Returns:
+            list[Document]: Processed documents with summaries.
+        """
+        semaphore = asyncio.Semaphore(self.max_concurrent_requests)
+        tasks = [
+            self.__summarize(
+                document, semaphore, temperature, await_time_seconds=await_time_seconds
+            )
+            for document in documents
+        ]
+        results = []
+        for coro in tqdm(
+            asyncio.as_completed(tasks),
+            total=len(documents),
+            desc="Processing documents",
+            unit="doc",
+        ):
+            result = await coro
+            results.append(result)
+
+        return results
 
     async def __summarize(
         self,
         document: Document,
         semaphore: asyncio.Semaphore | None = None,
         temperature: float = 0.0,
-    ) -> Document | None:
+        await_time_seconds: int = 2,
+    ) -> Document:
         """Generate a summary for a single document.
 
         Args:
@@ -143,30 +188,31 @@ Return the document in markdown format regardless of the original format.
             return document.add_summary("This is a mock summary")
 
         async def process_document():
-            user_prompt = self.USER_PROMPT_TEMPLATE.format(
-                characters=self.max_characters, content=document.content
-            )
             try:
                 response = await acompletion(
                     model=self.model_id,
                     messages=[
-                        {"role": "system", "content": self.SYSTEM_PROMPT},
-                        {"role": "user", "content": user_prompt},
+                        {
+                            "role": "system",
+                            "content": self.SYSTEM_PROMPT_TEMPLATE.format(
+                                characters=self.max_characters, content=document.content
+                            ),
+                        },
                     ],
                     stream=False,
                     temperature=temperature,
                 )
-                await asyncio.sleep(1)  # Rate limiting
+                await asyncio.sleep(await_time_seconds)  # Rate limiting
 
                 if not response.choices:
                     logger.warning(f"No summary generated for document {document.id}")
-                    return None
+                    return document
 
                 summary: str = response.choices[0].message.content
                 return document.add_summary(summary)
             except Exception as e:
                 logger.warning(f"Failed to summarize document {document.id}: {str(e)}")
-                return None
+                return document
 
         if semaphore:
             async with semaphore:

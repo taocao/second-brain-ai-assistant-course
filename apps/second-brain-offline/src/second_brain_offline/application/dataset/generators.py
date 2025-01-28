@@ -15,13 +15,17 @@ class SummarizationDatasetGenerator:
     language model. The resulting dataset can be split into training, validation,
     and test sets.
 
-    Attributes:
+    Args:
         summarization_model: Name/ID of the model to use for summarization.
         summarization_max_characters: Maximum number of characters for the summary.
         val_split_ratio: Fraction of data to use for validation (0-1).
         test_split_ratio: Fraction of data to use for testing (0-1).
         max_workers: Maximum number of parallel workers for processing.
         mock: If True, generates mock summaries instead of using the model.
+        min_document_length: Minimum length of document content to be processed.
+        min_quality_score: Minimum content quality score for document filtering.
+        max_summary_length_factor: Maximum factor to multiply summarization_max_characters for filtering.
+        augmentation_loops: Number of loops for summarization.
     """
 
     def __init__(
@@ -32,6 +36,10 @@ class SummarizationDatasetGenerator:
         test_split_ratio: float = 0.1,
         max_workers: int = 10,
         mock: bool = False,
+        min_document_length: int = 50,
+        min_quality_score: float = 0.3,
+        max_summary_length_factor: float = 1.3,
+        augmentation_loops: int = 10,
     ) -> None:
         self.summarization_model = summarization_model
         self.summarization_max_characters = summarization_max_characters
@@ -39,29 +47,37 @@ class SummarizationDatasetGenerator:
         self.test_split_ratio = test_split_ratio
         self.max_workers = max_workers
         self.mock = mock
+        self.min_document_length = min_document_length
+        self.min_quality_score = min_quality_score
+        self.max_summary_length_factor = max_summary_length_factor
+        self.augmentation_loops = augmentation_loops
 
         self.pregeneration_filters: list[Callable[[Document], bool]] = [
-            lambda document: len(document.content) > 100,
+            lambda document: len(document.content) > self.min_document_length,
+            lambda document: document.content_quality_score is None
+            or document.content_quality_score >= self.min_quality_score,
         ]
         self.postgeneration_filters: list[Callable[[Document], bool]] = [
             lambda document: document.summary is not None
-            and len(document.summary) > 100
-            and len(document.summary) < (self.summarization_max_characters * 1.2),
+            and len(document.summary)
+            < int(self.summarization_max_characters * self.max_summary_length_factor),
         ]
 
     def generate(self, documents: list[Document]) -> InstructDataset:
         """Generates an instruction dataset from the documents.
 
-        The method filters, summarizes documents and converts them into instruction-answer pairs.
+        Filters, summarizes documents and converts them into instruction-answer pairs.
         Warns if input document count is less than recommended minimum of 10.
 
         Args:
-            documents: List of Document objects to be processed into the dataset
+            documents: List of Document objects to be processed into the dataset.
 
         Returns:
-            InstructDataset: A dataset containing instruction-answer pairs where:
-                - instructions are document contents
-                - answers are generated summaries
+            InstructDataset containing instruction-answer pairs where instructions are
+            document contents and answers are generated summaries.
+
+        Warns:
+            If less than 10 documents are provided for processing.
         """
 
         if len(documents) < 10:
@@ -103,7 +119,7 @@ class SummarizationDatasetGenerator:
             f"Num documents after pregeneration filtering: {len(filtered_documents)}"
         )
         summarized_documents: list[Document] = self.__augmented_summarization_loop(
-            filtered_documents, loops=5
+            filtered_documents, loops=self.augmentation_loops
         )
         filtered_summarized_documents = self.filter_documents(
             self.postgeneration_filters, summarized_documents
@@ -117,6 +133,17 @@ class SummarizationDatasetGenerator:
     def __augmented_summarization_loop(
         self, documents: list[Document], loops: int = 3
     ) -> list[Document]:
+        """Performs multiple summarization passes with increasing temperature.
+
+        Args:
+            documents: List of documents to summarize.
+            loops: Number of summarization iterations with different temperatures.
+
+        Returns:
+            List of documents with generated summaries, including multiple versions
+            of each document summarized with different temperatures.
+        """
+
         summarization_agent = SummarizationAgent(
             max_characters=self.summarization_max_characters,
             model_id=self.summarization_model,
@@ -126,11 +153,18 @@ class SummarizationDatasetGenerator:
         augmented_documents = []
         for i in range(loops):
             temperature = i * 0.5 / loops  # 0.0 to 0.5
+            logger.info(
+                f"Loop {i + 1} of {loops} - Summarizing documents with temperature {temperature}"
+            )
+
             copied_documents = copy.deepcopy(documents)
             summarized_documents = summarization_agent(
                 copied_documents, temperature=temperature
             )
-            augmented_documents.extend(summarized_documents)
+            valid_summarized_documents = [
+                doc for doc in summarized_documents if doc.summary is not None
+            ]
+            augmented_documents.extend(valid_summarized_documents)
 
         return augmented_documents
 
@@ -140,11 +174,11 @@ class SummarizationDatasetGenerator:
         """Filters documents using provided filter functions.
 
         Args:
-            filters: List of filter functions that take a Document and return bool
-            documents: List of documents to filter
+            filters: List of filter functions that take a Document and return bool.
+            documents: List of documents to filter.
 
         Returns:
-            list[Document]: Filtered list of documents that pass all filter functions
+            List of documents that pass all filter functions.
         """
 
         for document_filter in filters:
@@ -161,7 +195,7 @@ class SummarizationDatasetGenerator:
             document: A Document object containing both content and summary.
 
         Returns:
-            An InstructDatasetSample with document content as instruction and
+            InstructDatasetSample with document content as instruction and
             summary as answer.
 
         Raises:
