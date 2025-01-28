@@ -1,3 +1,11 @@
 parameters:
-  limit: 100
-  extract_collection_name: raw_data
+  extract_collection_name: raw
+  load_dataset_id: second_brain_summary_task
+  fetch_limit: 1000
+  summarization_agent_model_id: "gpt-4o-mini"
+  summarization_agent_mock: false
+  val_split_ratio: 0.1
+  test_split_ratio: 0.1
+  max_workers: 10
+  data_dir: data/
+  summarization_max_characters: 1000

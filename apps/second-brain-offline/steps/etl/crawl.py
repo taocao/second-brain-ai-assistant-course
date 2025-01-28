@@ -20,7 +20,7 @@ def crawl(
         list[Document]: List containing original documents plus newly crawled child documents.
     """
     crawler = Crawl4AICrawler(max_concurrent_requests=max_workers)
-    child_pages = crawler(documents)  # Process all documents in one batch
+    child_pages = crawler(documents)
 
     augmented_pages = documents.copy()
     augmented_pages.extend(child_pages)

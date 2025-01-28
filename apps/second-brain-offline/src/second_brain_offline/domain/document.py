@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from second_brain_offline import utils
 
@@ -29,11 +29,13 @@ class DocumentMetadata(BaseModel):
 
 
 class Document(BaseModel):
-    id: str
+    id: str = Field(default_factory=lambda: utils.generate_random_hex(length=32))
     metadata: DocumentMetadata
     parent_metadata: DocumentMetadata | None = None
     content: str
-    child_urls: list[str]
+    content_quality_score: float | None = None
+    summary: str | None = None
+    child_urls: list[str] = Field(default_factory=list)
 
     @classmethod
     def from_file(cls, file_path: Path) -> "Document":
@@ -53,6 +55,16 @@ class Document(BaseModel):
         json_data = file_path.read_text(encoding="utf-8")
 
         return cls.model_validate_json(json_data)
+
+    def add_summary(self, summary: str) -> "Document":
+        self.summary = summary
+
+        return self
+
+    def add_quality_score(self, score: float) -> "Document":
+        self.content_quality_score = score
+
+        return self
 
     def write(
         self, output_dir: Path, obfuscate: bool = False, also_save_as_txt: bool = False

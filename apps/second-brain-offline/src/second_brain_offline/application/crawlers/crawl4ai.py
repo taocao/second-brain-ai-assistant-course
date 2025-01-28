@@ -110,6 +110,7 @@ class Crawl4AICrawler:
 
         async with semaphore:
             result = await crawler.arun(url=url)
+            await asyncio.sleep(0.5)  # Rate limiting
 
             if not result or not result.success:
                 logger.warning(f"Failed to crawl {url}")

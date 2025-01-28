@@ -8,8 +8,8 @@ from steps.infrastructure import (
 
 @pipeline
 def compute_rag_vector_index(
-    extract_collection_name: str = "raw",
-    load_collection_name: str = "rag",
+    extract_collection_name: str,
+    load_collection_name: str,
     processing_batch_size: int = 256,
     processing_max_workers: int = 10,
     fetch_limit: int = 500,
