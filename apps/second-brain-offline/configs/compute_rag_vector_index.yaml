@@ -1,7 +1,15 @@
 parameters:
   extract_collection_name: raw
-  load_collection_name: rag
-  processing_batch_size: 16
-  processing_max_workers: 16
   fetch_limit: 500
-
+  load_collection_name: rag
+  content_quality_score_threshold: 0.6
+  embedding_model_id: Alibaba-NLP/gte-large-en-v1.5 # or openai/text-embedding-3-small
+  embedding_model_type: huggingface # or openai
+  embedding_model_dim: 1024 # or 1536 if using openai/text-embedding-3-small (make sure to delete the MongoDB collection when changing this as it changes the vector index)
+  chunk_size: 640
+  contextual_agent_model_id: gpt-4o-mini # or groq/llama-3.3-70b-versatile
+  contextual_agent_max_characters: 128
+  mock: false
+  processing_batch_size: 2
+  processing_max_workers: 2
+  device: mps # or cuda (for Nvidia GPUs) or mps (for Apple M1/M2/M3 chips)

@@ -1,4 +1,4 @@
 from .service import MongoDBService
-from .vector_index import MongoDBVectorIndex
+from .indexes import MongoDBHybridIndex
 
-__all__ = ["MongoDBService", "MongoDBVectorIndex"]
+__all__ = ["MongoDBService", "MongoDBHybridIndex"]

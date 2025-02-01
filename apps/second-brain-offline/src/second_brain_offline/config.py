@@ -20,9 +20,6 @@ class Settings(BaseSettings):
     AWS_SECRET_KEY: str | None = Field(
         default=None, description="AWS secret key for authentication."
     )
-    AWS_CROSS_ACCOUNT_ROLE_ARN: str | None = Field(
-        default=None, description="ARN for AWS cross-account access role."
-    )
     AWS_DEFAULT_REGION: str = Field(
         default="eu-central-1", description="AWS region for cloud services."
     )
@@ -83,19 +80,6 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = Field(
         description="API key for OpenAI service authentication.",
     )
-    OPENAI_MODEL_ID: str = Field(
-        default="gpt-4o-mini", description="Identifier for the OpenAI model to be used."
-    )
-
-    # --- RAG Configuration ---
-    TEXT_EMBEDDING_MODEL_ID: str = Field(
-        default="text-embedding-3-small",
-        description="Model identifier for text embedding generation.",
-    )
-    RAG_MODEL_DEVICE: str = Field(
-        default="cpu",
-        description="Device to run RAG models on (cpu/cuda).",
-    )
 
     @property
     def MONGODB_URI(self) -> str:
@@ -110,19 +94,6 @@ class Settings(BaseSettings):
         )
 
         return self.MONGODB_ONLINE_URI
-
-    @property
-    def OPENAI_MAX_TOKEN_WINDOW(self) -> int:
-        """
-        Calculates the maximum token window for the configured OpenAI model. Returns 90% of the token limit for safety margin.
-        """
-        model_token_limits = {
-            "gpt-3.5-turbo": 16385,
-            "gpt-4-turbo": 128000,
-            "gpt-4o": 128000,
-            "gpt-4o-mini": 128000,
-        }
-        return int(model_token_limits.get(self.OPENAI_MODEL_ID, 128000) * 0.90)
 
     @field_validator("OPENAI_API_KEY")
     @classmethod

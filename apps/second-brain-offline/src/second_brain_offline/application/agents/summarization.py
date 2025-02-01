@@ -101,11 +101,9 @@ Return the document in markdown format regardless of the original format.
             documents, temperature, await_time_seconds=7
         )
         documents_with_summaries = [
-            result for result in summarized_documents if result is not None
+            doc for doc in summarized_documents if doc.summary is not None
         ]
-        documents_without_summaries = [
-            doc for doc in documents if doc not in documents_with_summaries
-        ]
+        documents_without_summaries = [doc for doc in documents if doc.summary is None]
 
         # Retry failed documents with increased await time
         if documents_without_summaries:
@@ -115,9 +113,7 @@ Return the document in markdown format regardless of the original format.
             retry_results = await self.__process_batch(
                 documents_without_summaries, temperature, await_time_seconds=20
             )
-            documents_with_summaries += [
-                result for result in retry_results if result is not None
-            ]
+            documents_with_summaries += retry_results
 
         end_mem = process.memory_info().rss
         memory_diff = end_mem - start_mem
