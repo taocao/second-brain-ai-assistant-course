@@ -1,6 +1,4 @@
-# Getting started
-
-## Installation
+# Installation
 
 To set it up first deactivate any active virtual environment and move to the second-brain-online directory:
 ```bash
@@ -42,42 +40,80 @@ After running the doctor command, you should see something like this:
 ```
 [More on installing Crawl4AI](https://docs.crawl4ai.com/core/installation/)
 
+# Infrastructure
 
-## Infrastructure
-
+To start the local infrastructure (ZenML, MongoDB):
 ```bash
 make local-infrastructure-up
 ```
 
-## Running the ML pipelines / Lessons
-
-## Optional - Collect custom Notion data
+To stop the local infrastructure (ZenML, MongoDB):
 ```bash
-make collect-notion-data-pipeline   
+make local-infrastructure-down
 ```
 
-### Lesson 1
+# Running the Code / Lessons
 
-NO CODE
+## Lesson 1: Build your Second Brain AI assistant
 
+Lesson: [Build your Second Brain AI assistant]()
 
-### Lesson 2: Populate MongoDB NoSQL and vector database
+No code to run for this lesson. Read the lesson to understand the problem and overall architecture of the Second Brain AI assistant.
 
+## Lesson 2: ETL pipeline
+
+### Prepare Notion data
+
+Download our prepared Notion dataset from S3 (recommended):
 ```bash
 make download-raw-dataset
 # Validate using test: make test-download-raw-dataset
+```
+
+Or if you want to prepare your own Notion data (optional - if you want to use your own data):
+```bash
+make collect-notion-data-pipeline
+# Validate using test: make test-download-raw-dataset
+```
+
+### Run the ETL pipeline
+
+Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
+```bash
 make etl-pipeline
 # Validate using test: make test-etl-pipeline
+```
+
+As crawling can often fail, you can use our pre-computed dataset to populate MongoDB:
+```bash
+make download-crawled-dataset
+make etl-precomputed-pipeline
+# Validate using test: make test-etl-pipeline
+```
+
+## Lesson 3: Generate Fine-tuning Dataset
+
+```bash
+make generate-dataset-pipeline
+```
+
+## Lesson 4: Fine-tuning and Evaluating Summarization LLM
+
+This time we will use Notebooks, as they are popular when it comes to LLM fine-tuning.
+
+
+## Lesson 5: Compute RAG vector index
+
+```bash
 make compute-rag-vector-index-pipeline
 # Validate using test: make test-rag-vector-index-pipeline
 ```
 
-Or if you have issues with crawling, you can use our pre-computed dataset to populate MongoDB:
-```bash
-make download-crawled-dataset
-make etl-precomputed-pipeline
-make compute-rag-vector-index-pipeline
-```
+## Lesson 6: Agentic App
+
+The Agentic App sits in the online environment, which is implemented as a different Python application.
+
+Go to the [apps/second-brain-online](../second-brain-online/) folder and follow the instructions there to set it up and run it.
 
 ## Utility commands
 

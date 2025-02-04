@@ -14,4 +14,8 @@ def etl_precomputed(
     documents = read_documents_from_disk(
         data_directory=crawled_data_dir, nesting_level=0
     )
-    ingest_to_mongodb(models=documents, collection_name=load_collection_name)
+    ingest_to_mongodb(
+        models=documents,
+        collection_name=load_collection_name,
+        clear_collection=True,
+    )

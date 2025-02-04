@@ -128,7 +128,8 @@ class NotionDatabaseClient:
             prop_type = value.get("type")
 
             if prop_type == "select":
-                flattened[key] = value.get("select", {}).get("name")
+                select_value = value.get("select", {}) or {}
+                flattened[key] = select_value.get("name")
             elif prop_type == "multi_select":
                 flattened[key] = [
                     item.get("name") for item in value.get("multi_select", [])

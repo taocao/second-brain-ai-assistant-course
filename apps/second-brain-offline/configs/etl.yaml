@@ -3,5 +3,5 @@ parameters:
   load_collection_name: raw
   to_s3: true
   max_workers: 4
-  quality_agent_model_id: gpt-4o-mini # or groq/llama-3.3-70b-versatile
+  quality_agent_model_id: gpt-4o-mini
   quality_agent_mock: false

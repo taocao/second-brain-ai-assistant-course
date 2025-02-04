@@ -28,7 +28,7 @@ def upload(local_path: str, bucket_name: str, s3_prefix: str) -> None:
         s3_client = S3Client(bucket_name)
         s3_client.upload_folder(local_path, s3_prefix)
         click.echo(
-            f"Successfully uploaded {local_path} to s3://{bucket_name}/{s3_prefix}"
+            f"Successfully uploaded '{local_path}' to 's3://{bucket_name}/{s3_prefix}'"
         )
     except Exception as e:
         click.echo(f"Error: {str(e)}", err=True)
@@ -53,11 +53,9 @@ def download(bucket_name: str, s3_path: str, local_path: str) -> None:
 
     try:
         s3_client = S3Client(bucket_name)
-        print(f" MY BUCKET IS :::: {s3_client.bucket_name}")
-        click.echo(f"MY PATH IS s3://{bucket_name}/{s3_path} to {local_path}")
         s3_client.download_folder(s3_path, local_path)
         click.echo(
-            f"Successfully downloaded s3://{bucket_name}/{s3_path} to {local_path}"
+            f"Successfully downloaded 's3://{bucket_name}/{s3_path}' to '{local_path}'"
         )
     except Exception as e:
         click.echo(f"Error: {str(e)}", err=True)

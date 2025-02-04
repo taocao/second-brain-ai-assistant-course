@@ -13,6 +13,12 @@ from second_brain_offline.domain import Document
 
 
 class QualityScoreResponseFormat(BaseModel):
+    """Format for quality score responses from the language model.
+
+    Attributes:
+        score: A float between 0.0 and 1.0 representing the quality score.
+    """
+
     score: float
 
 
@@ -246,3 +252,56 @@ DOCUMENT:
             )
         except Exception:
             return None
+
+
+class HeuristicQualityAgent:
+    """A rule-based agent for evaluating document quality based on simple heuristics.
+
+    This agent evaluates document quality primarily by analyzing the ratio of URL content
+    to total content length, assigning low scores to documents that are primarily
+    composed of URLs.
+    """
+
+    def __call__(
+        self, documents: Document | list[Document]
+    ) -> Document | list[Document]:
+        """Process single document or batch of documents for quality scoring.
+
+        Args:
+            documents: Single Document or list of Documents to evaluate.
+
+        Returns:
+            Document | list[Document]: Processed document(s) with quality scores.
+        """
+        is_single_document = isinstance(documents, Document)
+        docs_list = [documents] if is_single_document else documents
+
+        scored_documents = [self.__score_document(document) for document in docs_list]
+
+        return scored_documents[0] if is_single_document else scored_documents
+
+    def __score_document(self, document: Document) -> Document:
+        """Score a single document based on URL content ratio.
+
+        Calculates the ratio of URL content length to total content length.
+        Documents with > 70% URL content receive a score of 0.0.
+
+        Args:
+            document: The Document object to score.
+
+        Returns:
+            Document: The input document with an added quality score.
+        """
+
+        if len(document.content) == 0:
+            return document.add_quality_score(score=0.0)
+
+        url_based_content = sum(len(url) for url in document.child_urls)
+        url_content_ratio = url_based_content / len(document.content)
+
+        if url_content_ratio >= 0.7:
+            return document.add_quality_score(score=0.0)
+        elif url_content_ratio >= 0.5:
+            return document.add_quality_score(score=0.2)
+
+        return document

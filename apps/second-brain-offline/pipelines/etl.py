@@ -44,4 +44,8 @@ def etl(
             s3_prefix="second_brain_course/crawled",
             after="save_documents_to_disk",
         )
-    ingest_to_mongodb(models=enhanced_documents, collection_name=load_collection_name)
+    ingest_to_mongodb(
+        models=enhanced_documents,
+        collection_name=load_collection_name,
+        clear_collection=True,
+    )

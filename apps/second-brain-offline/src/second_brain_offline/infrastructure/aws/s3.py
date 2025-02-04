@@ -26,10 +26,11 @@ class S3Client:
             region: AWS region (defaults to AWS_DEFAULT_REGION or AWS_REGION env var, or 'us-east-1')
             aws_s3_no_sign_request: if True will access S3 un-authenticated for public buckets, if False will use the AWS credentials set by the user
         """
+
         self.region = region
-        self.s3_client = boto3.client("s3", region_name=self.region)
         self.bucket_name = bucket_name
-        if aws_s3_no_sign_request:
+        self.aws_s3_no_sign_request = aws_s3_no_sign_request
+        if self.aws_s3_no_sign_request:
             # Use unsigned mode for public buckets
             self.s3_client = boto3.client(
                 "s3",

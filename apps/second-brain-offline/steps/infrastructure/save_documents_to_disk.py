@@ -24,6 +24,7 @@ def save_documents_to_disk(
         output_name="output",
         metadata={
             "count": len(documents),
+            "output_dir": str(output_dir),
         },
     )
 
