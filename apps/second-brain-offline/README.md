@@ -107,6 +107,11 @@ In case you want to avoid any costs or waiting times, you can use our pre-comput
 
 This time we will use Notebooks, as they are popular when it comes to LLM fine-tuning.
 
+| Purpose | Notebook |
+|---------|----------|
+| Training | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/finetuning.ipynb) |
+| Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) |
+
 
 ## Lesson 5: Compute RAG vector index
 
@@ -129,7 +134,6 @@ Go to the [apps/second-brain-online](../second-brain-online/) folder and follow 
 make format-check
 make format-fix
 ```
-
 ### Linting
 
 ```bash
