@@ -9,6 +9,6 @@ parameters:
   test_split_ratio: 0.1
   min_document_characters: 50
   min_quality_score: 0.3
-  augmentation_loops: 5
+  augmentation_loops: 4
   max_workers: 4
   data_dir: data/

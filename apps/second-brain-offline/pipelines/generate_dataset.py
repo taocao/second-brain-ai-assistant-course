@@ -22,7 +22,7 @@ def generate_dataset(
     test_split_ratio: float = 0.1,
     min_document_characters: int = 50,
     min_quality_score: float = 0.3,
-    augmentation_loops: int = 5,
+    augmentation_loops: int = 4,
     max_workers: int = 10,
     data_dir: Path = Path("data/"),
 ) -> None:

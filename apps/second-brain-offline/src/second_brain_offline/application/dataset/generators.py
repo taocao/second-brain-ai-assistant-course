@@ -38,8 +38,8 @@ class SummarizationDatasetGenerator:
         mock: bool = False,
         min_document_length: int = 50,
         min_quality_score: float = 0.3,
-        max_summary_length_factor: float = 1.3,
-        augmentation_loops: int = 5,
+        max_summary_length_factor: float = 2,
+        augmentation_loops: int = 4,
     ) -> None:
         self.summarization_model = summarization_model
         self.summarization_max_characters = summarization_max_characters
@@ -120,6 +120,9 @@ class SummarizationDatasetGenerator:
         )
         summarized_documents: list[Document] = self.__augmented_summarization_loop(
             filtered_documents, loops=self.augmentation_loops
+        )
+        logger.info(
+            f"Num documents before postgeneration filtering: {len(summarized_documents)}"
         )
         filtered_summarized_documents = self.filter_documents(
             self.postgeneration_filters, summarized_documents

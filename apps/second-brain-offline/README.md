@@ -83,8 +83,10 @@ Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
 make etl-pipeline
 # Validate using test: make test-etl-pipeline
 ```
+Running costs: ~$0.5
+Running time: ~30 minutes
 
-As crawling can often fail, you can use our pre-computed dataset to populate MongoDB:
+If you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this dataset to skip the crawling step:
 ```bash
 make download-crawled-dataset
 make etl-precomputed-pipeline
@@ -96,6 +98,10 @@ make etl-precomputed-pipeline
 ```bash
 make generate-dataset-pipeline
 ```
+Running costs: ~$1.5
+Running time: ~60 minutes
+
+In case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as default in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
 
 ## Lesson 4: Fine-tuning and Evaluating Summarization LLM
 
