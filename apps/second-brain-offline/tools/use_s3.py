@@ -39,7 +39,14 @@ def upload(local_path: str, bucket_name: str, s3_prefix: str) -> None:
 @click.argument("bucket_name")
 @click.argument("s3_path")
 @click.argument("local_path")
-def download(bucket_name: str, s3_path: str, local_path: str) -> None:
+@click.option(
+    "--no-sign-request",
+    is_flag=True,
+    help="If True will access S3 un-authenticated for public buckets",
+)
+def download(
+    bucket_name: str, s3_path: str, local_path: str, no_sign_request: bool
+) -> None:
     """Download a zipped folder from S3 and extract it to local storage.
 
     Args:
@@ -52,7 +59,7 @@ def download(bucket_name: str, s3_path: str, local_path: str) -> None:
     """
 
     try:
-        s3_client = S3Client(bucket_name)
+        s3_client = S3Client(bucket_name, no_sign_request=no_sign_request)
         s3_client.download_folder(s3_path, local_path)
         click.echo(
             f"Successfully downloaded 's3://{bucket_name}/{s3_path}' to '{local_path}'"

@@ -66,14 +66,13 @@ No code to run for this lesson. Read the lesson to understand the problem and ov
 
 Download our prepared Notion dataset from S3 (recommended):
 ```bash
-make download-raw-dataset
-# Validate using test: make test-download-raw-dataset
+make download-notion-dataset
+# Validate using test: make test-download-notion-dataset
 ```
 
 Or if you want to prepare your own Notion data (optional - if you want to use your own data):
 ```bash
 make collect-notion-data-pipeline
-# Validate using test: make test-download-raw-dataset
 ```
 
 ### Run the ETL pipeline
@@ -89,8 +88,8 @@ Running time: ~30 minutes
 If you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this dataset to skip the crawling step:
 ```bash
 make download-crawled-dataset
+# Validate using test: make test-download-crawled-dataset
 make etl-precomputed-pipeline
-# Validate using test: make test-etl-pipeline
 ```
 
 ## Lesson 3: Generate Fine-tuning Dataset
@@ -118,7 +117,6 @@ This time we will use Notebooks, as they are popular when it comes to LLM fine-t
 
 ```bash
 make compute-rag-vector-index-pipeline
-# Validate using test: make test-rag-vector-index-pipeline
 ```
 
 ## Lesson 6: Agentic App

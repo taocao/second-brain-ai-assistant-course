@@ -10,6 +10,7 @@ export PYTHONPATH = .
 # --- Default Values ---
 
 CHECK_DIRS := .
+AWS_S3_BUCKET_NAME := decodingml-public-data
 NOTION_LOCAL_DATA_PATH := data/notion
 CRAWLED_LOCAL_DATA_PATH := data/crawled
 
@@ -43,13 +44,17 @@ local-infrastructure-stop: local-docker-infrastructure-stop local-zenml-server-s
 
 # --- AWS ---
 
-s3-upload-raw-dataset:  # Upload raw Notion dataset from local folder to S3
+validate_aws_boto3:
+	@echo "Validating AWS Boto3 credentials..."
+	uv run python -m tools.validate_aws_boto3
+
+s3-upload-notion-dataset:  # Upload raw Notion dataset from local folder to S3
 	@echo "Uploading raw Notion dataset to S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/notion"
 	uv run python -m tools.use_s3 upload $(NOTION_LOCAL_DATA_PATH) $(AWS_S3_BUCKET_NAME) --s3-prefix second_brain_course/notion
 
-s3-download-raw-dataset:  # Download raw Notion dataset from S3 to local folder
+s3-download-notion-dataset:  # Download raw Notion dataset from S3 to local folder
 	@echo "Downloading raw Notion dataset from S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/notion/notion.zip"
-	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/notion/notion.zip $(NOTION_LOCAL_DATA_PATH)
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/notion/notion.zip $(NOTION_LOCAL_DATA_PATH) --no-sign-request
 
 s3-upload-crawled-dataset:  # Upload processed crawled dataset from local folder to S3
 	@echo "Uploading crawled dataset to S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/crawled"
@@ -57,13 +62,13 @@ s3-upload-crawled-dataset:  # Upload processed crawled dataset from local folder
 
 s3-download-crawled-dataset:  # Download processed crawled dataset from S3 to local folder
 	@echo "Downloading crawled dataset from S3 bucket: $(AWS_S3_BUCKET_NAME)/second_brain_course/crawled/crawled.zip"
-	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/crawled/crawled.zip $(CRAWLED_LOCAL_DATA_PATH)
+	uv run python -m tools.use_s3 download $(AWS_S3_BUCKET_NAME) second_brain_course/crawled/crawled.zip $(CRAWLED_LOCAL_DATA_PATH) --no-sign-request
 
-download-raw-dataset: s3-download-raw-dataset
+download-notion-dataset: s3-download-notion-dataset
 
 download-crawled-dataset: s3-download-crawled-dataset
 
-# --- Pipelines ---
+# --- Offline ML Pipelines ---
 
 collect-notion-data-pipeline:
 	uv run python -m tools.run --run-collect-notion-data-pipeline --no-cache
@@ -82,17 +87,19 @@ compute-rag-vector-index-pipeline:
 
 # --- Tests ---
 
-test-download-raw-dataset:
-	uv run pytest tests/test_download_raw_dataset.py -v
+test-s3-download:
+	uv run pytest tests/test_s3.py -v
 
-test-etl-pipeline:
-	uv run pytest tests/test_etl_pipeline.py -v
+test-download-notion-dataset:
+	uv run pytest tests/test_download_notion_dataset.py -v
 
-test-rag-vector-index-pipeline:
-	uv run pytest tests/test_rag_vector_index_pipeline.py -v
-
+test-download-crawled-dataset:
+	uv run pytest tests/test_download_crawled_dataset.py -v
 	
 # --- QA ---
+
+test:
+	uv run pytest tests -v
 
 format-fix:
 	uv run ruff format $(CHECK_DIRS)

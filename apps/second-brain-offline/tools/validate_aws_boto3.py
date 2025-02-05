@@ -1,4 +1,6 @@
 import boto3
+import botocore
+import botocore.config
 import botocore.exceptions
 from loguru import logger
 
@@ -10,11 +12,10 @@ def get_aws_identity() -> None:
     Returns:
         None
     """
+
     try:
-        # Create a client for the AWS STS (Security Token Service)
         sts_client = boto3.client("sts")
 
-        # Get the caller identity
         identity = sts_client.get_caller_identity()
 
         logger.info("AWS Identity Information:")

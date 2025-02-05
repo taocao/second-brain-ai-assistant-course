@@ -9,4 +9,4 @@ parameters:
     - f54dbddcaa4c43c7ae17935716761536
     - 31fcaab5a9404d41b922897d32b901b3
   data_dir: data/
-  to_s3: true
+  to_s3: false

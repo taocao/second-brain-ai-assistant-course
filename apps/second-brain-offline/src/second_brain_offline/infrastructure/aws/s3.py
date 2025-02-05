@@ -16,21 +16,23 @@ class S3Client:
     def __init__(
         self,
         bucket_name: str,
+        no_sign_request: bool = False,
         region: str = settings.AWS_DEFAULT_REGION,
-        aws_s3_no_sign_request: bool = settings.AWS_S3_NOSIGN_REQUEST,
     ) -> None:
         """Initialize S3 client and bucket name.
 
         Args:
-            bucket_name: Name of the S3 bucket
-            region: AWS region (defaults to AWS_DEFAULT_REGION or AWS_REGION env var, or 'us-east-1')
-            aws_s3_no_sign_request: if True will access S3 un-authenticated for public buckets, if False will use the AWS credentials set by the user
+            bucket_name (str): Name of the S3 bucket
+            no_sign_request (bool, optional): If True will access S3 un-authenticated for public buckets.
+                If False will use the AWS credentials set by the user. Defaults to False.
+            region (str, optional): AWS region. Defaults to AWS_DEFAULT_REGION or AWS_REGION env var,
+                or 'us-east-1'.
         """
 
         self.region = region
         self.bucket_name = bucket_name
-        self.aws_s3_no_sign_request = aws_s3_no_sign_request
-        if self.aws_s3_no_sign_request:
+        self.no_sign_request = no_sign_request
+        if self.no_sign_request:
             # Use unsigned mode for public buckets
             self.s3_client = boto3.client(
                 "s3",
@@ -42,12 +44,15 @@ class S3Client:
             self.s3_client = boto3.client("s3", region_name=self.region)
 
     def upload_folder(self, local_path: Union[str, Path], s3_prefix: str = "") -> None:
-        """
-        Upload a local folder as a zip file to S3.
+        """Upload a local folder as a zip file to S3.
 
         Args:
-            local_path: Path to the local folder
-            s3_prefix: Optional prefix (folder path) in S3 bucket
+            local_path (Union[str, Path]): Path to the local folder
+            s3_prefix (str, optional): Optional prefix (folder path) in S3 bucket. Defaults to "".
+
+        Raises:
+            FileNotFoundError: If the local path does not exist
+            NotADirectoryError: If the local path is not a directory
         """
         # Ensure bucket exists before proceeding
         self.__create_bucket_if_doesnt_exist()
@@ -84,9 +89,10 @@ class S3Client:
         os.unlink(temp_zip.name)
 
     def __create_bucket_if_doesnt_exist(self) -> None:
-        """
-        Check if bucket exists and create it if it doesn't.
-        Raises permission-related exceptions if user lacks necessary permissions.
+        """Check if bucket exists and create it if it doesn't.
+
+        Raises:
+            Exception: If bucket creation fails or if user lacks necessary permissions
         """
         try:
             self.s3_client.head_bucket(Bucket=self.bucket_name)
@@ -108,12 +114,11 @@ class S3Client:
                 raise
 
     def download_folder(self, s3_prefix: str, local_path: Union[str, Path]) -> None:
-        """
-        Download a zipped folder from S3 and extract it to local storage.
+        """Download a zipped folder from S3 and extract it to local storage.
 
         Args:
-            s3_prefix: Prefix (folder path) in S3 bucket
-            local_path: Local path where files should be extracted
+            s3_prefix (str): Prefix (folder path) in S3 bucket pointing to the zip file
+            local_path (Union[str, Path]): Local path where files should be extracted
         """
         local_path = Path(local_path)
 
@@ -135,3 +140,17 @@ class S3Client:
 
         # Clean up temporary zip file
         os.unlink(temp_zip.name)
+
+    def download_file(self, s3_prefix: str, local_path: Union[str, Path]) -> None:
+        """Download a file from S3 to local storage.
+
+        Args:
+            s3_prefix (str): Path to the file in S3 bucket
+            local_path (Union[str, Path]): Local directory path where the file should be downloaded
+        """
+
+        local_path = Path(local_path)
+        local_path.mkdir(parents=True, exist_ok=True)
+
+        target_file = local_path / Path(s3_prefix).name
+        self.s3_client.download_file(self.bucket_name, s3_prefix, str(target_file))

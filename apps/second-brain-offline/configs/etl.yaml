@@ -1,7 +1,7 @@
 parameters:
   data_dir: data/
   load_collection_name: raw
-  to_s3: true
+  to_s3: false
   max_workers: 4
   quality_agent_model_id: gpt-4o-mini
   quality_agent_mock: false

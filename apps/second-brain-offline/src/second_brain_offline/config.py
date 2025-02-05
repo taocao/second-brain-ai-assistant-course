@@ -27,10 +27,6 @@ class Settings(BaseSettings):
         default="decodingml-public-data",
         description="Name of the S3 bucket for storing application data.",
     )
-    AWS_S3_NOSIGN_REQUEST: bool = Field(
-        default=False,
-        description="Flag to enable unauthenticated S3 bucket access. If True, bypasses AWS authentication.",
-    )
 
     # --- Comet ML & Opik Configuration ---
     COMET_API_KEY: str | None = Field(
@@ -57,13 +53,9 @@ class Settings(BaseSettings):
         default="second_brain_course",
         description="Name of the MongoDB database.",
     )
-    MONGODB_OFFLINE_URI: str = Field(
+    MONGODB_URI: str = Field(
         default="mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
         description="Connection URI for the local MongoDB Atlas instance.",
-    )
-    MONGODB_ONLINE_URI: str | None = Field(
-        default=None,
-        description="Connection URI for the Cloud MongoDB Atlas instance.",
     )
 
     # --- Notion API Configuration ---
@@ -80,20 +72,6 @@ class Settings(BaseSettings):
     OPENAI_API_KEY: str = Field(
         description="API key for OpenAI service authentication.",
     )
-
-    @property
-    def MONGODB_URI(self) -> str:
-        """
-        Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
-        """
-        if self.IS_OFFLINE_MODE is True:
-            return self.MONGODB_OFFLINE_URI
-
-        assert self.MONGODB_ONLINE_URI is not None, (
-            "MONGODB_ONLINE_URI is not set, while ENABLE_OFFLINE_MODE is False."
-        )
-
-        return self.MONGODB_ONLINE_URI
 
     @field_validator("OPENAI_API_KEY")
     @classmethod

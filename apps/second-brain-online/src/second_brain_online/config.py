@@ -30,10 +30,6 @@ class Settings(BaseSettings):
         default="decodingml-public-data",
         description="Name of the S3 bucket for storing application data.",
     )
-    AWS_S3_NOSIGN_REQUEST: bool = Field(
-        default=False,
-        description="Flag to enable unauthenticated S3 bucket access. If True, bypasses AWS authentication.",
-    )
 
     # --- Comet ML & Opik Configuration ---
     COMET_API_KEY: str | None = Field(
@@ -60,13 +56,9 @@ class Settings(BaseSettings):
         default="second_brain_course",
         description="Name of the MongoDB database.",
     )
-    MONGODB_OFFLINE_URI: str = Field(
+    MONGODB_URI: str = Field(
         default="mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
         description="Connection URI for the local MongoDB Atlas instance.",
-    )
-    MONGODB_ONLINE_URI: str | None = Field(
-        default=None,
-        description="Connection URI for the Cloud MongoDB Atlas instance.",
     )
 
     # --- Notion API Configuration ---
@@ -96,33 +88,6 @@ class Settings(BaseSettings):
         default="cpu",
         description="Device to run RAG models on (cpu/cuda).",
     )
-
-    @property
-    def MONGODB_URI(self) -> str:
-        """
-        Returns the appropriate MongoDB URI based on ENABLE_OFFLINE_MODE.
-        """
-        if self.IS_OFFLINE_MODE is True:
-            return self.MONGODB_OFFLINE_URI
-
-        assert self.MONGODB_ONLINE_URI is not None, (
-            "MONGODB_ONLINE_URI is not set, while ENABLE_OFFLINE_MODE is False."
-        )
-
-        return self.MONGODB_ONLINE_URI
-
-    @property
-    def OPENAI_MAX_TOKEN_WINDOW(self) -> int:
-        """
-        Calculates the maximum token window for the configured OpenAI model. Returns 90% of the token limit for safety margin.
-        """
-        model_token_limits = {
-            "gpt-3.5-turbo": 16385,
-            "gpt-4-turbo": 128000,
-            "gpt-4o": 128000,
-            "gpt-4o-mini": 128000,
-        }
-        return int(model_token_limits.get(self.OPENAI_MODEL_ID, 128000) * 0.90)
 
     @field_validator("OPENAI_API_KEY")
     @classmethod
