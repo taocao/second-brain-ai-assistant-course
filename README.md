@@ -142,52 +142,47 @@ We will deeply appreciate your support for the AI community and future readers ð
 
 ## Sponsors
 
-<table>
-  <tr>
-    <td align="center">
-      <a href="..." target="_blank">MongoDB</a>
-    </td>
-    <td align="center">
-      <a href="..." target="_blank">Comet</a>
-    </td>
-    <td align="center">
-      <a href="..." target="_blank">Opik</a>
-    </td>
-     <td align="center">
-      <a href="..." target="_blank">Unsloth</a>
-    </td>
-     <td align="center">
-      <a href="..." target="_blank">ZenML</a>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-      <a href="..." target="_blank">
-        <img src="static/sponsors/mongo.png" height="55" alt="MongoDB">
-      </a>
-    </td>
-    <td align="center">
-      <a href="..." target="_blank">
-        <img src="static/sponsors/comet.png" height="55" alt="Comet">
-      </a>
-    </td>
-    <td align="center">
-      <a href="..." target="_blank">
-        <img src="static/sponsors/opik.png" height="55" alt="Opik">
-      </a>
-    </td>
-     <td align="center">
-      <a href="..." target="_blank">
-        <img src="static/sponsors/unsloth.png" height="55" alt="Unsloth">
-      </a>
-    </td>
-     <td align="center">
-      <a href="..." target="_blank">
-        <img src="static/sponsors/zenml.png" height="55" alt="ZenML">
-      </a>
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="200">
+        <a href="..." target="_blank">
+          <img src="static/sponsors/mongo.png" height="60" alt="MongoDB">
+          <br>
+          <sub><b>MongoDB</b></sub>
+        </a>
+      </td>
+      <td align="center" width="200">
+        <a href="..." target="_blank">
+          <img src="static/sponsors/comet.png" height="60" alt="Comet">
+          <br>
+          <sub><b>Comet</b></sub>
+        </a>
+      </td>
+      <td align="center" width="200">
+        <a href="..." target="_blank">
+          <img src="static/sponsors/opik.png" height="60" alt="Opik">
+          <br>
+          <sub><b>Opik</b></sub>
+        </a>
+      </td>
+      <td align="center" width="200">
+        <a href="..." target="_blank">
+          <img src="static/sponsors/unsloth.png" height="60" alt="Unsloth">
+          <br>
+          <sub><b>Unsloth</b></sub>
+        </a>
+      </td>
+      <td align="center" width="200">
+        <a href="..." target="_blank">
+          <img src="static/sponsors/zenml.png" height="60" alt="ZenML">
+          <br>
+          <sub><b>ZenML</b></sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ## Contributors
 
