@@ -1,251 +1,216 @@
 <div align="center">
-  <h1>Second Brain Semantic AI Engine: Powered by LLMs & RAG </h1>
-  <p class="tagline">Open-source bootcamp by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
+  <h1>Building Your Second Brain AI Assistant Using LLMs and RAG</h1>
+  <h2>Have access to the collective wisdom of your own mind</h2>
+  <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
 </div>
 
-# ZenML RAG Pipeline: Foundational Stack
+</br>
 
-This repository offers a **foundational stack** for building and integrating into ZenML Retrieval-Augmented Generation (RAG) pipelines. By leveraging **ZenML** for pipeline orchestration and **Local MongoDB Atlas** for document storage, this stack is designed to run seamlessly in both local and Dockerized environments. 
+<p align="center">
+  <a href="...">
+    <img src="static/system_architecture.png" alt="Architecture" width="600">
+  </a>
+</p>
 
-While advanced ZenML configurations (e.g., custom stacks or orchestrators) are purposefully omitted for now, the stack provides a robust and flexible base for future enterprise-level enhancements.
+## 🎯 What You'll Learn
 
----
+...
 
-## Features and Capabilities
+<p align="center">
+  <img src="static/....png" alt="..." width="400" style="display: inline-block; margin-right: 20px;">
+  <img src="static/....png" alt="..." width="400" style="display: inline-block;">
+</p>
 
-### Core Features
-1. **Pipeline Orchestration with ZenML**:
-   - Modular pipeline design for document ingestion and retrieval.
-   - Easily extendable for advanced RAG workflows.
+## 📖 About This Course
 
-2. **Local MongoDB Atlas Integration**:
-   - **Document Ingestion**: Insert sample movie metadata from JSON files into MongoDB.
-   - **Genre-Based Retrieval**: Query MongoDB for documents by genre with case-insensitive filtering.
+This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and recommender systems.
 
-3. **Sample Dataset**:
-   - Uses data from **`sample_mflix`**, containing:
-     - Movie metadata.
-     - User-generated comments.
-     - Movie theaters and related metadata.
+The **YOUR TITLE**, in collaboration with [...](...), is a X-module course backed up by code, Notebooks and lessons that will teach you how to build an **WHAT YOU WILL BUILD** from scratch.
 
-4. **Flexible Runtime Environments**:
-   - Supports **local execution** with Python virtual environments (`.venv`).
-   - Fully **Dockerized deployment** for consistent, reproducible builds.
+By the end of this course, you will know how to architect, build and deploy a **WHAT YOU WILL BUILD**.
 
-5. **Enterprise-Grade Logging**:
-   - Structured logging with verbosity toggles (via `ENABLE_STRUCTURED_LOGGING` in `.env`).
-   - Detailed runtime logs for pipeline steps and MongoDB operations.
+**What you'll do:**
 
----
+1. ...
 
-## Prerequisites
+🥷 With these skills, you'll become a ninja in building **WHAT YOU WILL BUILD**. 
 
-Before running the stack, ensure the following are installed:
+## 🌐 Live Demo
 
-- **`Docker`**
-- **`Docker Compose`**
-- **`Python` 3.12+**
-- **`uv`**
-- **`mongosh`**
+Try out our deployed **WHAT YOU WILL BUILD** to see what you'll learn to build by the end of this course:
+[💻 Live **WHAT YOU WILL BUILD** Streamlit Demo](...)
 
----
+<p align="center">
+  <a href="...">
+    <img src="static/....png" alt="UI Example" width="800">
+  </a>
+</p>
 
-## Installation and Setup
+## 👥 Who Should Join?
 
-### Local Execution (Windows, MacOS, Linux)
+**This course is ideal for:**
+- ML/AI engineers interested in building production-ready **WHAT YOU WILL BUILD**
+- Data Engineers, Data Scientists, and Software Engineers wanting to understand the engineering behind **WHAT YOU WILL BUILD**
 
-1. **Install Dependencies**:
-   Use `uv` to set up the environment and sync dependencies:
-   ```bash
-   uv clean
-   uv sync
-   ```
+**Note:** This course focuses on engineering practices and end-to-end system implementation rather than theoretical model optimization or research.
 
-2. **Run the Stack**:
-   Execute the pipeline locally:
-   ```bash
-   python main.py
-   ```
+## 🎓 Prerequisites
 
----
+| Category | Requirements |
+|----------|-------------|
+| **Skills** | Basic understanding of Python and Machine Learning. |
+| **Hardware** | Any modern laptop/workstation will do the job (no GPU or powerful computing power required). We support Google Colab for free compute. |
+| **Level** | Intermediate |
 
-### **Dockerized Execution (Windows, MacOS, Linux)**
 
-For Docker-based execution, this stack uses **Docker Compose** for container orchestration. The entry point of the Dockerfile is set to:
-```dockerfile
-# Default command to allow debugging
-CMD ["tail", "-f", "/dev/null"]
-```
-This allows you to debug and modify the containers as necessary during development.
+## 💰 Cost Structure
 
-#### Basic Commands
-1. **Build Docker Containers**:
-   Builds the Docker images for the stack:
-   ```bash
-   docker-compose build
-   ```
+All tools used throughout the course will stick to their free tier, except OpenAI's API, as follows:
 
-2. **Start the Containers**:
-   Starts the stack, including the MongoDB and ZenML-related services:
-   ```bash
-   docker-compose up
-   ```
+- ...
 
-3. **Stop the Stack**:
-   Stops and removes the running containers:
-   ```bash
-   docker-compose down
-   ```
+## 🥂 Open-source Course: Participation is Open and Free
 
----
+As an open-source course, you don't have to enroll. Everything is self-paced, free of charge and with its resources freely accessible as follows:
+- **code**: this GitHub repository
+- **articles**: [Decoding ML](...)
 
-#### **Optional Commands**
+## 📚 Course Outline
 
-These commands are helpful for specific scenarios:
+This **open-source course consists of X comprehensive modules** covering theory, system design, and hands-on implementation.
 
-1. **Remove Volumes**:
-   Use this command if you need to clear persistent data stored in Docker volumes, such as the MongoDB database:
-   ```bash
-   docker-compose down --volumes
-   ```
+Our recommendation for each module:
+1. Read the article.
+2. Run the code to replicate our results.
+3. Following the article, go deeper into the code to understand the implementation.
 
-2. **Rebuild Without Cache**:
-   Use this command if you want to rebuild the images from scratch without using the Docker cache, which is useful when there are changes to the `Dockerfile` or dependencies:
-   ```bash
-   docker-compose build --no-cache
-   ```
+> [!NOTE]
+> Check the [INSTALL_AND_USAGE](./INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
 
----
+| Module | Materials | Description | Code |
+|--------|-------|-------------|----------------|
+| 1 | [Building a TikTok-like recommender](https://decodingml.substack.com/p/33d3273e-b8e3-4d98-b160-c3d239343022) | Learn how to architect a recommender system using the 4-stage architecture and two-tower network. | **No code** |
+| 2 | [Feature pipelines for TikTok-like recommenders](https://decodingml.substack.com/p/feature-pipeline-for-tiktok-like) | Learn how to build a scalable feature pipeline using a feature store. | •[1_fp_computing_features.ipynb](notebooks/1_fp_computing_features.ipynb) |
 
-### Example Workflow
+### Google Colab
 
-For most scenarios, the basic commands will suffice. However, if you encounter issues or need a clean slate (e.g., resetting the database or dependencies), the optional commands can be added to your workflow. For example:
+To run the Notebooks in Google Colab, copy-paste them into your Google Drive, open them with Google Colab, and run them as running them locally. At the beginning of each Notebook, we have a set of setup steps that will **prepare the code and Python environment automatically**.
+
+## 🏗️ Project Structure
+
+At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
+
 ```bash
-docker-compose down --volumes  # Clear persistent data
-docker-compose build --no-cache  # Rebuild images without cache
-docker-compose up  # Start the stack
+.
+├── notebooks/          # Jupyter notebooks for each pipeline
+├── .../             # Core recommender system package
+│   ├── config.py       # Configuration and settings
+│   ...
+│   └── training/       # Training pipelines code
+├── tools/              # Utility scripts
+├── .env.example        # Example environment variables template
+├── Makefile            # Commands to install and run the project
+├── pyproject.toml      # Project dependencies
 ```
 
----
+## 👔 Dataset
 
-## Troubleshooting
+...
 
-### Using `.venv` with Docker
+## 🚀 Getting Started
 
-If you prefer using the local `.venv` while the stack runs in Docker, update your local hosts file to resolve `127.0.0.1` to the MongoDB container:
+For detailed installation and usage instructions, see our [INSTALL_AND_USAGE](./INSTALL_AND_USAGE.md) guide.
 
-1. Open your hosts file:
-   - **Linux/MacOS**: `/etc/hosts`
-   - **Windows**: `C:\Windows\System32\drivers\etc\hosts`
+**Recommendation:** While you can follow the installation guide directly, we strongly recommend reading the accompanying articles to gain a complete understanding of what you'll build.
 
-2. Add the following entry:
-   ```plaintext
-   127.0.0.1 mongodb-atlas-local
-   ```
+## 💡 Questions and Troubleshooting
 
----
+Have questions or running into issues? We're here to help!
 
-## Directory Structure
+Open a [GitHub issue](...) for:
+- Questions about the course material
+- Technical troubleshooting
+- Clarification on concepts
 
-```plaintext
-zenml-rag-pipeline/
-├── .venv/                          # Local Python environment (local runs only).
-│
-├── configs/
-│   ├── config.py                   # Centralized settings management.
-│   └── __init__.py
-│
-├── data/
-│   └── sample_data_set.json        # JSON dataset for ingestion.
-│
-├── logs/
-│   └── mongodb_atlas_pipeline.log  # Pipeline logs (local only).
-│
-├── pipelines/
-│   ├── mongodb_atlas_pipeline.py   # ZenML pipeline definitions.
-│   └── __init__.py
-│
-├── steps/
-│   ├── infrastructure/
-│   │   ├── mongodb_data_processing.py  # MongoDB ingestion and query steps.
-│   │   └── __init__.py
-│   └── __init__.py
-│
-├── .dockerignore                   # Files to exclude during Docker builds.
-├── .env                            # Local environment variables.
-├── .env.example                    # Template for .env.
-├── .gitignore                      # Git ignored files.
-├── .python-version                 # Python version for consistency.
-├── docker-compose.yml              # Multi-container setup.
-├── Dockerfile                      # Docker image definition.
-├── LICENSE                         # Project license.
-├── main.py                         # Entry point for the stack.
-├── pyproject.toml                  # Python project dependencies.
-├── README.md                       # This documentation.
-└── uv.lock                         # Lock file for dependencies (local only).
-```
+## 🥂 Contributing
 
----
+As an open-source course, we may not be able to fix all the bugs that arise.
 
-## Stack Features: MongoDB Class Capabilities
+If you find any bugs and know how to fix them, support future readers by contributing to this course with your bug fix.
 
-The `MongoDBService` class powers MongoDB integration with the following functionalities:
+We will deeply appreciate your support for the AI community and future readers 🤗
 
-1. **Ingestion**:
-   - Clears existing data and inserts new documents from JSON files.
-   - Avoids duplicates through proper collection handling.
+## Sponsors
 
-2. **Querying**:
-   - Retrieves documents by genre using case-insensitive regex queries.
-   - Configurable fetch limits to manage query sizes effectively.
+<table>
+  <tr>
+    <td align="center">
+      <a href="..." target="_blank">MongoDB</a>
+    </td>
+    <td align="center">
+      <a href="..." target="_blank">Comet</a>
+    </td>
+    <td align="center">
+      <a href="..." target="_blank">Opik</a>
+    </td>
+     <td align="center">
+      <a href="..." target="_blank">Unsloth</a>
+    </td>
+     <td align="center">
+      <a href="..." target="_blank">ZenML</a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="..." target="_blank">
+        <img src="static/mongodb.png" height="55" alt="MongoDB">
+      </a>
+    </td>
+    <td align="center">
+      <a href="..." target="_blank">
+        <img src="static/comet.png" height="55" alt="Comet">
+      </a>
+    </td>
+    <td align="center">
+      <a href="..." target="_blank">
+        <img src="static/opik.png" height="55" alt="Opik">
+      </a>
+    </td>
+     <td align="center">
+      <a href="..." target="_blank">
+        <img src="static/unsloth.png" height="55" alt="Unsloth">
+      </a>
+    </td>
+     <td align="center">
+      <a href="..." target="_blank">
+        <img src="static/zenml.png" height="55" alt="ZenML">
+      </a>
+    </td>
+  </tr>
+</table>
 
-3. **Validation**:
-   - Counts total documents in the collection.
-   - Verifies genre-specific document counts for accurate operations.
+## Contributors
 
----
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/iusztinpaul">
+        <img src="https://github.com/iusztinpaul.png" width="100px;" alt="Paul Iusztin"/><br />
+        <sub><b>Paul Iusztin</b></sub>
+      </a><br />
+      <sub>AI/ML Engineer</sub>
+    </td>
+    <td align="center">
+      <a href="https://github.com/915-Muscalagiu-AncaIoana">
+        <img src="https://github.com/915-Muscalagiu-AncaIoana.png" width="100px;" alt="Anca Ioana Muscalagiu"/><br />
+        <sub><b>Anca Ioana Muscalagiu</b></sub>
+      </a><br />
+      <sub>AI/ML Engineer</sub>
+    </td>
+  </tr>
+</table>
 
-## Pipeline Features: Modular Design
-
-### Document Storage
-- **Local MongoDB Atlas** stores sample movie data from the **`sample_mflix` database**, including movies, users, comments, and genres.
-
-### Pipeline Orchestration
-- Leverages **ZenML** for defining and executing modular pipelines:
-  - **Ingestion**: Reads data from `sample_data_set.json` and ingests it into MongoDB.
-  - **Querying**: Retrieves documents by specific genres with robust logging.
-
-### Dual Runtime Environments
-- Local development with `.venv`.
-- Docker-based runtime with `docker-compose`.
-
----
-
-## Example `.env` File
-
-```ini
-# MongoDB Offline Configuration
-MONGODB_OFFLINE_URI=mongodb://mongodb-atlas-local:27017
-MONGODB_OFFLINE_DATABASE=rag_pipeline
-MONGODB_OFFLINE_COLLECTION=offline_documents
-
-# Local Data Files
-LOCAL_JSON_FILE_PATH="data/sample_data_set.json"
-
-# Data Fetching Limits
-MAX_FETCH_LIMIT=50
-```
-
----
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## Contact
-
-For issues or inquiries, contact [jlmoses@outlook.com](mailto:jlmoses@outlook.com).
-
----
+This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for your educational projects (e.g., work, university, college degree, personal projects, etc.).
