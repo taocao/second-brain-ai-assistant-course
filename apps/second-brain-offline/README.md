@@ -109,7 +109,7 @@ This time we will use Notebooks, as they are popular when it comes to LLM fine-t
 
 | Purpose | Notebook | Useful Resources |
 |---------|----------|------------------|
-| Training | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/finetuning.ipynb) | [Tracking training with an experiment tracker](https://www.comet.com/iusztinpaul/second-brain-course/09f48688b0dc42fe9a56399255acbf48?compareXAxis=step&experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step) |
+| Training | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/finetuning.ipynb) | [Tracking training with an experiment tracker](https://www.comet.com/iusztinpaul/second-brain-course/f142e308313b4eedb298f15a34f5f0bb?compareXAxis=step&experiment-tab=panels&showOutliers=true&smoothing=0&xAxis=step) |
 | Inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) | - |
 | Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/evaluate.ipynb) | - |
 
