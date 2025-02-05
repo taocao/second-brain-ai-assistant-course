@@ -163,27 +163,27 @@ We will deeply appreciate your support for the AI community and future readers ð
   <tr>
     <td align="center">
       <a href="..." target="_blank">
-        <img src="static/mongodb.png" height="55" alt="MongoDB">
+        <img src="static/sponsors/mongo.png" height="55" alt="MongoDB">
       </a>
     </td>
     <td align="center">
       <a href="..." target="_blank">
-        <img src="static/comet.png" height="55" alt="Comet">
+        <img src="static/sponsors/comet.png" height="55" alt="Comet">
       </a>
     </td>
     <td align="center">
       <a href="..." target="_blank">
-        <img src="static/opik.png" height="55" alt="Opik">
+        <img src="static/sponsors/opik.png" height="55" alt="Opik">
       </a>
     </td>
      <td align="center">
       <a href="..." target="_blank">
-        <img src="static/unsloth.png" height="55" alt="Unsloth">
+        <img src="static/sponsors/unsloth.png" height="55" alt="Unsloth">
       </a>
     </td>
      <td align="center">
       <a href="..." target="_blank">
-        <img src="static/zenml.png" height="55" alt="ZenML">
+        <img src="static/sponsors/zenml.png" height="55" alt="ZenML">
       </a>
     </td>
   </tr>
