@@ -36,19 +36,19 @@ The project requires access to these cloud services:
 
 Start by cloning the repository and navigating to the project directory:
 ```
-git clone https://github.com/decodingml/YOUR_REPO.git
-cd YOUR_REPO 
+git clone https://github.com/decodingml/second-brain-ai-assistant-course.git
+cd second-brain-ai-assistant-course 
 ```
 
 ## 2. Installation
 
-To set it up first deactivate any active virtual environment and move to the second-brain-online directory:
+First deactivate any active virtual environment and move to the `second-brain-online` directory:
 ```bash
 deactivate
 cd apps/second-brain-offline
 ```
 
-To set it up and run
+To install the dependencies and activate the virtual environment, run the following commands:
 
 ```bash
 uv venv .venv-offline
@@ -56,7 +56,7 @@ uv venv .venv-offline
 uv pip install -e .
 ```
 
-Setup `Crew4AI` for crawling:
+Finish setting up `Crew4AI` for crawling:
 ```bash
 # Run post-installation setup
 uv pip install -U "crawl4ai==0.4.247" # We have to upgrade crawl4ai to support these CLI commands (we couldn't add it to pyproject.toml due to ZenML version incompatibility with Pydantic).
