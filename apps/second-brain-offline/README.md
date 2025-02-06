@@ -10,25 +10,38 @@ This guide will help you set up and run the Second Brain Offline Module which co
 - [🏗️ Set Up Your Local Infrastructure](#-set-up-your-local-infrastructure)
 - [⚡️ Running the Code for Each Lesson](#️-running-the-code-for-each-lesson)
 - [🔧 Utlity Commands](#-utility-commands)
+- [🧊 Setup Notion (optional)](#-setup-notion-optional)
 
 # 📋 Prerequisites
 
 ## Local Tools
-You'll need the following tools installed locally:
+
+You'll need the following tools installed locally, starting with Module 1:
 
 | Tool | Version | Purpose | Installation Link |
 |------|---------|---------|------------------|
 | Python | 3.11 | Programming language runtime | [Download](https://www.python.org/downloads/) |
 | uv | ≥ 0.4.30 | Python package installer and virtual environment manager | [Download](https://github.com/astral-sh/uv) |
 | GNU Make | ≥ 3.81 | Build automation tool | [Download](https://www.gnu.org/software/make/) |
-| Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads)
+| Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
+| Docker | ≥27.4.0 | Containerization platform | [Download](https://www.docker.com/get-started/) |
 
 ## Cloud Services
+
 The project requires access to these cloud services:
 
+| Service | Purpose | Cost | Required Credentials | Setup Guide | Starting with Module |
+|---------|---------|------|---------------------|-------------| ---------------------|
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API for recommender system | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
+| [Hugging Face](https://huggingface.com/) | MLOps | Free tier | `HUGGINGFACE_ACCESS_TOKEN` | [Quick Start Guide](https://huggingface.co/docs/hub/en/security-tokens) | Module 3 |
+| [Comet ML](https://www.comet.com/site/)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) | Module 4 |
+| [Opik](https://www.comet.com/site/products/opik/) | LLM vvaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) | Module 6 |
+
+Other optional services in case you want to deploy the code. When working locally, you can use the default values found in the `config.py` file:
+
 | Service | Purpose | Cost | Required Credentials | Setup Guide |
-|---------|---------|------|---------------------|-------------|
-| [OpenAI API](https://openai.com/index/openai-api/) | LLM API for recommender system | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) |
+|---------|---------|------|---------------------|-------------| 
+| [MongoDB](https://www.mongodb.com/) | NoSQL and vector database | Free tier | `MONGODB_URI` | 1. [Create a free MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register/?utm_campaign=paul_iusztin&utm_medium=referral) <br> 2. [Create a Cluster](https://www.mongodb.com/docs/guides/atlas/cluster/?utm_campaign=paul_iusztin&utm_medium=referral) </br> 3. [Add a Database User](https://www.mongodb.com/docs/guides/atlas/db-user/?utm_campaign=paul_iusztin&utm_medium=referral) </br> 4. [Configure a Network Connection](https://www.mongodb.com/docs/guides/atlas/network-connections/?utm_campaign=paul_iusztin&utm_medium=referral) |
 
 # 🎯 Getting Started
 
@@ -221,7 +234,7 @@ make lint-fix
 make test
 ```
 
-# 🧊 Notion (optional)
+# 🧊 Setup Notion (optional)
 
 In case you want to use your own Notion data, you can follow these steps to set up an integration and read from your Notion database:
 

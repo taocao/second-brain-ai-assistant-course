@@ -37,12 +37,6 @@ class Settings(BaseSettings):
         description="Project name for Comet ML and Opik tracking.",
     )
 
-    # --- Flags ---
-    IS_OFFLINE_MODE: bool = Field(
-        default=True,
-        description="Flag to enable offline mode (disables online/cloud services).",
-    )
-
     # --- Hugging Face Configuration ---
     HUGGINGFACE_ACCESS_TOKEN: str | None = Field(
         default=None, description="Access token for Hugging Face API authentication."
