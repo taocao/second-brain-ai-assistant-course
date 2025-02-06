@@ -1,6 +1,6 @@
 <div align="center">
   <h1>Building Your Second Brain AI Assistant Using LLMs and RAG</h1>
-  <h2>Have access to the collective wisdom of your own mind</h2>
+  <h3>Learn how to have access to the collective wisdom of your own mind</h3>
   <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
 </div>
 
@@ -23,43 +23,32 @@
 
 ## 📖 About This Course
 
-This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and recommender systems.
+This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and information retrieval systems.
 
-The **YOUR TITLE**, in collaboration with [...](...), is a X-module course backed up by code, Notebooks and lessons that will teach you how to build an **WHAT YOU WILL BUILD** from scratch.
+**The Second Brain AI Assistant**, in collaboration with [...](...), is a 6-module open-source course backed up by code and lessons that will teach you how to build an **advanced RAG and LLM system using LLMOps best practices**.
 
-By the end of this course, you will know how to architect, build and deploy a **WHAT YOU WILL BUILD**.
+By the end of this course, you will know how to architect, build and deploy a production-ready RAG and LLM system, by building an end-to-end application from scratch: **The Second Brain AI Assistant**.
 
 **What you'll do:**
 
 1. ...
 
-🥷 With these skills, you'll become a ninja in building **WHAT YOU WILL BUILD**. 
-
-## 🌐 Live Demo
-
-Try out our deployed **WHAT YOU WILL BUILD** to see what you'll learn to build by the end of this course:
-[💻 Live **WHAT YOU WILL BUILD** Streamlit Demo](...)
-
-<p align="center">
-  <a href="...">
-    <img src="static/....png" alt="UI Example" width="800">
-  </a>
-</p>
+🥷 With these skills, you'll become a ninja in building **advanced RAG and LLM system using LLMOps and ML systems best practices**. 
 
 ## 👥 Who Should Join?
 
 **This course is ideal for:**
-- ML/AI engineers interested in building production-ready **WHAT YOU WILL BUILD**
-- Data Engineers, Data Scientists, and Software Engineers wanting to understand the engineering behind **WHAT YOU WILL BUILD**
+- ML/AI engineers interested in building production-ready RAG and LLM system
+- Data Engineers, Data Scientists, and Software Engineers wanting to understand the engineering behind AI systems
 
-**Note:** This course focuses on engineering practices and end-to-end system implementation rather than theoretical model optimization or research.
+**Note:** This course focuses on engineering practices and end-to-end system implementation rather than pure theory.
 
 ## 🎓 Prerequisites
 
 | Category | Requirements |
 |----------|-------------|
 | **Skills** | Basic understanding of Python and Machine Learning. |
-| **Hardware** | Any modern laptop/workstation will do the job (no GPU or powerful computing power required). We support Google Colab for free compute. |
+| **Hardware** | Any modern laptop/workstation will do the job (no GPU or powerful computing power required). We will show you how to use the cloud for lessons that require a GPU. |
 | **Level** | Intermediate |
 
 
@@ -73,44 +62,40 @@ All tools used throughout the course will stick to their free tier, except OpenA
 
 As an open-source course, you don't have to enroll. Everything is self-paced, free of charge and with its resources freely accessible as follows:
 - **code**: this GitHub repository
-- **articles**: [Decoding ML](...)
+- **lessons**: [Decoding ML](...)
 
 ## 📚 Course Outline
 
-This **open-source course consists of X comprehensive modules** covering theory, system design, and hands-on implementation.
+This **open-source course consists of 6 comprehensive modules** covering theory, system design, and hands-on implementation.
 
-Our recommendation for each module:
-1. Read the article.
-2. Run the code to replicate our results.
-3. Following the article, go deeper into the code to understand the implementation.
+Our recommendation for getting the most out of this course:
+1. Clone the repository.
+2. Read the materials.
+3. Setup the code and run it to replicate our results.
+4. Go deeper into the code to understand the details of the implementation.
 
 > [!NOTE]
 > Check the [INSTALL_AND_USAGE](./INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
 
-| Module | Materials | Description | Code |
+| Module | Materials | Description | Running the code |
 |--------|-------|-------------|----------------|
-| 1 | [Building a TikTok-like recommender](https://decodingml.substack.com/p/33d3273e-b8e3-4d98-b160-c3d239343022) | Learn how to architect a recommender system using the 4-stage architecture and two-tower network. | **No code** |
-| 2 | [Feature pipelines for TikTok-like recommenders](https://decodingml.substack.com/p/feature-pipeline-for-tiktok-like) | Learn how to build a scalable feature pipeline using a feature store. | •[1_fp_computing_features.ipynb](notebooks/1_fp_computing_features.ipynb) |
-
-### Google Colab
-
-To run the Notebooks in Google Colab, copy-paste them into your Google Drive, open them with Google Colab, and run them as running them locally. At the beginning of each Notebook, we have a set of setup steps that will **prepare the code and Python environment automatically**.
+| 1 | [Build your Second Brain AI assistant](...) | Architect an AI assistant for your Second Brain. | **No code** |
+| 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | - |
+| 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | - |
+| 4 | Fine-tune and deploy open-source LLMs (WIP) | Fine-tune an open-source LLM to specialize it in summarizing documents and deploy it as a real-time endpoint. | - |
+| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | - |
+| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | - |
 
 ## 🏗️ Project Structure
 
-At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
+While building the Second Brain AI assistant, we will build two separate Python applications:
 
 ```bash
 .
-├── notebooks/          # Jupyter notebooks for each pipeline
-├── .../             # Core recommender system package
-│   ├── config.py       # Configuration and settings
-│   ...
-│   └── training/       # Training pipelines code
-├── tools/              # Utility scripts
-├── .env.example        # Example environment variables template
-├── Makefile            # Commands to install and run the project
-├── pyproject.toml      # Project dependencies
+├── apps / 
+|   ├── infrastructure/           # Docker infrastructure for the applications
+│   ├── second_brain_offline/     # Offline ML pipelines
+│   ├── second_brain_online/      # Online inference pipeline = our AI assistant
 ```
 
 ## 👔 Dataset
@@ -119,7 +104,9 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 
 ## 🚀 Getting Started
 
-For detailed installation and usage instructions, see our [INSTALL_AND_USAGE](./INSTALL_AND_USAGE.md) guide.
+For detailed installation and usage instructions, see each application documentation that will walk you through how to setup everything and run the code for each module:
+- [apps/second_brain_offline](apps/second_brain_offline/README.md)
+- [apps/second_brain_online](apps/second_brain_online/README.md)
 
 **Recommendation:** While you can follow the installation guide directly, we strongly recommend reading the accompanying articles to gain a complete understanding of what you'll build.
 
@@ -127,7 +114,7 @@ For detailed installation and usage instructions, see our [INSTALL_AND_USAGE](./
 
 Have questions or running into issues? We're here to help!
 
-Open a [GitHub issue](...) for:
+Open a [GitHub issue](https://github.com/decodingml/second-brain-ai-assistant-course/issues) for:
 - Questions about the course material
 - Technical troubleshooting
 - Clarification on concepts

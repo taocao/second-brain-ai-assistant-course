@@ -40,6 +40,29 @@ After running the doctor command, you should see something like this:
 ```
 [More on installing Crawl4AI](https://docs.crawl4ai.com/core/installation/)
 
+# 🏗️ Project Structure
+
+At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
+
+```bash
+.
+├── configs/                   # ZenML configuration files
+├── pipelines/                 # ZenML ML pipeline definitions
+├── src/second_brain_offline/  # Main package directory
+│   ├── application/           # Application layer
+│   ├── domain/                # Domain layer
+│   ├── infrastructure/        # Infrastructure layer
+│   ├── config.py              # Configuration settings
+│   └── utils.py               # Utility functions
+├── steps/                     # ZenML pipeline steps
+├── tests/                     # Test files
+├── tools/                     # Entrypoint scripts that use the Python package
+├── .env.example               # Environment variables template
+├── .python-version            # Python version specification
+├── Makefile                   # Project commands
+└── pyproject.toml             # Project dependencies
+```
+
 # Infrastructure
 
 To start the local infrastructure (ZenML, MongoDB):
