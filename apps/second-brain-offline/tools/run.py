@@ -102,9 +102,9 @@ def main(
     if run_collect_notion_data_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "collect_notion_data.yaml"
-        assert pipeline_args[
-            "config_path"
-        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
         pipeline_args["run_name"] = (
             f"collect_notion_data_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
@@ -113,18 +113,18 @@ def main(
     if run_etl_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "etl.yaml"
-        assert pipeline_args[
-            "config_path"
-        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
         pipeline_args["run_name"] = f"etl_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         etl.with_options(**pipeline_args)(**run_args)
 
     if run_etl_precomputed_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "etl_precomputed.yaml"
-        assert pipeline_args[
-            "config_path"
-        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
         pipeline_args["run_name"] = (
             f"etl_precomputed_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
@@ -133,9 +133,9 @@ def main(
     if run_generate_dataset_pipeline:
         run_args = {}
         pipeline_args["config_path"] = root_dir / "configs" / "generate_dataset.yaml"
-        assert pipeline_args[
-            "config_path"
-        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
         pipeline_args["run_name"] = (
             f"generate_dataset_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
@@ -146,9 +146,9 @@ def main(
         pipeline_args["config_path"] = (
             root_dir / "configs" / "compute_rag_vector_index.yaml"
         )
-        assert pipeline_args[
-            "config_path"
-        ].exists(), f"Config file not found: {pipeline_args['config_path']}"
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
         pipeline_args["run_name"] = (
             f"compute_rag_vector_index_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )

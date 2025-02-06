@@ -24,9 +24,9 @@ class NotionDatabaseClient:
             api_key: Optional Notion API key. If not provided, will use settings.NOTION_SECRET_KEY.
         """
 
-        assert (
-            api_key is not None
-        ), "NOTION_SECRET_KEY environment variable is required. Set it in your .env file."
+        assert api_key is not None, (
+            "NOTION_SECRET_KEY environment variable is required. Set it in your .env file."
+        )
 
         self.api_key = api_key
 

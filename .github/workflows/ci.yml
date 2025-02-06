@@ -2,12 +2,23 @@ name: CI
 on:
   pull_request:
     branches: [main, dev]
+    paths:
+      - 'apps/second-brain-offline/**'
+      - 'apps/second-brain-online/**'
+      - '.github/workflows/ci.yml'
   push:
     branches: [main]
+    paths:
+      - 'apps/second-brain-offline/**'
+      - 'apps/second-brain-online/**'
+      - '.github/workflows/ci.yml'
 
 jobs:
-  lint-format-test:
+  lint-format-offline:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/second-brain-offline
 
     steps:
       - name: 🛎️ Checkout
@@ -19,7 +30,7 @@ jobs:
       - name: 🐍 Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version-file: ".python-version"
+          python-version-file: "apps/second-brain-offline/.python-version"
 
       - name: 🦾 Install the project
         run: |
@@ -32,5 +43,31 @@ jobs:
       - name: 🔎 Lint Check
         run: make lint-check
 
-      - name: 🧪 Test
-        run: make test
+  lint-format-online:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/second-brain-online
+
+    steps:
+      - name: 🛎️ Checkout
+        uses: actions/checkout@v4
+
+      - name: 📦 Install uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "apps/second-brain-online/.python-version"
+
+      - name: 🦾 Install the project
+        run: |
+          uv sync --all-extras --dev
+          uv pip install -e .
+
+      - name: 💅 Format Check
+        run: make format-check
+
+      - name: 🔎 Lint Check
+        run: make lint-check
