@@ -117,9 +117,9 @@ While building the Second Brain AI assistant, we will build two separate Python 
 ```bash
 .
 ├── apps / 
-|   ├── infrastructure/           # Docker infrastructure for the applications
-│   ├── second_brain_offline/     # Offline ML pipelines
-│   ├── second_brain_online/      # Online inference pipeline = our AI assistant
+|   ├── infrastructure/               # Docker infrastructure for the applications
+|   |   ├── second_brain_offline/     # Offline ML pipelines
+|   |   └── second_brain_online/      # Online inference pipeline = our AI assistant
 ```
 
 ## 👔 Dataset
