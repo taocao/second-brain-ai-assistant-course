@@ -7,7 +7,7 @@
 </br>
 
 <p align="center">
-  <a href="...">
+  <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
     <img src="static/system_architecture.png" alt="Architecture" width="600">
   </a>
 </p>
@@ -89,7 +89,7 @@ You can also **run the course with $0 costs** as we will **provide snapshots of 
 
 As an open-source course, you don't have to enroll. Everything is self-paced, free of charge and with its resources freely accessible as follows:
 - **code**: this GitHub repository
-- **lessons**: [Decoding ML](...)
+- **lessons**: [Decoding ML](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant)
 
 ## 📚 Course Outline
 
