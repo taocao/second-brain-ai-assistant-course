@@ -135,8 +135,8 @@ Thus, you don’t need to use Notion or hook your Notion to complete this course
 ## 🚀 Getting Started
 
 For detailed installation and usage instructions, see each application documentation that will walk you through how to setup everything and run the code for each module:
-- [apps/second-brain-offline](apps/second-brain-offline/README.md)
-- [apps/second-brain-online](apps/second-brain-online/README.md)
+- [apps/second-brain-offline](apps/second-brain-offline)
+- [apps/second-brain-online](apps/second-brain-online)
 
 **Recommendation:** While you can follow the installation guide directly, we strongly recommend reading the accompanying articles to gain a complete understanding of what you'll build.
 
