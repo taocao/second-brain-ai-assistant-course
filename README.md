@@ -118,8 +118,8 @@ While building the Second Brain AI assistant, we will build two separate Python 
 .
 ├── apps / 
 |   ├── infrastructure/               # Docker infrastructure for the applications
-|   |   ├── second_brain_offline/     # Offline ML pipelines
-└─  └─  └── second_brain_online/      # Online inference pipeline = our AI assistant
+|   |   ├── second-brain-offline/     # Offline ML pipelines
+└─  └─  └── second-brain-online/      # Online inference pipeline = our AI assistant
 ```
 
 ## 👔 Dataset
@@ -135,8 +135,8 @@ Thus, you don’t need to use Notion or hook your Notion to complete this course
 ## 🚀 Getting Started
 
 For detailed installation and usage instructions, see each application documentation that will walk you through how to setup everything and run the code for each module:
-- [apps/second_brain_offline](apps/second_brain_offline/README.md)
-- [apps/second_brain_online](apps/second_brain_online/README.md)
+- [apps/second-brain-offline](apps/second-brain-offline/README.md)
+- [apps/second-brain-online](apps/second-brain-online/README.md)
 
 **Recommendation:** While you can follow the installation guide directly, we strongly recommend reading the accompanying articles to gain a complete understanding of what you'll build.
 
