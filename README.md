@@ -101,9 +101,6 @@ Our recommendation for getting the most out of this course:
 3. Setup the code and run it to replicate our results.
 4. Go deeper into the code to understand the details of the implementation.
 
-> [!NOTE]
-> Check the [INSTALL_AND_USAGE](./INSTALL_AND_USAGE.md) doc for a step-by-step installation and usage guide.
-
 | Module | Materials | Description | Running the code |
 |--------|-------|-------------|----------------|
 | 1 | [Build your Second Brain AI assistant](...) | Architect an AI assistant for your Second Brain. | **No code** |

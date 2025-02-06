@@ -1,4 +1,46 @@
-# Installation
+# 🚀 Installation and Usage Guide for the Second Brain Offline Module
+
+This guide will help you set up and run the Second Brain Offline Module which contains the code for modules 1-5.
+
+# 📑 Table of Contents
+
+- [📋 Prerequisites](#-prerequisites)
+- [🎯 Getting Started](#-getting-started)
+- [📁 Project Structure](#-project-structure)
+- [🏗️ Set Up Your Local Infrastructure](#-set-up-your-local-infrastructure)
+- [⚡️ Running the Code for Each Lesson](#️-running-the-code-for-each-lesson)
+- [🔧 Utlity Commands](#-utility-commands)
+
+# 📋 Prerequisites
+
+## Local Tools
+You'll need the following tools installed locally:
+
+| Tool | Version | Purpose | Installation Link |
+|------|---------|---------|------------------|
+| Python | 3.11 | Programming language runtime | [Download](https://www.python.org/downloads/) |
+| uv | ≥ 0.4.30 | Python package installer and virtual environment manager | [Download](https://github.com/astral-sh/uv) |
+| GNU Make | ≥ 3.81 | Build automation tool | [Download](https://www.gnu.org/software/make/) |
+| Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads)
+
+## Cloud Services
+The project requires access to these cloud services:
+
+| Service | Purpose | Cost | Required Credentials | Setup Guide |
+|---------|---------|------|---------------------|-------------|
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API for recommender system | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) |
+
+# 🎯 Getting Started
+
+## 1. Clone the Repository
+
+Start by cloning the repository and navigating to the project directory:
+```
+git clone https://github.com/decodingml/YOUR_REPO.git
+cd YOUR_REPO 
+```
+
+## 2. Installation
 
 To set it up first deactivate any active virtual environment and move to the second-brain-online directory:
 ```bash
@@ -40,7 +82,16 @@ After running the doctor command, you should see something like this:
 ```
 [More on installing Crawl4AI](https://docs.crawl4ai.com/core/installation/)
 
-# 🏗️ Project Structure
+## 3. Environment Configuration
+
+Before running any components:
+1. Create your environment file:
+   ```bash
+   cp .env.example .env
+   ```
+2. Open `.env` and configure the required credentials following the inline comments and the recommendations from the [Cloud Services](#-prerequisites) section.
+
+# 📁 Project Structure
 
 At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
 
@@ -63,7 +114,7 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 └── pyproject.toml             # Project dependencies
 ```
 
-# Infrastructure
+# 🏗️ Set Up Your Local Infrastructure
 
 To start the local infrastructure (ZenML, MongoDB):
 ```bash
@@ -75,15 +126,15 @@ To stop the local infrastructure (ZenML, MongoDB):
 make local-infrastructure-down
 ```
 
-# Running the Code / Lessons
+# ⚡️ Running the Code for Each Module
 
-## Lesson 1: Build your Second Brain AI assistant
+## Module 1: Build your Second Brain AI assistant
 
 Lesson: [Build your Second Brain AI assistant]()
 
 No code to run for this lesson. Read the lesson to understand the problem and overall architecture of the Second Brain AI assistant.
 
-## Lesson 2: ETL pipeline
+## Module 2: ETL pipeline
 
 ### Prepare Notion data
 
@@ -105,7 +156,7 @@ Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
 make etl-pipeline
 # Validate using test: make test-etl-pipeline
 ```
-Running costs: ~$0.5
+Running costs: ~$0.5 </br>
 Running time: ~30 minutes
 
 If you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this dataset to skip the crawling step:
@@ -115,12 +166,12 @@ make download-crawled-dataset
 make etl-precomputed-pipeline
 ```
 
-## Lesson 3: Generate Fine-tuning Dataset
+## Module 3: Generate Fine-tuning Dataset
 
 ```bash
 make generate-dataset-pipeline
 ```
-Running costs: ~$1.5
+Running costs: ~$1.5 </br>
 Running time: ~60 minutes
 
 In case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as default in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
@@ -148,30 +199,31 @@ The Agentic App sits in the online environment, which is implemented as a differ
 
 Go to the [apps/second-brain-online](../second-brain-online/) folder and follow the instructions there to set it up and run it.
 
-## Utility commands
+# 🔧 Utlity Commands
 
-### Formatting
+## Formatting
 
 ```
 make format-check
 make format-fix
 ```
-### Linting
+
+## Linting
 
 ```bash
 make lint-check
 make lint-fix
 ```
 
-### Tests
+## Tests
 
 ```bash
 make test
 ```
 
-## Others
+# 🧊 Notion (optional)
 
-### Notion
+In case you want to use your own Notion data, you can follow these steps to set up an integration and read from your Notion database:
 
 1. Go to [https://www.notion.so/profile].
 2. Create an integration following [this tutorial](https://developers.notion.com/docs/authorization).
