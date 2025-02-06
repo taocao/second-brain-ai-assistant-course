@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Building your Second Brain AI assistant using LLMs and RAG</h1>
   <h3>Learn how to access the collective wisdom of your own mind</h3>
-  <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
+  <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">MongoDB</a>, <a href="...">Comet</a>, <a href="...">Opik</a>, <a href="...">Unsloth</a> and <a href="...">ZenML</a>.</p>
 </div>
 
 </br>
