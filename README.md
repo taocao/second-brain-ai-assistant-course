@@ -1,6 +1,6 @@
 <div align="center">
-  <h1>Building Your Second Brain AI Assistant Using LLMs and RAG</h1>
-  <h3>Learn how to have access to the collective wisdom of your own mind</h3>
+  <h1>Building your Second Brain AI assistant using LLMs and RAG</h1>
+  <h3>Learn how to access the collective wisdom of your own mind</h3>
   <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with <a href="...">...</a>.</p>
 </div>
 
@@ -12,26 +12,50 @@
   </a>
 </p>
 
-## 🎯 What You'll Learn
-
-...
-
-<p align="center">
-  <img src="static/....png" alt="..." width="400" style="display: inline-block; margin-right: 20px;">
-  <img src="static/....png" alt="..." width="400" style="display: inline-block;">
-</p>
-
 ## 📖 About This Course
 
 This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and information retrieval systems.
 
-**The Second Brain AI Assistant**, in collaboration with [...](...), is a 6-module open-source course backed up by code and lessons that will teach you how to build an **advanced RAG and LLM system using LLMOps best practices**.
+Following Decoding ML’s mission, in this course we will show you how to build an end-to-end AI system using the Second Brain AI Assistant as an example.
 
-By the end of this course, you will know how to architect, build and deploy a production-ready RAG and LLM system, by building an end-to-end application from scratch: **The Second Brain AI Assistant**.
+**The Second Brain AI Assistant** open-source course contains 6 modules and it's backed up by code and lessons that will teach you how to build an **advanced RAG and LLM system using LLMOps and ML systems best practices**.
+
+By the end of this course, you will know how to architect, build and deploy a production-ready RAG and LLM system, by building an end-to-end application from scratch.
+
+#### So what is the Second Brain AI Assistant?
+
+The concept of a Second Brain is a metaphor coined by Tiago Forte to describe the process of building a personal knowledge base, where you store your notes, ideas, and resources.
+
+The Second Brain AI Assistant is an AI assistant that uses your Second Brain as a source of knowledge to answer questions, summarize documents, and provide insights.
+
+As this is an educative open-source project, we will stick to Notion, but the code can be easily adapted to other sources, such as Google Drive, Calendar, etc.
+
+As a fun (and relevant) example, we will provide you with our list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval. Thus, using or giving access to your Notion is optional to take this course.
 
 **What you'll do:**
 
-1. ...
+- Build an agentic RAG application that uses your Second Brain as a source of knowledge.
+- Architect an LLM and RAG system.
+- Apply LLMOps and software engineering best practices.
+- Fine-tune and deploy open-source LLMs.
+- Leverage popular tools such as OpenAI, Hugging Face, MongoDB, ZenML, Opik, Comet, Unsloth, Crawl4AI, uv, ruff, smolagents, etc.
+
+## 🎯 What You'll Learn
+
+While building the Second Brain AI assistant, we will cover the following concepts, algorithms and tools:
+
+- Architecting an LLM system using the feature/training/inference (FTI) architecture.
+- Using MLOps best practices such as data registries, model registries, and experiment trackers.
+- Crawling over 700 links and normalizing everything into Markdown using Crawl4AI.
+- Computing quality scores using LLMs.
+- Generating summarization datasets using distillation.
+- Fine-tuning a Llama model using Unsloth and Comet.
+- Deploying the Llama model as an inference endpoint to Hugging Face serverless Dedicated Endpoints.
+- Implement advanced RAG algorithms using contextual retrieval, hybrid search and MongoDB vector search.
+- Build an agent that uses multiple tools using Hugging Face’s smolagents framework.
+- Using LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
+- Integrate pipeline orchestration, artifact and metadata tracking using ZenML.
+- Manage the Python project using uv and ruff. 
 
 🥷 With these skills, you'll become a ninja in building **advanced RAG and LLM system using LLMOps and ML systems best practices**. 
 
@@ -54,9 +78,12 @@ By the end of this course, you will know how to architect, build and deploy a pr
 
 ## 💰 Cost Structure
 
-All tools used throughout the course will stick to their free tier, except OpenAI's API, as follows:
+All tools used throughout the course will stick to their free tier, except:
 
-- ...
+- OpenAI's API which follows a pay-as-you-go model taking us ~$3 to run the course.
+- Hugging Face's Dedicated Endpoints which follows a pay-as-you-go model taking us ~$2 to run the course.
+
+You can also **run the course with $0 costs** as we will **provide snapshots of the results for each module**.
 
 ## 🥂 Open-source Course: Participation is Open and Free
 
@@ -100,7 +127,13 @@ While building the Second Brain AI assistant, we will build two separate Python 
 
 ## 👔 Dataset
 
-...
+We will use our personal list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval, containing ~100 pages and 700+ links which we will crawl and access from the Second Brain AI assistant.
+
+![Notion data](static/notion_genai_dataset.png)
+
+For ease of use, we stored a snapshot of our Notion data in a public S3 bucket, which you can download for free without AWS credentials. 
+
+Thus, you don’t need to use Notion or hook your Notion to complete this course. But if you want to, you can, as we expose in this GitHub repository, a flexible pipeline that can load any Notion database. 
 
 ## 🚀 Getting Started
 
