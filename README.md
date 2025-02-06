@@ -129,7 +129,7 @@ While building the Second Brain AI assistant, we will build two separate Python 
 
 We will use our personal list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval, containing ~100 pages and 700+ links which we will crawl and access from the Second Brain AI assistant.
 
-![Notion data](static/notion_genai_dataset.png)
+![Notion data](./static/notion_genai_dataset.png)
 
 For ease of use, we stored a snapshot of our Notion data in a public S3 bucket, which you can download for free without AWS credentials. 
 
