@@ -16,7 +16,7 @@
 
 This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and information retrieval systems.
 
-Following Decoding ML’s mission, in this course we will show you how to build an end-to-end AI system using the Second Brain AI Assistant as an example.
+Following Decoding ML's mission, in this course we will show you how to build an end-to-end AI system using the Second Brain AI Assistant as an example.
 
 **The Second Brain AI Assistant** open-source course contains 6 modules and it's backed up by code and lessons that will teach you how to build an **advanced RAG and LLM system using LLMOps and ML systems best practices**.
 
@@ -52,7 +52,7 @@ While building the Second Brain AI assistant, we will cover the following concep
 - Fine-tuning a Llama model using Unsloth and Comet.
 - Deploying the Llama model as an inference endpoint to Hugging Face serverless Dedicated Endpoints.
 - Implement advanced RAG algorithms using contextual retrieval, hybrid search and MongoDB vector search.
-- Build an agent that uses multiple tools using Hugging Face’s smolagents framework.
+- Build an agent that uses multiple tools using Hugging Face's smolagents framework.
 - Using LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
 - Integrate pipeline orchestration, artifact and metadata tracking using ZenML.
 - Manage the Python project using uv and ruff. 
@@ -130,7 +130,7 @@ We will use our personal list of filtered resources (which we keep in Notion) on
 
 For ease of use, we stored a snapshot of our Notion data in a public S3 bucket, which you can download for free without AWS credentials. 
 
-Thus, you don’t need to use Notion or hook your Notion to complete this course. But if you want to, you can, as we expose in this GitHub repository, a flexible pipeline that can load any Notion database. 
+Thus, you don't need to use Notion or hook your Notion to complete this course. But if you want to, you can, as we expose in this GitHub repository, a flexible pipeline that can load any Notion database. 
 
 ## 🚀 Getting Started
 
@@ -160,41 +160,31 @@ We will deeply appreciate your support for the AI community and future readers �
 ## Sponsors
 
 <div align="center">
-  <table>
-    <tr>
-      <td align="center" width="200">
+  <table style="border-collapse: collapse; border: none;">
+    <tr style="border: none;">
+      <td align="center" style="border: none; padding: 20px;">
         <a href="..." target="_blank">
-          <img src="static/sponsors/mongo.png" height="60" alt="MongoDB">
-          <br>
-          <sub><b>MongoDB</b></sub>
+          <img src="static/sponsors/mongo.png" width="200" style="max-height: 45px; width: auto;" alt="MongoDB">
         </a>
       </td>
-      <td align="center" width="200">
+      <td align="center" style="border: none; padding: 20px;">
         <a href="..." target="_blank">
-          <img src="static/sponsors/comet.png" height="60" alt="Comet">
-          <br>
-          <sub><b>Comet</b></sub>
+          <img src="static/sponsors/comet.png" width="200" style="max-height: 45px; width: auto;" alt="Comet">
         </a>
       </td>
-      <td align="center" width="200">
+      <td align="center" style="border: none; padding: 20px;">
         <a href="..." target="_blank">
-          <img src="static/sponsors/opik.png" height="60" alt="Opik">
-          <br>
-          <sub><b>Opik</b></sub>
+          <img src="static/sponsors/opik.png" width="200" style="max-height: 45px; width: auto;" alt="Opik">
         </a>
       </td>
-      <td align="center" width="200">
+      <td align="center" style="border: none; padding: 20px;">
         <a href="..." target="_blank">
-          <img src="static/sponsors/unsloth.png" height="60" alt="Unsloth">
-          <br>
-          <sub><b>Unsloth</b></sub>
+          <img src="static/sponsors/unsloth.png" width="200" style="max-height: 45px; width: auto;" alt="Unsloth">
         </a>
       </td>
-      <td align="center" width="200">
+      <td align="center" style="border: none; padding: 20px;">
         <a href="..." target="_blank">
-          <img src="static/sponsors/zenml.png" height="60" alt="ZenML">
-          <br>
-          <sub><b>ZenML</b></sub>
+          <img src="static/sponsors/zenml.png" width="200" style="max-height: 45px; width: auto;" alt="ZenML">
         </a>
       </td>
     </tr>
@@ -217,7 +207,14 @@ We will deeply appreciate your support for the AI community and future readers �
         <img src="https://github.com/915-Muscalagiu-AncaIoana.png" width="100px;" alt="Anca Ioana Muscalagiu"/><br />
         <sub><b>Anca Ioana Muscalagiu</b></sub>
       </a><br />
-      <sub>AI/ML Engineer</sub>
+      <sub>SWE/ML Engineer</sub>
+    </td>
+     <td align="center">
+      <a href="https://github.com/ernestol0817">
+        <img src="https://github.com/ernestol0817.png" width="100px;" alt="Ernesto Larios"/><br />
+        <sub><b>Ernesto Larios</b></sub>
+      </a><br />
+      <sub>AI Engineer</sub>
     </td>
   </tr>
 </table>
