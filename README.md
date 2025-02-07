@@ -102,7 +102,7 @@ Our recommendation for getting the most out of this course:
 4. Go deeper into the code to understand the details of the implementation.
 
 | Module | Materials | Description | Running the code |
-|--------|-------|-------------|----------------|--------|
+|--------|-----------|-------------|------------------|
 | 1 | [Build your Second Brain AI assistant](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant) | Architect an AI assistant for your Second Brain. | **No code** |
 | 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | - |
 | 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | - |
