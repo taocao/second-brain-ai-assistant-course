@@ -101,14 +101,14 @@ Our recommendation for getting the most out of this course:
 3. Setup the code and run it to replicate our results.
 4. Go deeper into the code to understand the details of the implementation.
 
-| Module | Materials | Description | Running the code |
-|--------|-------|-------------|----------------|
-| 1 | [Build your Second Brain AI assistant](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant) | Architect an AI assistant for your Second Brain. | **No code** |
-| 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | - |
-| 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | - |
-| 4 | Fine-tune and deploy open-source LLMs (WIP) | Fine-tune an open-source LLM to specialize it in summarizing documents and deploy it as a real-time endpoint. | - |
-| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | - |
-| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | - |
+| Module | Materials | Description | Running the code | Audio |
+|--------|-------|-------------|----------------|--------|
+| 1 | [Build your Second Brain AI assistant](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant) | Architect an AI assistant for your Second Brain. | **No code** | <audio controls><source src="static/podcast/lesson_1.m4a" type="audio/mpeg"></audio> |
+| 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | - | <audio controls><source src="static/podcast/lesson_2.wav" type="audio/mpeg"></audio> |
+| 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | - | <audio controls><source src="static/audio/module_3.mp3" type="audio/mpeg"></audio> |
+| 4 | Fine-tune and deploy open-source LLMs (WIP) | Fine-tune an open-source LLM to specialize it in summarizing documents and deploy it as a real-time endpoint. | - | <audio controls><source src="static/audio/module_4.mp3" type="audio/mpeg"></audio> |
+| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | - | <audio controls><source src="static/audio/module_5.mp3" type="audio/mpeg"></audio> |
+| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | - | <audio controls><source src="static/audio/module_6.mp3" type="audio/mpeg"></audio> |
 
 ## 🏗️ Project Structure
 
