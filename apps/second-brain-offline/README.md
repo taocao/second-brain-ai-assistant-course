@@ -167,7 +167,6 @@ make collect-notion-data-pipeline
 Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
 ```bash
 make etl-pipeline
-# Validate using test: make test-etl-pipeline
 ```
 Running costs: ~$0.5 </br>
 Running time: ~30 minutes

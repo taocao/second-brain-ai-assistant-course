@@ -10,7 +10,7 @@ from second_brain_offline.domain import Document
 def crawl(
     documents: list[Document], max_workers: int = 10
 ) -> Annotated[list[Document], "crawled_documents"]:
-    """Crawl pages and their child URLs.
+    """Crawl the child URLs of each document.
 
     Args:
         documents: List of documents to crawl and extract child URLs from.
