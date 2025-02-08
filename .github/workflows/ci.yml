@@ -2,17 +2,9 @@ name: CI
 on:
   pull_request:
     branches: [main, dev]
-    paths:
-      - 'apps/second-brain-offline/**'
-      - 'apps/second-brain-online/**'
-      - '.github/workflows/ci.yml'
   push:
     branches: [main]
-    paths:
-      - 'apps/second-brain-offline/**'
-      - 'apps/second-brain-online/**'
-      - '.github/workflows/ci.yml'
-
+    
 jobs:
   lint-format-offline:
     runs-on: ubuntu-latest

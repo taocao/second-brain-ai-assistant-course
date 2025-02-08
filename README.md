@@ -191,7 +191,7 @@ We will deeply appreciate your support for the AI community and future readers ð
   </table>
 </div>
 
-## Contributors
+## Core Contributors
 
 <table>
   <tr>
@@ -202,13 +202,7 @@ We will deeply appreciate your support for the AI community and future readers ð
       </a><br />
       <sub>AI/ML Engineer</sub>
     </td>
-    <td align="center">
-      <a href="https://github.com/915-Muscalagiu-AncaIoana">
-        <img src="https://github.com/915-Muscalagiu-AncaIoana.png" width="100px;" alt="Anca Ioana Muscalagiu"/><br />
-        <sub><b>Anca Ioana Muscalagiu</b></sub>
-      </a><br />
-      <sub>SWE/ML Engineer</sub>
-    </td>
+     </td>
      <td align="center">
       <a href="https://github.com/ernestol0817">
         <img src="https://github.com/ernestol0817.png" width="100px;" alt="Ernesto Larios"/><br />
@@ -216,6 +210,12 @@ We will deeply appreciate your support for the AI community and future readers ð
       </a><br />
       <sub>AI Engineer</sub>
     </td>
+    <td align="center">
+      <a href="https://github.com/915-Muscalagiu-AncaIoana">
+        <img src="https://github.com/915-Muscalagiu-AncaIoana.png" width="100px;" alt="Anca Ioana Muscalagiu"/><br />
+        <sub><b>Anca Ioana Muscalagiu</b></sub>
+      </a><br />
+      <sub>SWE/ML Engineer</sub>
   </tr>
 </table>
 
