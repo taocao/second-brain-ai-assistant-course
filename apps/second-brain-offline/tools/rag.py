@@ -128,7 +128,9 @@ def main(config_path: Path) -> None:
         print(f"Answer: {answer}")
 
     # Example document retrieval
-    print("\nRetrieving documents for 'List some Python libraries to process and parse PDFs':")
+    print(
+        "\nRetrieving documents for 'List some Python libraries to process and parse PDFs':"
+    )
     docs = get_documents_for_query(
         config_path, "List some Python libraries to process and parse PDFs"
     )

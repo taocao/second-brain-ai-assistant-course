@@ -1,0 +1,17 @@
+parameters:
+  extract_collection_name: raw
+  fetch_limit: 100
+  load_collection_name: rag
+  content_quality_score_threshold: 0.6
+  retriever_type: contextual
+  embedding_model_id: Alibaba-NLP/gte-large-en-v1.5
+  embedding_model_type: huggingface
+  embedding_model_dim: 1024
+  chunk_size: 640
+  contextual_summarization_type: simple
+  contextual_agent_model_id: tgi
+  contextual_agent_max_characters: 128
+  mock: false
+  processing_batch_size: 2
+  processing_max_workers: 2
+  device: mps # or cuda (for Nvidia GPUs) or mps (for Apple M1/M2/M3 chips)

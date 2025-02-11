@@ -1,0 +1,17 @@
+parameters:
+  extract_collection_name: raw
+  fetch_limit: 200
+  load_collection_name: rag
+  content_quality_score_threshold: 0.6
+  retriever_type: contextual
+  embedding_model_id: text-embedding-3-small
+  embedding_model_type: openai
+  embedding_model_dim: 1536
+  chunk_size: 640
+  contextual_summarization_type: simple
+  contextual_agent_model_id: gpt-4o-mini
+  contextual_agent_max_characters: 128
+  mock: false
+  processing_batch_size: 2
+  processing_max_workers: 2
+  device: mps # or cuda (for Nvidia GPUs) or mps (for Apple M1/M2/M3 chips)

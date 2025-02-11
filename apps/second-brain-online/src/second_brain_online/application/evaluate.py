@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from loguru import logger
 from opik.evaluation import evaluate
 from opik.evaluation.metrics import AnswerRelevance, Hallucination, Moderation
@@ -9,7 +11,7 @@ from second_brain_online.config import settings
 opik_utils.configure()
 
 
-def evaluate_agent(prompts: list[str]) -> None:
+def evaluate_agent(prompts: list[str], retriever_config_path: Path) -> None:
     assert settings.COMET_API_KEY, (
         "COMET_API_KEY is not set. We need it to track the experiment with Opik."
     )
@@ -17,7 +19,7 @@ def evaluate_agent(prompts: list[str]) -> None:
     def evaluation_task(x: dict) -> dict:
         """Call agentic app logic to evaluate."""
 
-        agent = agents.get_agent()
+        agent = agents.get_agent(retriever_config_path=retriever_config_path)
         response = agent.run(x["input"])
         context = extract_tool_responses(agent)
 
@@ -34,7 +36,6 @@ def evaluate_agent(prompts: list[str]) -> None:
     # Evaluate
     experiment_config = {
         "model_id": settings.OPENAI_MODEL_ID,
-        "embedding_model": settings.TEXT_EMBEDDING_MODEL_ID,
         "agent_config": {"max_steps": 3},
     }
     # TODO: We could also write a custom metric that checks for references to the context.

@@ -40,15 +40,16 @@ class Settings(BaseSettings):
         description="Project name for Comet ML and Opik tracking.",
     )
 
-    # --- Flags ---
-    IS_OFFLINE_MODE: bool = Field(
-        default=True,
-        description="Flag to enable offline mode (disables online/cloud services).",
-    )
-
     # --- Hugging Face Configuration ---
     HUGGINGFACE_ACCESS_TOKEN: str | None = Field(
         default=None, description="Access token for Hugging Face API authentication."
+    )
+    HUGGINGFACE_DEDICATED_ENDPOINT: str | None = Field(
+        default=None,
+        description="Dedicated endpoint URL for real-time inference. "
+        "If provided, we will use the dedicated endpoint instead of OpenAI. "
+        "For example, https://um18v2aeit3f6g1b.eu-west-1.aws.endpoints.huggingface.cloud/v1/, "
+        "with /v1 after the endpoint URL.",
     )
 
     # --- MongoDB Atlas Configuration ---
@@ -66,27 +67,12 @@ class Settings(BaseSettings):
         default=None, description="Secret key for Notion API authentication."
     )
 
-    # --- Groq Configuration ---
-    GROQ_API_KEY: str | None = Field(
-        default=None, description="API key for Groq service authentication."
-    )
-
     # --- OpenAI API Configuration ---
     OPENAI_API_KEY: str = Field(
         description="API key for OpenAI service authentication.",
     )
     OPENAI_MODEL_ID: str = Field(
         default="gpt-4o-mini", description="Identifier for the OpenAI model to be used."
-    )
-
-    # --- RAG Configuration ---
-    TEXT_EMBEDDING_MODEL_ID: str = Field(
-        default="text-embedding-3-small",
-        description="Model identifier for text embedding generation.",
-    )
-    RAG_MODEL_DEVICE: str = Field(
-        default="cpu",
-        description="Device to run RAG models on (cpu/cuda).",
     )
 
     @field_validator("OPENAI_API_KEY")

@@ -10,6 +10,7 @@ export PYTHONPATH = .
 # --- Default Values ---
 
 CHECK_DIRS := .
+RETRIEVER_CONFIG ?= configs/compute_rag_vector_index_openai_parent.yaml
 
 # --- Utilities ---
 
@@ -32,13 +33,13 @@ local-infrastructure-stop: local-docker-infrastructure-stop
 # --- Run ---
 
 run_agent_app:
-	uv run python -m tools.app --ui
+	uv run python -m tools.app --retriever-config-path=$(RETRIEVER_CONFIG) --ui
 
 run_agent_query:
-	uv run python -m tools.app --query "What is the feature/training/inference (FTI) pipelines architecture?"
+	uv run python -m tools.app --retriever-config-path=$(RETRIEVER_CONFIG) --query "What is the feature/training/inference (FTI) pipelines architecture?"
 
 evaluate_agent:
-	uv run python -m tools.evaluate_app
+	uv run python -m tools.evaluate_app --retriever-config-path=$(RETRIEVER_CONFIG)
 
 
 # --- QA ---

@@ -273,11 +273,17 @@ class SimpleSummarizationAgent:
         max_concurrent_requests: Maximum number of concurrent API requests.
     """
 
-    SYSTEM_PROMPT_TEMPLATE = """You are a helpful assistant specialized in summarizing documents for the purposes of improving semantic and keyword search retrieval.
-<document> 
+    SYSTEM_PROMPT_TEMPLATE = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+You are a helpful assistant specialized in summarizing documents for the purposes of improving semantic and keyword search retrieval. 
+Generate a concise TL;DR summary in plain text format having a maximum of {characters} characters of the key findings from the provided documents, 
+highlighting the most significant insights. Answer only with the succinct context and nothing else.
+
+### Input:
 {content}
-</document> 
-Please give a short succinct context of maximum {characters} characters that includes critical keywords and highlights from the overall document for the purposes of improving semantic and keyword search retrieval. Answer only with the succinct context and nothing else. 
+
+### Response:
 """
 
     def __init__(

@@ -1,5 +1,7 @@
 import json
+from pathlib import Path
 
+import yaml
 from loguru import logger
 from opik import opik_context, track
 from smolagents import Tool
@@ -26,10 +28,23 @@ class MongoDBRetrieverTool(Tool):
     }
     output_type = "string"
 
-    def __init__(self, **kwargs):
+    def __init__(self, config_path: Path, **kwargs):
         super().__init__(**kwargs)
 
-        self.retriever = get_retriever()
+        self.config_path = config_path
+        self.retriever = self.__load_retriever(config_path)
+
+    def __load_retriever(self, config_path: Path):
+        config = yaml.safe_load(config_path.read_text())
+        config = config["parameters"]
+
+        return get_retriever(
+            embedding_model_id=config["embedding_model_id"],
+            embedding_model_type=config["embedding_model_type"],
+            retriever_type=config["retriever_type"],
+            k=5,
+            device=config["device"],
+        )
 
     @track(name="MongoDBRetrieverTool.forward")
     def forward(self, query: str) -> str:
