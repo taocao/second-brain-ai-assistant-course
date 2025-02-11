@@ -13,7 +13,7 @@ from .embeddings import EmbeddingModelType, EmbeddingsModel, get_embedding_model
 from .splitters import get_splitter
 
 # Add these type definitions at the top of the file
-RetrieverType = Literal["hybrid", "parent"]
+RetrieverType = Literal["contextual", "parent"]
 RetrieverModel = Union[
     MongoDBAtlasHybridSearchRetriever, MongoDBAtlasParentDocumentRetriever
 ]
@@ -22,7 +22,7 @@ RetrieverModel = Union[
 def get_retriever(
     embedding_model_id: str,
     embedding_model_type: EmbeddingModelType = "huggingface",
-    retriever_type: RetrieverType = "hybrid",
+    retriever_type: RetrieverType = "contextual",
     k: int = 3,
     device: str = "cpu",
 ) -> RetrieverModel:
@@ -35,7 +35,7 @@ def get_retriever(
         embedding_model_id, embedding_model_type, device
     )
 
-    if retriever_type == "hybrid":
+    if retriever_type == "contextual":
         return get_hybrid_search_retriever(embedding_model, k)
     elif retriever_type == "parent":
         return get_parent_document_retriever(embedding_model, k)

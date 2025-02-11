@@ -82,10 +82,45 @@ etl-precomputed-pipeline:
 generate-dataset-pipeline:
 	uv run python -m tools.run --run-generate-dataset-pipeline --no-cache
 
-compute-rag-vector-index-pipeline:
-	uv run python -m tools.run --run-compute-rag-vector-index-pipeline --no-cache
+compute-rag-vector-index-huggingface-contextual-simple-pipeline:
+	uv run python -m tools.run --run-compute-rag-vector-index-huggingface-contextual-simple-pipeline --no-cache
+
+compute-rag-vector-index-openai-contextual-simple-pipeline:
+	uv run python -m tools.run --run-compute-rag-vector-index-openai-contextual-simple-pipeline --no-cache
+
+compute-rag-vector-index-openai-contextual-pipeline:
+	uv run python -m tools.run --run-compute-rag-vector-index-openai-contextual-pipeline --no-cache
+
+compute-rag-vector-index-openai-parent-pipeline:
+	uv run python -m tools.run --run-compute-rag-vector-index-openai-parent-pipeline --no-cache
+
+delete-rag-collection:
+	uv run python -m tools.delete_rag_collection
+
+# --- Check Deployments ---
+
+check-huggingface-dedicated-endpoint:
+	uv run python -m tools.call_huggingface_dedicated_endpoint
+
+# --- Check RAG Ingestion ---
+
+check-rag-huggingface-contextual-simple:
+	uv run python -m tools.rag --config ./configs/compute_rag_vector_index_huggingface_contextual_simple.yaml
+
+check-rag-openai-contextual-simple:
+	uv run python -m tools.rag --config ./configs/compute_rag_vector_index_openai_contextual_simple.yaml
+
+check-rag-openai-contextual:
+	uv run python -m tools.rag --config ./configs/compute_rag_vector_index_openai_contextual.yaml
+
+check-rag-openai-parent:
+	uv run python -m tools.rag --config ./configs/compute_rag_vector_index_openai_parent.yaml
+
 
 # --- Tests ---
+
+test:
+	uv run pytest tests -v
 
 test-s3-download:
 	uv run pytest tests/test_s3.py -v
@@ -97,9 +132,6 @@ test-download-crawled-dataset:
 	uv run pytest tests/test_download_crawled_dataset.py -v
 	
 # --- QA ---
-
-test:
-	uv run pytest tests -v
 
 format-fix:
 	uv run ruff format $(CHECK_DIRS)

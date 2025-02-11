@@ -73,25 +73,49 @@ Examples:
     help="Whether to run the generate dataset pipeline.",
 )
 @click.option(
-    "--run-compute-rag-vector-index-pipeline",
+    "--run-compute-rag-vector-index-huggingface-contextual-simple-pipeline",
     is_flag=True,
     default=False,
-    help="Whether to run the compute RAG vector index pipeline.",
+    help="Whether to run the compute RAG vector index pipeline with the Hugging Face Dedicated Endpoint, Hugging Faceembedding model in simple contextual retrieval mode.",
+)
+@click.option(
+    "--run-compute-rag-vector-index-openai-contextual-simple-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the compute RAG vector index pipeline with the OpenAI API, embedding model in simple contextual retrieval mode.",
+)
+@click.option(
+    "--run-compute-rag-vector-index-openai-contextual-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the compute RAG vector index pipeline with the OpenAI API, embedding model in contextual retrieval mode.",
+)
+@click.option(
+    "--run-compute-rag-vector-index-openai-parent-pipeline",
+    is_flag=True,
+    default=False,
+    help="Whether to run the compute RAG vector index pipeline with the OpenAI API, embedding model in parent retrieval mode.",
 )
 def main(
     no_cache: bool = False,
     run_collect_notion_data_pipeline: bool = False,
     run_etl_pipeline: bool = False,
-    run_generate_dataset_pipeline: bool = False,
-    run_compute_rag_vector_index_pipeline: bool = False,
     run_etl_precomputed_pipeline: bool = False,
+    run_generate_dataset_pipeline: bool = False,
+    run_compute_rag_vector_index_huggingface_contextual_simple_pipeline: bool = False,
+    run_compute_rag_vector_index_openai_contextual_simple_pipeline: bool = False,
+    run_compute_rag_vector_index_openai_contextual_pipeline: bool = False,
+    run_compute_rag_vector_index_openai_parent_pipeline: bool = False,
 ) -> None:
     assert (
         run_collect_notion_data_pipeline
         or run_etl_pipeline
-        or run_generate_dataset_pipeline
-        or run_compute_rag_vector_index_pipeline
         or run_etl_precomputed_pipeline
+        or run_generate_dataset_pipeline
+        or run_compute_rag_vector_index_huggingface_contextual_simple_pipeline
+        or run_compute_rag_vector_index_openai_contextual_simple_pipeline
+        or run_compute_rag_vector_index_openai_contextual_pipeline
+        or run_compute_rag_vector_index_openai_parent_pipeline
     ), "Please specify an action to run."
 
     pipeline_args: dict[str, Any] = {
@@ -141,16 +165,55 @@ def main(
         )
         generate_dataset.with_options(**pipeline_args)(**run_args)
 
-    if run_compute_rag_vector_index_pipeline:
+    if run_compute_rag_vector_index_huggingface_contextual_simple_pipeline:
         run_args = {}
         pipeline_args["config_path"] = (
-            root_dir / "configs" / "compute_rag_vector_index.yaml"
+            root_dir / "configs" / "compute_rag_vector_index_huggingface_contextual_simple.yaml"
         )
         assert pipeline_args["config_path"].exists(), (
             f"Config file not found: {pipeline_args['config_path']}"
         )
         pipeline_args["run_name"] = (
-            f"compute_rag_vector_index_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+            f"compute_rag_vector_index_huggingface_contextual_simple_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        compute_rag_vector_index.with_options(**pipeline_args)(**run_args)
+
+    if run_compute_rag_vector_index_openai_contextual_simple_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = (
+            root_dir / "configs" / "compute_rag_vector_index_openai_contextual_simple.yaml"
+        )
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
+        pipeline_args["run_name"] = (
+            f"compute_rag_vector_index_openai_contextual_simple_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        compute_rag_vector_index.with_options(**pipeline_args)(**run_args)
+
+    if run_compute_rag_vector_index_openai_contextual_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = (
+            root_dir / "configs" / "compute_rag_vector_index_openai_contextual.yaml"
+        )
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
+        pipeline_args["run_name"] = (
+            f"compute_rag_vector_index_openai_contextual_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
+        )
+        compute_rag_vector_index.with_options(**pipeline_args)(**run_args)
+
+    if run_compute_rag_vector_index_openai_parent_pipeline:
+        run_args = {}
+        pipeline_args["config_path"] = (
+            root_dir / "configs" / "compute_rag_vector_index_openai_parent.yaml"
+        )
+        assert pipeline_args["config_path"].exists(), (
+            f"Config file not found: {pipeline_args['config_path']}"
+        )
+        pipeline_args["run_name"] = (
+            f"compute_rag_vector_index_openai_parent_run_{dt.now().strftime('%Y_%m_%d_%H_%M_%S')}"
         )
         compute_rag_vector_index.with_options(**pipeline_args)(**run_args)
 

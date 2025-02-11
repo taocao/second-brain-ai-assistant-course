@@ -188,7 +188,9 @@ Running time: ~60 minutes
 
 In case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as default in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
 
-## Lesson 4: Fine-tuning and Evaluating Summarization LLM
+## Lesson 4: Fine-tuning and Deploying Summarization LLM
+
+### Fine-tuning and Evaluating the Summarization LLM
 
 This time we will use Notebooks, as they are popular when it comes to LLM fine-tuning.
 
@@ -198,12 +200,111 @@ This time we will use Notebooks, as they are popular when it comes to LLM fine-t
 | Inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) | - |
 | Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/evaluate.ipynb) | - |
 
+Running costs: 0 </br>
+Running time: ~... minutes
+
+### Deploying the Summarization LLM
+
+For detailed instructions on deploying your model to Hugging Face Inference Endpoints, please refer to the [Creating Inference Endpoint Guide](static/creating_inference_endpoint.pdf).
+
+After deploying your model, you can hook the inference endpoint to the RAG ingestion pipeline and agentic inference pipeline, by settings the `HUGGINGFACE_DEDICATED_ENDPOINT` and `HUGGINGFACE_ACCESS_TOKEN` in the `.env` file, as follows (you can use the same HF token you used so far):
+```
+HUGGINGFACE_DEDICATED_ENDPOINT=https://um18v2aeit3f6g1b.eu-west-1.aws.endpoints.huggingface.cloud/v1/
+HUGGINGFACE_ACCESS_TOKEN=hf_...
+```
+
+You can access the URL from the Hugging Face Inference Endpoints dashboard, as seen in the image below:
+
+![Hugging Face Inference Endpoints Dashboard](static/huggingface_inference_endpoints_dashboard.png)
+
+> [!IMPORTANT]
+> When configuring the `HUGGINGFACE_DEDICATED_ENDPOINT`, you need to make sure that the endpoint URL ends with `/v1/`, as seen in the image above.
+
 
 ## Lesson 5: Compute RAG vector index
 
+Depending on what RAG ingestion method you want to use, we support multiple algorithms, such as choosing between OpenAI and Hugging Face models (the ones you deployed and open-source embedding models) or parent/contextual ingestion algorithms.
+
+First, we recommend starting with the parent retrieval algorithm, as it is the simplest one and runs the fastest. Using it, you can check that everything works fine.
+
+Afterward, depending if you deployed the fine-tuned LLM to Hugging Face Inference Endpoints or not, you can use the Hugging Face simple contextual or if you haven't deployed it yet, you can use the OpenAI simple contextual retrieval algorithms.
+
+Also, to follow the contextual retrieval algorithm by the book, you can run the full-fledged contextual retrieval algorithm with OpenAI models, but that will take a while to run, as it makes more calls to the API, which is slower and more expensive.
+
+Thus, our recommendation is to start with the parent retrieval algorithm, then move to the simple contextual retrieval algorithm with OpenAI models, and finally to the simple contextual retrieval algorithm with your deployed Hugging Face models.
+
+To tweak the ingestion time of any version from above, you can increase/decrease the `fetch_limit` parameters tofetch more/less documents or the `content_quality_score_threshold` parameter to make the filtering more aggresive or not. Find the associated YAML configuration files in the `configs/` folder, for example: `configs/compute_rag_vector_index_openai_contextual_simple.yaml`.
+
+> [!IMPORTANT]
+> Between recomputing the vector index with different algorithms, it's mandatory to delete the "rag" MongoDB collection using the `make delete-rag-collection` command. Otherwise the new embeddings will be appended to the existing ones resulting in errors or incorrect results.
+
+### Parent Retrieval Algorithm with OpenAI models
+
+Run the ingestion pipeline:
 ```bash
-make compute-rag-vector-index-pipeline
+make delete-rag-collection
+make compute-rag-vector-index-openai-parent-pipeline
 ```
+For indexing all the docs:
+* Running costs: ~$0.05
+* Running time: ~2 minutes
+
+Check that the RAG ingestion worked:
+
+```bash
+make check-rag-openai-parent
+```
+
+### Simple Contextual Retrieval Algorithm with OpenAI models
+
+Run the ingestion pipeline:
+```bash
+make delete-rag-collection
+make compute-rag-vector-index-openai-contextual-simple-pipeline
+```
+For indexing `~120 docs`:
+* Running costs: ~$0.15
+* Running time: ~20 minutes
+
+Check that the RAG ingestion worked:
+```bash
+make check-rag-openai-contextual-simple
+```
+
+### Simple Contextual Retrieval Algorithm with Hugging Face models
+
+Before running this step, make sure you have deployed your Hugging Face model to Hugging Face Inference Endpoints and that is not idle (it goes idle out-of-the-box after 15 minutes of inactivity). You can scale up the endpoint manually from the dashboard.
+
+Run the ingestion pipeline:
+```bash
+make delete-rag-collection
+make compute-rag-vector-index-huggingface-contextual-simple-pipeline
+```
+For indexing `~60 docs`:
+* Running costs: ~$0.6
+* Running time: ~40 minutes
+
+Check that the RAG ingestion worked:
+```bash
+make check-rag-huggingface-contextual-simple
+```
+
+### Full-fledged Contextual Retrieval Algorithm with OpenAI models
+
+Run the ingestion pipeline:
+```bash
+make delete-rag-collection
+make compute-rag-vector-index-openai-contextual-pipeline
+```
+For `~20 docs`:
+* Running costs: ~$0.1
+* Running time: ~11 minutes
+
+Check that the RAG ingestion worked:
+```bash
+make check-rag-openai-contextual
+```
+
 
 ## Lesson 6: Agentic App
 

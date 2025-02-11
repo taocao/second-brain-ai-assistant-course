@@ -2,6 +2,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Generator
 
 from langchain_core.documents import Document as LangChainDocument
+from langchain_mongodb.retrievers import (
+    MongoDBAtlasParentDocumentRetriever,
+)
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from loguru import logger
 from tqdm import tqdm
@@ -9,11 +12,16 @@ from zenml.steps import step
 
 from second_brain_offline.application.rag import (
     EmbeddingModelType,
+    SummarizationType,
     get_retriever,
     get_splitter,
 )
+from second_brain_offline.application.rag.retrievers import RetrieverType
 from second_brain_offline.domain import Document
-from second_brain_offline.infrastructure.mongo import MongoDBHybridIndex, MongoDBService
+from second_brain_offline.infrastructure.mongo import (
+    MongoDBIndex,
+    MongoDBService,
+)
 
 
 @step
@@ -22,12 +30,14 @@ def chunk_embed_load(
     collection_name: str,
     processing_batch_size: int,
     processing_max_workers: int,
+    retriever_type: RetrieverType,
     embedding_model_id: str,
     embedding_model_type: EmbeddingModelType,
     embedding_model_dim: int,
     chunk_size: int,
-    contextual_agent_model_id: str,
-    contextual_agent_max_characters: int,
+    contextual_summarization_type: SummarizationType = "none",
+    contextual_agent_model_id: str | None = None,
+    contextual_agent_max_characters: int | None = None,
     mock: bool = False,
     device: str = "cpu",
 ) -> None:
@@ -38,20 +48,27 @@ def chunk_embed_load(
         collection_name: Name of MongoDB collection to store documents.
         processing_batch_size: Number of documents to process in each batch.
         processing_max_workers: Maximum number of concurrent processing threads.
+        retriever_type: Type of retriever to use for document processing.
         embedding_model_id: Identifier for the embedding model.
         embedding_model_type: Type of embedding model to use.
         embedding_model_dim: Dimension of the embedding vectors.
         chunk_size: Size of text chunks for splitting documents.
+        contextual_summarization_type: Type of summarization to apply. Defaults to "none".
+        contextual_agent_model_id: ID of the model used for contextual summarization. Defaults to None.
+        contextual_agent_max_characters: Maximum characters for contextual summarization. Defaults to None.
+        mock: Whether to use mock processing. Defaults to False.
         device: Device to run embeddings on ('cpu' or 'cuda'). Defaults to 'cpu'.
     """
 
     retriever = get_retriever(
         embedding_model_id=embedding_model_id,
         embedding_model_type=embedding_model_type,
+        retriever_type=retriever_type,
         device=device,
     )
     splitter = get_splitter(
         chunk_size=chunk_size,
+        summarization_type=contextual_summarization_type,
         model_id=contextual_agent_model_id,
         max_characters=contextual_agent_max_characters,
         mock=mock,
@@ -78,11 +95,14 @@ def chunk_embed_load(
             max_workers=processing_max_workers,
         )
 
-        hybrid_index = MongoDBHybridIndex(
+        index = MongoDBIndex(
             retriever=retriever,
             mongodb_client=mongodb_client,
         )
-        hybrid_index.create(embedding_dim=embedding_model_dim)
+        index.create(
+            embedding_dim=embedding_model_dim,
+            is_hybrid=retriever_type == "contextual",
+        )
 
 
 def process_docs(
@@ -98,8 +118,8 @@ def process_docs(
         retriever: MongoDB Atlas document retriever instance.
         docs: List of LangChain documents to process.
         splitter: Text splitter instance for chunking documents.
-        batch_size: Number of documents to process in each batch. Defaults to 256.
-        max_workers: Maximum number of concurrent threads. Defaults to 2.
+        batch_size: Number of documents to process in each batch.
+        max_workers: Maximum number of concurrent threads.
 
     Returns:
         List of None values representing completed batch processing results.
@@ -133,7 +153,7 @@ def get_batches(
         batch_size: Number of documents in each batch.
 
     Yields:
-        Batches of documents of size batch_size.
+        Generator[list[LangChainDocument]]: Batches of documents of size batch_size.
     """
     for i in range(0, len(docs), batch_size):
         yield docs[i : i + batch_size]
@@ -155,11 +175,12 @@ def process_batch(
         Exception: If there is an error processing the batch of documents.
     """
     try:
-        split_docs = splitter.split_documents(batch)
-        retriever.vectorstore.add_documents(split_docs)
+        if isinstance(retriever, MongoDBAtlasParentDocumentRetriever):
+            retriever.add_documents(batch)
+        else:
+            split_docs = splitter.split_documents(batch)
+            retriever.vectorstore.add_documents(split_docs)
 
-        logger.info(
-            f"Successfully processed {len(batch)} documents into {len(split_docs)} chunks"
-        )
+        logger.info(f"Successfully processed {len(batch)} documents.")
     except Exception as e:
         logger.warning(f"Error processing batch of {len(batch)} documents: {str(e)}")

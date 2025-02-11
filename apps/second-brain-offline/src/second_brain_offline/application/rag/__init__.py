@@ -1,6 +1,6 @@
 from .embeddings import EmbeddingModelType, get_embedding_model
 from .retrievers import RetrieverType, get_retriever
-from .splitters import get_splitter
+from .splitters import SummarizationType, get_splitter
 
 __all__ = [
     "get_retriever",
@@ -8,4 +8,5 @@ __all__ = [
     "EmbeddingModelType",
     "get_embedding_model",
     "RetrieverType",
+    "SummarizationType",
 ]

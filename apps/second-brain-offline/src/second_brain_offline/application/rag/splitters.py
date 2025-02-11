@@ -1,20 +1,30 @@
-from typing import Callable
+from typing import Callable, Literal, Union
 
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from loguru import logger
 
-from second_brain_offline.application.agents import ContextualSummarizationAgent
+from second_brain_offline.application.agents import (
+    ContextualSummarizationAgent,
+    SimpleSummarizationAgent,
+)
+
+# Add type definitions at the top of the file
+SummarizationType = Literal["contextual", "simple", "none"]
+SummarizationAgent = Union[ContextualSummarizationAgent, SimpleSummarizationAgent]
 
 
-def get_splitter(chunk_size: int, **kwargs) -> RecursiveCharacterTextSplitter:
+def get_splitter(
+    chunk_size: int, summarization_type: SummarizationType = "none", **kwargs
+) -> RecursiveCharacterTextSplitter:
     """Returns a token-based text splitter with overlap.
 
     Args:
         chunk_size: Number of tokens for each text chunk.
-        **kwargs: Additional keyword arguments passed to ContextualSummarizationAgent.
+        summarization_type: Type of summarization to use ("contextual" or "simple").
+        **kwargs: Additional keyword arguments passed to the summarization agent.
 
     Returns:
-        RecursiveCharacterTextSplitter: A configured text splitter instance with contextual
+        RecursiveCharacterTextSplitter: A configured text splitter instance with
             summarization capabilities.
     """
 
@@ -24,11 +34,23 @@ def get_splitter(chunk_size: int, **kwargs) -> RecursiveCharacterTextSplitter:
         f"Getting splitter with chunk size: {chunk_size} and overlap: {chunk_overlap}"
     )
 
+    if summarization_type == "none":
+        return RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+            encoding_name="cl100k_base",
+            chunk_size=chunk_size,
+            chunk_overlap=chunk_overlap,
+        )
+
+    if summarization_type == "contextual":
+        handler = ContextualSummarizationAgent(**kwargs)
+    elif summarization_type == "simple":
+        handler = SimpleSummarizationAgent(**kwargs)
+
     return HandlerRecursiveCharacterTextSplitter.from_tiktoken_encoder(
         encoding_name="cl100k_base",
         chunk_size=chunk_size,
         chunk_overlap=chunk_overlap,
-        handler=ContextualSummarizationAgent(**kwargs),
+        handler=handler,
     )
 
 

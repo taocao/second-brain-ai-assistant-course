@@ -14,16 +14,20 @@ def get_embedding_model(
 ) -> EmbeddingsModel:
     """Gets an instance of the configured embedding model.
 
+    The function returns either an OpenAI or HuggingFace embedding model based on the
+    provided model type.
+
     Args:
-        model_id: The ID of the embedding model to use
-        model_type: The type of embedding model to use ("openai" or "huggingface")
-        device: The device to use for the embedding model. Defaults to "cpu"
+        model_id (str): The ID/name of the embedding model to use
+        model_type (EmbeddingModelType): The type of embedding model to use.
+            Must be either "openai" or "huggingface". Defaults to "huggingface"
+        device (str): The device to use for the embedding model. Defaults to "cpu"
 
     Returns:
         EmbeddingsModel: An embedding model instance based on the configuration settings
 
     Raises:
-        ValueError: If an invalid model_type is provided
+        ValueError: If model_type is not "openai" or "huggingface"
     """
 
     if model_type == "openai":
@@ -38,10 +42,11 @@ def get_openai_embedding_model(model_id: str) -> OpenAIEmbeddings:
     """Gets an OpenAI embedding model instance.
 
     Args:
-        model_id: The ID of the OpenAI embedding model to use
+        model_id (str): The ID/name of the OpenAI embedding model to use
 
     Returns:
-        OpenAIEmbeddings: Configured OpenAI embeddings model instance
+        OpenAIEmbeddings: A configured OpenAI embeddings model instance with
+            special token handling enabled
     """
     return OpenAIEmbeddings(
         model=model_id,
@@ -55,11 +60,12 @@ def get_huggingface_embedding_model(
     """Gets a HuggingFace embedding model instance.
 
     Args:
-        model_id: The ID of the HuggingFace embedding model to use
-        device: The device to use for the embedding model
+        model_id (str): The ID/name of the HuggingFace embedding model to use
+        device (str): The compute device to run the model on (e.g. "cpu", "cuda")
 
     Returns:
-        HuggingFaceEmbeddings: Configured HuggingFace embeddings model instance
+        HuggingFaceEmbeddings: A configured HuggingFace embeddings model instance
+            with remote code trust enabled and embedding normalization disabled
     """
     return HuggingFaceEmbeddings(
         model_name=model_id,
