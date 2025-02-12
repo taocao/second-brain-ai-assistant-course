@@ -162,7 +162,7 @@ After running the evaluation, open [Opik](https://rebrand.ly/second-brain-course
 
 For running the evaluation, plus playing around with the agent (~20 queries), the costs and running time are:
 - Running costs OpenAI: ~$0.5
-- Running costs Hugging Face Dedicated Endpoints (optional - you can use only the OpenAI models for summarization): it costs $1 / hour - it will cost you between $1 and $2 
+- Running costs Hugging Face Dedicated Endpoints (optional - you can use only the OpenAI models for summarization): ~$1 (the deployment costs $1 / hour)
 - Running time evaluation: ~15 minutes (the AI Assistant runs in real-time)
 
 

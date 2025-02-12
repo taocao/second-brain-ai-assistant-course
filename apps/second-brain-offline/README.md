@@ -131,7 +131,7 @@ At Decoding ML we teach how to build production ML systems. Thus, instead of spl
 
 # 🏗️ Set Up Your Local Infrastructure
 
-We use Docker to setup the local infrastructure (ZenML, MongoDB).
+We use Docker to set up the local infrastructure (ZenML, MongoDB).
 
 To start it, run:
 ```bash
@@ -194,7 +194,7 @@ Running criteria:
 - Running costs: ~$1.5
 - Running time: ~60 minutes
 
-**OR** in case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as the default value in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
+**OR** in case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as the default value in the required ZenML configs: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
 
 ## Module 4: Fine-tuning and Deploying Summarization LLM
 
@@ -215,7 +215,7 @@ Running criteria:
 - Training running time: ~4 and 12 hours (depending on the GPU and number of iterations)
 - Evaluation running time: <30 minutes
 
-**OR** in case you want to avoid any costs or waiting times, you can use our fine-tuned LLM available on Hugging Face, which is already set as the default value in future steps: [pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization](https://huggingface.co/pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization).
+**OR** in case you want to avoid any costs or waiting times, you can deploy our fine-tuned LLM available on Hugging Face: [pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization](https://huggingface.co/pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization).
 
 ### Deploying the Summarization LLM (Optional)
 
@@ -280,7 +280,7 @@ make delete-rag-collection
 make compute-rag-vector-index-openai-parent-pipeline
 ```
 Running criteria:
-- Cost: ~$0.05
+- Cost (OpenAI API): ~$0.05
 - Time: ~2 minutes
 - Indexes all docs
 
@@ -298,7 +298,7 @@ make delete-rag-collection
 make compute-rag-vector-index-openai-contextual-simple-pipeline
 ```
 Running criteria:
-- Cost: ~$0.15
+- Cost (OpenAI API): ~$0.15
 - Time: ~20 minutes
 - Indexes ~120 docs
 
@@ -307,9 +307,9 @@ Check that the RAG ingestion worked:
 make check-rag-openai-contextual-simple
 ```
 
-### 5.3. Simple Contextual Retrieval Algorithm with Hugging Face models
+### 5.3. Simple Contextual Retrieval Algorithm with Hugging Face Inference Endpoints (Optional)
 
-Before running this step, make sure you have deployed your Hugging Face model to Hugging Face Inference Endpoints and that it is not idle (it goes idle out-of-the-box after 15 minutes of inactivity).
+Before running this step, make sure you have deployed your Hugging Face model to Hugging Face Inference Endpoints and that it is not idle (it goes idle out-of-box after 15 minutes of inactivity).
 
 Run the ingestion pipeline:
 ```bash
@@ -317,7 +317,7 @@ make delete-rag-collection
 make compute-rag-vector-index-huggingface-contextual-simple-pipeline
 ```
 Running criteria:
-- Cost: ~$0.6
+- Cost (Hugging Face Inference Endpoints): ~$0.6
 - Time: ~40 minutes
 - Indexes ~60 docs
 
@@ -334,7 +334,7 @@ make delete-rag-collection
 make compute-rag-vector-index-openai-contextual-pipeline
 ```
 Running criteria:
-- Cost: ~$0.1
+- Cost (OpenAI API): ~$0.1
 - Time: ~11 minutes
 - Indexes ~20 docs
 

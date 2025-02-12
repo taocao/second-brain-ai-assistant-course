@@ -14,28 +14,30 @@
 
 ## 📖 About This Course
 
-This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI and information retrieval systems.
+This course is part of Decoding ML's open-source series, where we provide free hands-on resources for building GenAI systems using LLMs, RAG, agents and LLMOps.
 
-Following Decoding ML's mission, in this course we will show you how to build an end-to-end AI system using the Second Brain AI Assistant as an example.
+Following Decoding ML's mission, in this course we will show you how to build an end-to-end AI system while building a Second Brain AI Assistant to chat with your Second Brain (aka your personal knowledge base, such as personal notes, resources, storage, etc.).
 
 **The Second Brain AI Assistant** open-source course contains 6 modules and it's backed up by code and lessons that will teach you how to build an **advanced RAG and LLM system using LLMOps and ML systems best practices**.
 
-By the end of this course, you will know how to architect, build and deploy a production-ready RAG and LLM system, by building an end-to-end application from scratch.
+By the end of this course, you will know how to architect and implement a production-ready agenticRAG and LLM system, by building an end-to-end GenAI application from scratch.
 
-#### So what is the Second Brain AI Assistant?
+#### So What Is the Second Brain AI Assistant?
 
 The concept of a Second Brain is a metaphor coined by Tiago Forte to describe the process of building a personal knowledge base, where you store your notes, ideas, and resources.
 
 The Second Brain AI Assistant is an AI assistant that uses your Second Brain as a source of knowledge to answer questions, summarize documents, and provide insights.
 
-As this is an educative open-source project, we will stick to Notion, but the code can be easily adapted to other sources, such as Google Drive, Calendar, etc.
+For example, based on your research, instead of searching and readingyour notes,you could ask your Second Brain AI Assistant to recommend you a course on agents, to list the top 5 tools on parsing PDF documents or to summarize what are the main methods to optimize LLMs during inference.
 
-As a fun (and relevant) example, we will provide you with our list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval. Thus, using or giving access to your Notion is optional to take this course.
+As this is an educative open-source project, we will stick to Notion as our source of knowledge, but the code can be easily adapted to other sources, such as Google Drive, Calendar, etc.
 
-**What you'll do:**
+As a fun (and relevant) example, we will provide you with our list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval. **Thus, you don't have to use Notion to take this course.** But if you want to, you can, as we expose in this GitHub repository, a flexible pipeline that can load any Notion database. 
+
+### What You'll Do:
 
 - Build an agentic RAG application that uses your Second Brain as a source of knowledge.
-- Architect an LLM and RAG system.
+- Architect an agentic LLM and RAG system.
 - Apply LLMOps and software engineering best practices.
 - Fine-tune and deploy open-source LLMs.
 - Leverage popular tools such as OpenAI, Hugging Face, MongoDB, ZenML, Opik, Comet, Unsloth, Crawl4AI, uv, ruff, smolagents, etc.
@@ -44,46 +46,54 @@ As a fun (and relevant) example, we will provide you with our list of filtered r
 
 While building the Second Brain AI assistant, we will cover the following concepts, algorithms and tools:
 
-- Architecting an LLM system using the feature/training/inference (FTI) architecture.
-- Using MLOps best practices such as data registries, model registries, and experiment trackers.
-- Crawling over 700 links and normalizing everything into Markdown using Crawl4AI.
-- Computing quality scores using LLMs.
-- Generating summarization datasets using distillation.
-- Fine-tuning a Llama model using Unsloth and Comet.
-- Deploying the Llama model as an inference endpoint to Hugging Face serverless Dedicated Endpoints.
+- Architect an LLM system using the feature/training/inference (FTI) architecture.
+- Use MLOps best practices such as data registries, model registries, and experiment trackers.
+- Crawl over 700 links and normalize everything into Markdown using Crawl4AI.
+- Compute quality scores using LLMs.
+- Generate summarization datasets using distillation.
+- Fine-tune a Llama model using Unsloth and Comet.
+- Deploy a Llama model as an inference endpoint to Hugging Face serverless Dedicated Endpoints.
 - Implement advanced RAG algorithms using contextual retrieval, hybrid search and MongoDB vector search.
 - Build an agent that uses multiple tools using Hugging Face's smolagents framework.
-- Using LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
+- Use LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
 - Integrate pipeline orchestration, artifact and metadata tracking using ZenML.
 - Manage the Python project using uv and ruff. 
 
-🥷 With these skills, you'll become a ninja in building **advanced RAG and LLM system using LLMOps and ML systems best practices**. 
+🥷 With these skills, you'll become a ninja in building **advanced agentic RAG and LLM systems using LLMOps and ML systems best practices**. 
 
 ## 👥 Who Should Join?
 
 **This course is ideal for:**
-- ML/AI engineers interested in building production-ready RAG and LLM system
-- Data Engineers, Data Scientists, and Software Engineers wanting to understand the engineering behind AI systems
+- ML/AI engineers interested in building production-ready agentic RAG and LLM systems
+- Data Engineers, Data Scientists, and Software Engineers wanting to level-up their engineering and system design skills to build production-ready AI systems
 
-**Note:** This course focuses on engineering practices and end-to-end system implementation rather than pure theory.
+**Alert:** This course focuses on engineering practices and end-to-end system implementation rather than pure theory.
 
 ## 🎓 Prerequisites
 
 | Category | Requirements |
 |----------|-------------|
-| **Skills** | Basic understanding of Python and Machine Learning. |
+| **Skills** | - Intermediate understanding of Python <br/> - Begginer understanding of Machine Learning <br/> - Begginer understanding of LLMs <br/> - Begginer understanding of RAG |
 | **Hardware** | Any modern laptop/workstation will do the job (no GPU or powerful computing power required). We will show you how to use the cloud for lessons that require a GPU. |
-| **Level** | Intermediate |
+| **Level** | Intermediate (But with a little sweat and patience, anyone can do it) |
 
 
 ## 💰 Cost Structure
 
-All tools used throughout the course will stick to their free tier, except:
+The course is open-source and free of charge. 
 
-- OpenAI's API which follows a pay-as-you-go model taking us ~$3 to run the course.
-- Hugging Face's Dedicated Endpoints which follows a pay-as-you-go model taking us ~$2 to run the course.
+But you will need to pay up between $1 - $5 for the tools we use throughout the course. **In case you just read the lessons and don't run the code, the costs are $0.**
 
-You can also **run the course with $0 costs** as we will **provide snapshots of the results for each module**.
+All tools used throughout the course will stick to their free tier, except a few pay-as-you-go tools.
+
+| Service | Maximum Cost |
+|---------|--------------|
+| OpenAI's API | ~$3 |
+| Hugging Face's Dedicated Endpoints (Optional) | ~$2 |
+
+The amazing thing about our course is that we provide multiple paths to take our course, to avoid running certain modules or algorithms that cost more, such as the deployment of the LLM. 
+
+Thus, in the minimal **path** of the course, **you can run the entire course with ~$1 costs**, mainly due to module 6, where you test the Second Brain AI assistant.
 
 ## 🥂 Open-source Course: Participation is Open and Free
 
@@ -104,11 +114,11 @@ Our recommendation for getting the most out of this course:
 | Module | Materials | Description | Running the code |
 |--------|-----------|-------------|------------------|
 | 1 | [Build your Second Brain AI assistant](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant) | Architect an AI assistant for your Second Brain. | **No code** |
-| 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | - |
-| 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | - |
-| 4 | Fine-tune and deploy open-source LLMs (WIP) | Fine-tune an open-source LLM to specialize it in summarizing documents and deploy it as a real-time endpoint. | - |
-| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | - |
-| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | - |
+| 2 | Data pipelines for building AI assistants (WIP) | Build a data pipeline to process Notion data, crawl new documents, compute a quality score using LLMs and ingest them to a NoSQL database. | [apps/second-brain-offline](apps/second-brain-offline) |
+| 3 | Generate high-quality fine-tuning datasets (WIP) | Generate a high-quality summarization instruct dataset using distilation. | [apps/second-brain-offline](apps/second-brain-offline) |
+| 4 | Fine-tune and deploy open-source LLMs (WIP) | Fine-tune an open-source LLM to specialize it in summarizing documents and deploy it as a real-time endpoint. | [apps/second-brain-offline](apps/second-brain-offline) |
+| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | [apps/second-brain-offline](apps/second-brain-offline) |
+| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | [apps/second-brain-online](apps/second-brain-online) |
 
 ## 🏗️ Project Structure
 
@@ -124,11 +134,13 @@ While building the Second Brain AI assistant, we will build two separate Python 
 
 ## 👔 Dataset
 
-We will use our personal list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval, containing ~100 pages and 700+ links which we will crawl and access from the Second Brain AI assistant.
+We will use our personal list of filtered resources (which we keep in Notion) on AI and ML, such as GenAI, LLMs, RAG, MLOps, LLMOps and information retrieval, containing ~100 pages and 500+ links which we will crawl and access from the Second Brain AI assistant.
 
 ![Notion data](./static/notion_genai_dataset.png)
 
-For ease of use, we stored a snapshot of our Notion data in a public S3 bucket, which you can download for free without AWS credentials. 
+For ease of use, we stored a snapshot of our Notion data in a public S3 bucket, which you can download for free without AWS credentials.
+
+[Download here](https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip)
 
 Thus, you don't need to use Notion or hook your Notion to complete this course. But if you want to, you can, as we expose in this GitHub repository, a flexible pipeline that can load any Notion database. 
 
@@ -154,6 +166,11 @@ Open a [GitHub issue](https://github.com/decodingml/second-brain-ai-assistant-co
 As an open-source course, we may not be able to fix all the bugs that arise.
 
 If you find any bugs and know how to fix them, support future readers by contributing to this course with your bug fix.
+
+You can always contribute by:
+- Forking the repository
+- Fixing the bug
+- Creating a pull request
 
 We will deeply appreciate your support for the AI community and future readers 🤗
 
