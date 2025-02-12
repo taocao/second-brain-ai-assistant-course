@@ -28,7 +28,7 @@ The concept of a Second Brain is a metaphor coined by Tiago Forte to describe th
 
 The Second Brain AI Assistant is an AI assistant that uses your Second Brain as a source of knowledge to answer questions, summarize documents, and provide insights.
 
-For example, based on your research, instead of searching and readingyour notes,you could ask your Second Brain AI Assistant to recommend you a course on agents, to list the top 5 tools on parsing PDF documents or to summarize what are the main methods to optimize LLMs during inference.
+For example, based on your research, instead of searching and reading your notes, you could ask your Second Brain AI Assistant to recommend you a course on agents, to list the top 5 tools on parsing PDF documents or to summarize what are the main methods to optimize LLMs during inference.
 
 As this is an educative open-source project, we will stick to Notion as our source of knowledge, but the code can be easily adapted to other sources, such as Google Drive, Calendar, etc.
 
@@ -47,25 +47,26 @@ As a fun (and relevant) example, we will provide you with our list of filtered r
 While building the Second Brain AI assistant, we will cover the following concepts, algorithms and tools:
 
 - Architect an LLM system using the feature/training/inference (FTI) architecture.
-- Use MLOps best practices such as data registries, model registries, and experiment trackers.
-- Crawl over 700 links and normalize everything into Markdown using Crawl4AI.
-- Compute quality scores using LLMs.
-- Generate summarization datasets using distillation.
-- Fine-tune a Llama model using Unsloth and Comet.
-- Deploy a Llama model as an inference endpoint to Hugging Face serverless Dedicated Endpoints.
-- Implement advanced RAG algorithms using contextual retrieval, hybrid search and MongoDB vector search.
-- Build an agent that uses multiple tools using Hugging Face's smolagents framework.
-- Use LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
+- Use MLOps best practices such as data registries, model registries and experiment trackers.
 - Integrate pipeline orchestration, artifact and metadata tracking using ZenML.
-- Manage the Python project using uv and ruff. 
+- Use LLMOps best practices such as prompt monitoring and RAG evaluation using Opik.
+- Crawl over 500 links and normalize everything into Markdown using Crawl4AI.
+- Compute quality scores using LLMs and heuristics.
+- Automatically generate summarization datasets using distillation.
+- Fine-tune and evaluate Llama models using Unsloth and Comet.
+- Deploy the fine-tuned Llama model as an inference endpoint to Hugging Face Inference Endpoints serverless service.
+- Implement advanced RAG algorithms using contextual or parent retrieval, hybrid search and MongoDB vector search.
+- Build a RAG agent using Hugging Face's smolagents framework.
+- Manage the Python project using uv and ruff.
 
 🥷 With these skills, you'll become a ninja in building **advanced agentic RAG and LLM systems using LLMOps and ML systems best practices**. 
 
 ## 👥 Who Should Join?
 
-**This course is ideal for:**
-- ML/AI engineers interested in building production-ready agentic RAG and LLM systems
-- Data Engineers, Data Scientists, and Software Engineers wanting to level-up their engineering and system design skills to build production-ready AI systems
+| Target Audience | Description |
+|-----------------|-------------|
+| ML/AI Engineers | Interested in building production-ready agentic RAG and LLM systems |
+| Data Engineers, Data Scientists, and Software Engineers | Wanting to level-up their engineering and system design skills to build production-ready AI systems |
 
 **Alert:** This course focuses on engineering practices and end-to-end system implementation rather than pure theory.
 
@@ -73,7 +74,7 @@ While building the Second Brain AI assistant, we will cover the following concep
 
 | Category | Requirements |
 |----------|-------------|
-| **Skills** | - Intermediate understanding of Python <br/> - Begginer understanding of Machine Learning <br/> - Begginer understanding of LLMs <br/> - Begginer understanding of RAG |
+| **Skills** | - Intermediate understanding of Python <br/> - Beginner understanding of Machine Learning <br/> - Beginner understanding of LLMs <br/> - Beginner understanding of RAG |
 | **Hardware** | Any modern laptop/workstation will do the job (no GPU or powerful computing power required). We will show you how to use the cloud for lessons that require a GPU. |
 | **Level** | Intermediate (But with a little sweat and patience, anyone can do it) |
 
