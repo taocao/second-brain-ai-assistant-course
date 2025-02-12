@@ -8,7 +8,7 @@ This guide will help you set up and run the Second Brain Offline Module which co
 - [🎯 Getting Started](#-getting-started)
 - [📁 Project Structure](#-project-structure)
 - [🏗️ Set Up Your Local Infrastructure](#-set-up-your-local-infrastructure)
-- [⚡️ Running the Code for Each Lesson](#️-running-the-code-for-each-lesson)
+- [⚡️ Running the Code for Each Module](#️-running-the-code-for-each-module)
 - [🔧 Utlity Commands](#-utility-commands)
 - [🧊 Setup Notion (optional)](#-setup-notion-optional)
 
@@ -55,7 +55,7 @@ cd second-brain-ai-assistant-course
 
 ## 2. Installation
 
-First deactivate any active virtual environment and move to the `second-brain-online` directory:
+First deactivate any active virtual environment and move to the `second-brain-offline` directory:
 ```bash
 deactivate
 cd apps/second-brain-offline
