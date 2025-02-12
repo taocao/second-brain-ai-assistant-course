@@ -37,11 +37,11 @@ The project requires access to these cloud services:
 | [Comet ML](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
 | [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
-Other optional services in case you want to deploy the code. When working locally, you can use the default values found in the `config.py` file:
+Other optional services in case you want to deploy the code. When working locally we setup the infrastructure using Docker. Thus, you can use the default values found in the `config.py` file:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide |
 |---------|---------|------|---------------------|-------------| 
-| [MongoDB](https://rebrand.ly/second-brain-course-mongodb) | NoSQL and vector database | Free tier | `MONGODB_URI` | 1. [Create a free MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) <br> 2. [Create a Cluster](https://www.mongodb.com/docs/guides/atlas/cluster/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) </br> 3. [Add a Database User](https://www.mongodb.com/docs/guides/atlas/db-user/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) </br> 4. [Configure a Network Connection](https://www.mongodb.com/docs/guides/atlas/network-connections/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) |
+| [MongoDB](https://rebrand.ly/second-brain-course-mongodb) | NoSQL and vector database | Free tier | `MONGODB_URI` | 1. [Create a free MongoDB Atlas account](https://rebrand.ly/second-brain-course-mongodb-setup-1) <br> 2. [Create a Cluster](https://rebrand.ly/second-brain-course-mongodb-setup-2) </br> 3. [Add a Database User](https://rebrand.ly/second-brain-course-mongodb-setup-3) </br> 4. [Configure a Network Connection](https://rebrand.ly/second-brain-course-mongodb-setup-4) |
 
 # 🎯 Getting Started
 
