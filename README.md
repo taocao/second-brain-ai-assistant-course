@@ -1,7 +1,7 @@
 <div align="center">
   <h1>Building your Second Brain AI assistant using LLMs and RAG</h1>
   <h3>Learn how to access the collective wisdom of your own mind</h3>
-  <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with </br> <a href="...">MongoDB</a>, <a href="...">Comet</a>, <a href="...">Opik</a>, <a href="...">Unsloth</a> and <a href="...">ZenML</a>.</p>
+  <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with </br> <a href="https://rebrand.ly/second-brain-course-mongodb">MongoDB</a>, <a href="https://rebrand.ly/second-brain-course-comet">Comet</a>, <a href="https://rebrand.ly/second-brain-course-opik">Opik</a>, <a href="https://rebrand.ly/second-brain-course-unsloth">Unsloth</a> and <a href="https://rebrand.ly/second-brain-course-zenml">ZenML</a>.</p>
 </div>
 
 </br>
@@ -163,27 +163,27 @@ We will deeply appreciate your support for the AI community and future readers ð
   <table style="border-collapse: collapse; border: none;">
     <tr style="border: none;">
       <td align="center" style="border: none; padding: 20px;">
-        <a href="..." target="_blank">
+        <a href="https://rebrand.ly/second-brain-course-mongodb" target="_blank">
           <img src="static/sponsors/mongo.png" width="200" style="max-height: 45px; width: auto;" alt="MongoDB">
         </a>
       </td>
       <td align="center" style="border: none; padding: 20px;">
-        <a href="..." target="_blank">
+        <a href="https://rebrand.ly/second-brain-course-comet" target="_blank">
           <img src="static/sponsors/comet.png" width="200" style="max-height: 45px; width: auto;" alt="Comet">
         </a>
       </td>
       <td align="center" style="border: none; padding: 20px;">
-        <a href="..." target="_blank">
+        <a href="https://rebrand.ly/second-brain-course-opik" target="_blank">
           <img src="static/sponsors/opik.png" width="200" style="max-height: 45px; width: auto;" alt="Opik">
         </a>
       </td>
       <td align="center" style="border: none; padding: 20px;">
-        <a href="..." target="_blank">
+        <a href="https://rebrand.ly/second-brain-course-unsloth" target="_blank">
           <img src="static/sponsors/unsloth.png" width="200" style="max-height: 45px; width: auto;" alt="Unsloth">
         </a>
       </td>
       <td align="center" style="border: none; padding: 20px;">
-        <a href="..." target="_blank">
+        <a href="https://rebrand.ly/second-brain-course-zenml" target="_blank">
           <img src="static/sponsors/zenml.png" width="200" style="max-height: 45px; width: auto;" alt="ZenML">
         </a>
       </td>
@@ -222,4 +222,4 @@ We will deeply appreciate your support for the AI community and future readers ð
 
 ## License
 
-This course is an open-source project released under the MIT license. Thus, as long you distribute our LICENSE and acknowledge our work, you can safely clone or fork this project and use it as a source of inspiration for your educational projects (e.g., work, university, college degree, personal projects, etc.).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

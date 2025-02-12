@@ -32,16 +32,16 @@ The project requires access to these cloud services:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide | Starting with Module |
 |---------|---------|------|---------------------|-------------| ---------------------|
-| [OpenAI API](https://openai.com/index/openai-api/) | LLM API for recommender system | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
 | [Hugging Face](https://huggingface.com/) | MLOps | Free tier | `HUGGINGFACE_ACCESS_TOKEN` | [Quick Start Guide](https://huggingface.co/docs/hub/en/security-tokens) | Module 3 |
-| [Comet ML](https://www.comet.com/site/)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) | Module 4 |
-| [Opik](https://www.comet.com/site/products/opik/) | LLM vvaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://www.comet.com/docs/v2/api-and-sdk/rest-api/overview/) | Module 6 |
+| [Comet ML](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
+| [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
 Other optional services in case you want to deploy the code. When working locally, you can use the default values found in the `config.py` file:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide |
 |---------|---------|------|---------------------|-------------| 
-| [MongoDB](https://www.mongodb.com/) | NoSQL and vector database | Free tier | `MONGODB_URI` | 1. [Create a free MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register/?utm_campaign=paul_iusztin&utm_medium=referral) <br> 2. [Create a Cluster](https://www.mongodb.com/docs/guides/atlas/cluster/?utm_campaign=paul_iusztin&utm_medium=referral) </br> 3. [Add a Database User](https://www.mongodb.com/docs/guides/atlas/db-user/?utm_campaign=paul_iusztin&utm_medium=referral) </br> 4. [Configure a Network Connection](https://www.mongodb.com/docs/guides/atlas/network-connections/?utm_campaign=paul_iusztin&utm_medium=referral) |
+| [MongoDB](https://rebrand.ly/second-brain-course-mongodb) | NoSQL and vector database | Free tier | `MONGODB_URI` | 1. [Create a free MongoDB Atlas account](https://www.mongodb.com/cloud/atlas/register/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) <br> 2. [Create a Cluster](https://www.mongodb.com/docs/guides/atlas/cluster/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) </br> 3. [Add a Database User](https://www.mongodb.com/docs/guides/atlas/db-user/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) </br> 4. [Configure a Network Connection](https://www.mongodb.com/docs/guides/atlas/network-connections/?utm_campaign=ai-pilot&utm_medium=creator&utm_term=iusztin&utm_source=course) |
 
 # 🎯 Getting Started
 
@@ -205,7 +205,7 @@ Running time: ~... minutes
 
 ### Deploying the Summarization LLM
 
-For detailed instructions on deploying your model to Hugging Face Inference Endpoints, please refer to the [Creating Inference Endpoint Guide](static/creating_inference_endpoint.pdf).
+For detailed instructions on deploying your model to Hugging Face Inference Endpoints, please refer to the [Creating Inference Endpoint Guide](../../static/creating_inference_endpoint.pdf).
 
 After deploying your model, you can hook the inference endpoint to the RAG ingestion pipeline and agentic inference pipeline, by settings the `HUGGINGFACE_DEDICATED_ENDPOINT` and `HUGGINGFACE_ACCESS_TOKEN` in the `.env` file, as follows (you can use the same HF token you used so far):
 ```
@@ -215,7 +215,7 @@ HUGGINGFACE_ACCESS_TOKEN=hf_...
 
 You can access the URL from the Hugging Face Inference Endpoints dashboard, as seen in the image below:
 
-![Hugging Face Inference Endpoints Dashboard](static/huggingface_inference_endpoints_dashboard.png)
+![Hugging Face Inference Endpoints Dashboard](../../static/huggingface_inference_endpoints_dashboard.png)
 
 > [!IMPORTANT]
 > When configuring the `HUGGINGFACE_DEDICATED_ENDPOINT`, you need to make sure that the endpoint URL ends with `/v1/`, as seen in the image above.
