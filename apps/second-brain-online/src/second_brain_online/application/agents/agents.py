@@ -2,12 +2,18 @@ from pathlib import Path
 from typing import Any
 
 import opik
+from loguru import logger
 from opik import opik_context
 from smolagents import LiteLLMModel, MessageRole, MultiStepAgent, ToolCallingAgent
 
 from second_brain_online.config import settings
 
-from .tools import MongoDBRetrieverTool, SummarizerTool, what_can_i_do
+from .tools import (
+    HuggingFaceEndpointSummarizerTool,
+    MongoDBRetrieverTool,
+    OpenAISummarizerTool,
+    what_can_i_do,
+)
 
 
 def get_agent(retriever_config_path: Path) -> "AgentWrapper":
@@ -26,10 +32,27 @@ class AgentWrapper:
     def input_messages(self) -> list[dict]:
         return self.__agent.input_messages
 
+    @property
+    def agent_name(self) -> str:
+        return self.__agent.agent_name
+
+    @property
+    def max_steps(self) -> str:
+        return self.__agent.max_steps
+
     @classmethod
     def build_from_smolagents(cls, retriever_config_path: Path) -> "AgentWrapper":
         retriever_tool = MongoDBRetrieverTool(config_path=retriever_config_path)
-        summarizer_tool = SummarizerTool()
+        if settings.USE_HUGGINGFACE_DEDICATED_ENDPOINT:
+            logger.warning(
+                f"Using Hugging Face dedicated endpoint as the summarizer with URL: {settings.HUGGINGFACE_DEDICATED_ENDPOINT}"
+            )
+            summarizer_tool = HuggingFaceEndpointSummarizerTool()
+        else:
+            logger.warning(
+                f"Using OpenAI as the summarizer with model: {settings.OPENAI_MODEL_ID}"
+            )
+            summarizer_tool = OpenAISummarizerTool(stream=False)
 
         model = LiteLLMModel(
             model_id=settings.OPENAI_MODEL_ID,
@@ -38,7 +61,7 @@ class AgentWrapper:
         )
 
         agent = ToolCallingAgent(
-            tools=[retriever_tool, what_can_i_do, summarizer_tool],
+            tools=[what_can_i_do, retriever_tool, summarizer_tool],
             model=model,
             max_steps=3,
             verbosity_level=2,

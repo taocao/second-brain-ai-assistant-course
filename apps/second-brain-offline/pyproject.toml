@@ -23,6 +23,7 @@ dependencies = [
     "ipykernel>=6.29.5",
     "crawl4ai>=0.3.745",
     "langchain-huggingface>=0.1.2",
+    "matplotlib>=3.10.0",
 ]
 
 [dependency-groups]

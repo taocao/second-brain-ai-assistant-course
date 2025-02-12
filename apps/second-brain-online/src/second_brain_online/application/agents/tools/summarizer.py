@@ -1,6 +1,3 @@
-from typing import Generator
-
-from loguru import logger
 from openai import OpenAI
 from opik import track
 from smolagents import Tool
@@ -8,8 +5,8 @@ from smolagents import Tool
 from second_brain_online.config import settings
 
 
-class SummarizerTool(Tool):
-    name = "summarizer"
+class HuggingFaceEndpointSummarizerTool(Tool):
+    name = "huggingface_summarizer"
     description = """Use this tool to summarize a piece of text. Especially useful when you need to summarize a document."""
 
     inputs = {
@@ -20,7 +17,60 @@ class SummarizerTool(Tool):
     }
     output_type = "string"
 
-    OPENAI_SUMMARY_SYSTEM_PROMPT = """You are a helpful assistant specialized in summarizing documents.
+    SYSTEM_PROMPT = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
+
+### Instruction:
+You are a helpful assistant specialized in summarizing documents. Generate a concise TL;DR summary in markdown format having a maximum of 512 characters of the key findings from the provided documents, highlighting the most significant insights
+
+### Input:
+{content}
+
+### Response:
+"""
+
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+
+        assert settings.HUGGINGFACE_ACCESS_TOKEN is not None, (
+            "HUGGINGFACE_ACCESS_TOKEN is required to use the dedicated endpoint. Add it to the .env file."
+        )
+        assert settings.HUGGINGFACE_DEDICATED_ENDPOINT is not None, (
+            "HUGGINGFACE_DEDICATED_ENDPOINT is required to use the dedicated endpoint. Add it to the .env file."
+        )
+
+        self.__client = OpenAI(
+            base_url=settings.HUGGINGFACE_DEDICATED_ENDPOINT,
+            api_key=settings.HUGGINGFACE_ACCESS_TOKEN,
+        )
+
+    @track
+    def forward(self, text: str) -> str:
+        result = self.__client.chat.completions.create(
+            model="tgi",
+            messages=[
+                {
+                    "role": "user",
+                    "content": self.SYSTEM_PROMPT.format(content=text),
+                },
+            ],
+        )
+
+        return result.choices[0].message.content
+
+
+class OpenAISummarizerTool(Tool):
+    name = "openai_summarizer"
+    description = """Use this tool to summarize a piece of text. Especially useful when you need to summarize a document or a list of documents."""
+
+    inputs = {
+        "text": {
+            "type": "string",
+            "description": """The text to summarize.""",
+        }
+    }
+    output_type = "string"
+
+    SYSTEM_PROMPT = """You are a helpful assistant specialized in summarizing documents.
 Your task is to create a clear, concise TL;DR summary in plain text.
 Things to keep in mind while summarizing:
 - titles of sections and sub-sections
@@ -36,58 +86,25 @@ Document content:
 Generate a concise summary of the key findings from the provided documents, highlighting the most significant insights and implications.
 Return the document in plain text format regardless of the original format.
 """
-    HUGGINGFACE_SUMMARY_SYSTEM_PROMPT = """Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
-### Instruction:
-You are a helpful assistant specialized in summarizing documents. Generate a concise TL;DR summary in markdown format having a maximum of 512 characters of the key findings from the provided documents, highlighting the most significant insights
-
-### Input:
-{content}
-
-### Response:
-"""
-
-    def __init__(self, stream: bool = False, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
-        self.__stream = stream
-        self.__client, self.__system_prompt = self.__build_llm_client()
-
-    def __build_llm_client(self) -> tuple[OpenAI, str]:
-        if (
-            settings.HUGGINGFACE_DEDICATED_ENDPOINT
-            and settings.HUGGINGFACE_ACCESS_TOKEN
-        ):
-            logger.info(
-                f"Found Hugging Face dedicated endpoint config. Using the following endpoint: {settings.HUGGINGFACE_DEDICATED_ENDPOINT}"
-            )
-
-            return OpenAI(
-                base_url=settings.HUGGINGFACE_DEDICATED_ENDPOINT,
-                api_key=settings.HUGGINGFACE_ACCESS_TOKEN,
-            ), self.HUGGINGFACE_SUMMARY_SYSTEM_PROMPT
-        else:
-            logger.warning(
-                "No Hugging Face dedicated endpoint config found. Default to using OpenAI as the summarizer."
-            )
-
-            return OpenAI(), self.OPENAI_SUMMARY_SYSTEM_PROMPT
+        self.__client = OpenAI(
+            base_url="https://api.openai.com/v1",
+            api_key=settings.OPENAI_API_KEY,
+        )
 
     @track
-    def forward(self, text: str) -> str | Generator[str, None, None]:
+    def forward(self, text: str) -> str:
         result = self.__client.chat.completions.create(
-            model="tgi",
+            model=settings.OPENAI_MODEL_ID,
             messages=[
                 {
                     "role": "user",
-                    "content": self.__system_prompt.format(content=text),
+                    "content": self.SYSTEM_PROMPT.format(content=text),
                 },
             ],
-            stream=self.__stream,
         )
 
-        if self.__stream:
-            for message in result:
-                yield message.choices[0].delta.content
-        else:
-            return result.choices[0].message.content
+        return result.choices[0].message.content

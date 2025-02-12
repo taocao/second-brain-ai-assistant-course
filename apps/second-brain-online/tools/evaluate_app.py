@@ -3,9 +3,9 @@ from typing import List
 
 import click
 
-from second_brain_online.application import evaluate
+from second_brain_online.application.evaluation import evaluate_agent
 
-DEFAULT_PROMPTS: List[str] = [
+EVALUATION_PROMPTS: List[str] = [
     """
 Write me a paragraph on the feature/training/inference (FTI) pipelines architecture following the next structure:
 
@@ -17,12 +17,36 @@ Retrieve the sources when compiling the answer. Also, return the sources you use
 """,
     "What is the feature/training/inference (FTI) pipelines architecture?",
     "What is the Tensorflow Recommenders Python package?",
-    "Summarize 3 LLM frameworks",
+    """How does RLHF: Reinforcement Learning from Human Feedback work?
+
+Explain to me:
+- what is RLHF
+- how it works
+- why it's important
+- what are the main components
+- what are the main challenges
+""",
+    "List 3 LLM frameworks for building LLM applications and why they are important.",
+    "Explain how does Bidirectional Encoder Representations from Transformers (BERT) work. Focus on what architecture it uses, how it's different from other models and how they are trained.",
     "List 5 ways or tools to process PDFs for LLMs and RAG",
     """How can I optimize my LLMs during inference?
 
 Provide a list of top 3 best practices, while providing a short explanation for each, which contains why it's important.
 """,
+    "Explain to me in more detail how does an Agent memory work and why do we need it when building Agentic apps.",
+    "What is the difference between a vector database and a vector index?",
+    "Recommend me a course on LLMs and RAG",
+    "How Document Chunk overlap affects a RAG pipeline and it's performance?",
+    """What is the importance of reranking chunks for RAG?
+Explain to me:
+- what is reranking
+- how it works
+- why it's important
+- what are the main components
+- what are the main trade-offs
+""",
+    "List the most popular advanced RAG techniques to optimize RAG performance and why they are important.",
+    "List what are the main ways of evaluating a RAG pipeline and why they are important.",
 ]
 
 
@@ -35,9 +59,7 @@ Provide a list of top 3 best practices, while providing a short explanation for 
 )
 def main(retriever_config_path: Path) -> None:
     """Evaluate agent with custom retriever configuration."""
-    evaluate.evaluate_agent(
-        DEFAULT_PROMPTS, retriever_config_path=retriever_config_path
-    )
+    evaluate_agent(EVALUATION_PROMPTS, retriever_config_path=retriever_config_path)
 
 
 if __name__ == "__main__":

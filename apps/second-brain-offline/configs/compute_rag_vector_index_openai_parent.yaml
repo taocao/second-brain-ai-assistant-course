@@ -11,4 +11,4 @@ parameters:
   mock: false
   processing_batch_size: 8
   processing_max_workers: 4
-  device: mps # or cuda (for Nvidia GPUs) or mps (for Apple M1/M2/M3 chips)
+  device: cpu # or cuda (for Nvidia GPUs) or mps (for Apple M1/M2/M3 chips)

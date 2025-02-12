@@ -13,24 +13,6 @@ class Settings(BaseSettings):
         env_file=".env", env_file_encoding="utf-8"
     )
 
-    # --- AWS Configuration ---
-    AWS_ACCESS_KEY: str | None = Field(
-        default=None, description="AWS access key for authentication."
-    )
-    AWS_SECRET_KEY: str | None = Field(
-        default=None, description="AWS secret key for authentication."
-    )
-    AWS_CROSS_ACCOUNT_ROLE_ARN: str | None = Field(
-        default=None, description="ARN for AWS cross-account access role."
-    )
-    AWS_DEFAULT_REGION: str = Field(
-        default="eu-central-1", description="AWS region for cloud services."
-    )
-    AWS_S3_BUCKET_NAME: str = Field(
-        default="decodingml-public-data",
-        description="Name of the S3 bucket for storing application data.",
-    )
-
     # --- Comet ML & Opik Configuration ---
     COMET_API_KEY: str | None = Field(
         default=None, description="API key for Comet ML and Opik services."
@@ -43,6 +25,10 @@ class Settings(BaseSettings):
     # --- Hugging Face Configuration ---
     HUGGINGFACE_ACCESS_TOKEN: str | None = Field(
         default=None, description="Access token for Hugging Face API authentication."
+    )
+    USE_HUGGINGFACE_DEDICATED_ENDPOINT: bool = Field(
+        default=False,
+        description="Whether to use the dedicated endpoint for summarizing responses. If True, we will use the dedicated endpoint instead of OpenAI.",
     )
     HUGGINGFACE_DEDICATED_ENDPOINT: str | None = Field(
         default=None,
@@ -60,11 +46,6 @@ class Settings(BaseSettings):
     MONGODB_URI: str = Field(
         default="mongodb://decodingml:decodingml@localhost:27017/?directConnection=true",
         description="Connection URI for the local MongoDB Atlas instance.",
-    )
-
-    # --- Notion API Configuration ---
-    NOTION_SECRET_KEY: str | None = Field(
-        default=None, description="Secret key for Notion API authentication."
     )
 
     # --- OpenAI API Configuration ---

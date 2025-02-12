@@ -48,10 +48,24 @@ class MongoDBRetrieverTool(Tool):
 
     @track(name="MongoDBRetrieverTool.forward")
     def forward(self, query: str) -> str:
+        if hasattr(self.retriever, "search_kwargs"):
+            search_kwargs = self.retriever.search_kwargs
+        else:
+            try:
+                search_kwargs = {
+                    "fulltext_penalty": self.retriever.fulltext_penalty,
+                    "vector_score_penalty": self.retriever.vector_penalty,
+                    "top_k": self.retriever.top_k,
+                }
+            except AttributeError:
+                logger.warning("Could not extract search kwargs from retriever.")
+
+                search_kwargs = {}
+
         opik_context.update_current_trace(
             tags=["agent"],
             metadata={
-                "search": self.retriever.search_kwargs,
+                "search": search_kwargs,
                 "embedding_model_id": self.retriever.vectorstore.embeddings.model,
             },
         )

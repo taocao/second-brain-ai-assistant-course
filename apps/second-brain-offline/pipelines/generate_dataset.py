@@ -2,7 +2,7 @@ from pathlib import Path
 
 from zenml import pipeline
 
-from steps.generate_dataset import generate_summary_dataset
+from steps.generate_dataset import create_histograms, generate_summary_dataset
 from steps.infrastructure import (
     fetch_from_mongodb,
     push_to_huggingface,
@@ -29,6 +29,7 @@ def generate_dataset(
     documents = fetch_from_mongodb(
         collection_name=extract_collection_name, limit=fetch_limit
     )
+    create_histograms(documents)
 
     dataset = generate_summary_dataset(
         documents=documents,
