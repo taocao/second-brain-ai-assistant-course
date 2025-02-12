@@ -1,6 +1,6 @@
 # 🚀 Installation and Usage Guide for the Second Brain Offline Module
 
-This guide will help you set up and run the Second Brain Offline Module which contains the code for modules 1-5.
+This guide will help you set up and run the Second Brain Offline Module which contains the code for **Modules 1-5**.
 
 # 📑 Table of Contents
 
@@ -16,7 +16,7 @@ This guide will help you set up and run the Second Brain Offline Module which co
 
 ## Local Tools
 
-You'll need the following tools installed locally, starting with Module 1:
+For all the modules, you'll need the following tools installed locally:
 
 | Tool | Version | Purpose | Installation Link |
 |------|---------|---------|------------------|
@@ -28,16 +28,18 @@ You'll need the following tools installed locally, starting with Module 1:
 
 ## Cloud Services
 
-The project requires access to these cloud services:
+Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
-| Service | Purpose | Cost | Required Credentials | Setup Guide | Starting with Module |
+| Service | Purpose | Cost | Environment Variable | Setup Guide | Starting with Module |
 |---------|---------|------|---------------------|-------------| ---------------------|
 | [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
 | [Hugging Face](https://huggingface.com/) | MLOps | Free tier | `HUGGINGFACE_ACCESS_TOKEN` | [Quick Start Guide](https://huggingface.co/docs/hub/en/security-tokens) | Module 3 |
 | [Comet ML](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
 | [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
-Other optional services in case you want to deploy the code. When working locally we setup the infrastructure using Docker. Thus, you can use the default values found in the `config.py` file:
+When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the `config.py` for all the infrastructure-related environment variables.
+
+But, in case you want to deploy the code, you'll need to setup the following services with their corresponding environment variables:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide |
 |---------|---------|------|---------------------|-------------| 
@@ -69,7 +71,7 @@ uv venv .venv-offline
 uv pip install -e .
 ```
 
-Finish setting up `Crew4AI` for crawling:
+We use [Crew4AI](https://github.com/unclecode/crawl4ai) for crawling. To finish setting it up you have to run some post-installation setup commands (more on why this is needed in their [docs](https://github.com/unclecode/crawl4ai)):
 ```bash
 # Run post-installation setup
 uv pip install -U "crawl4ai==0.4.247" # We have to upgrade crawl4ai to support these CLI commands (we couldn't add it to pyproject.toml due to ZenML version incompatibility with Pydantic).
@@ -97,7 +99,7 @@ After running the doctor command, you should see something like this:
 
 ## 3. Environment Configuration
 
-Before running any components:
+Before running any command, you have to set up your environment:
 1. Create your environment file:
    ```bash
    cp .env.example .env
@@ -106,7 +108,7 @@ Before running any components:
 
 # 📁 Project Structure
 
-At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
+At Decoding ML we teach how to build production ML systems. Thus, instead of splitting the code into separate modules, the course follows the structure of a real-world Python project:
 
 ```bash
 .
@@ -129,23 +131,27 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 
 # 🏗️ Set Up Your Local Infrastructure
 
-To start the local infrastructure (ZenML, MongoDB):
+We use Docker to setup the local infrastructure (ZenML, MongoDB).
+
+To start it, run:
 ```bash
 make local-infrastructure-up
 ```
 
-To stop the local infrastructure (ZenML, MongoDB):
+To stop it, run:
 ```bash
 make local-infrastructure-down
 ```
 
 # ⚡️ Running the Code for Each Module
 
+To simulate the course modules, we split the CLI commands and offline ML pipelines you must run per module so you know exactly where you are in the course.
+
 ## Module 1: Build your Second Brain AI assistant
 
-Lesson: [Build your Second Brain AI assistant]()
+No code to run for this module, as it lays down the overall architecture of the Second Brain AI assistant. 
 
-No code to run for this lesson. Read the lesson to understand the problem and overall architecture of the Second Brain AI assistant.
+We recommend to read the [first lesson](https://decodingml.substack.com/p/build-your-second-brain-ai-assistant) to better understand the AI system architecture of the Second Brain AI assistant, where we teach best practices for building production ML systems using MLOps best practices.
 
 ## Module 2: ETL pipeline
 
@@ -157,7 +163,7 @@ make download-notion-dataset
 # Validate using test: make test-download-notion-dataset
 ```
 
-Or if you want to prepare your own Notion data (optional - if you want to use your own data):
+**OR** if you want to collect your own Notion data (optional - if you want to use your own data):
 ```bash
 make collect-notion-data-pipeline
 ```
@@ -168,10 +174,11 @@ Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
 ```bash
 make etl-pipeline
 ```
-Running costs: ~$0.5 </br>
-Running time: ~30 minutes
+Running criteria:
+- Running costs: ~$0.5
+- Running time: ~30 minutes
 
-If you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this dataset to skip the crawling step:
+**OR** if you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this command to skip the crawling step (the outcome will be the same as using `make etl-pipeline`):
 ```bash
 make download-crawled-dataset
 # Validate using test: make test-download-crawled-dataset
@@ -183,16 +190,19 @@ make etl-precomputed-pipeline
 ```bash
 make generate-dataset-pipeline
 ```
-Running costs: ~$1.5 </br>
-Running time: ~60 minutes
+Running criteria:
+- Running costs: ~$1.5
+- Running time: ~60 minutes
 
-In case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as default in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
+**OR** in case you want to avoid any costs or waiting times, you can use our pre-computed dataset available on Hugging Face, which is already set as the default value in future steps: [pauliusztin/second_brain_course_summarization_task](https://huggingface.co/datasets/pauliusztin/second_brain_course_summarization_task).
 
-## Lesson 4: Fine-tuning and Deploying Summarization LLM
+## Module 4: Fine-tuning and Deploying Summarization LLM
 
 ### Fine-tuning and Evaluating the Summarization LLM
 
-This time we will use Notebooks, as they are popular when it comes to LLM fine-tuning.
+As Notebooks are popular when it comes to LLM fine-tuning, we provide a notebook for each step of the fine-tuning process. 
+
+For the full fine-tuning we used Google Colab Pro, with an L4 GPU. But the notebooks will also run with the free tier of Google Colab on an T4 GPU. But to work on a T4 GPU we have to leverage QLoRA instead of LoRA, which makes the fine-tuning process slower. To conclude, you can run them with 0 costs on Google Colab.
 
 | Purpose | Notebook | Useful Resources |
 |---------|----------|------------------|
@@ -200,55 +210,79 @@ This time we will use Notebooks, as they are popular when it comes to LLM fine-t
 | Inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) | - |
 | Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/evaluate.ipynb) | - |
 
-Running costs: 0 </br>
-Training running time: ~4 and 12 hours (depending on the GPU and number of iterations) </br>
-Evaluation running time: <30 minutes
+Running criteria:
+- Running costs: $0 (running on Google Colab free tier)
+- Training running time: ~4 and 12 hours (depending on the GPU and number of iterations)
+- Evaluation running time: <30 minutes
 
-### Deploying the Summarization LLM
+**OR** in case you want to avoid any costs or waiting times, you can use our fine-tuned LLM available on Hugging Face, which is already set as the default value in future steps: [pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization](https://huggingface.co/pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization).
 
-For detailed instructions on deploying your model to Hugging Face Inference Endpoints, please refer to the [Creating Inference Endpoint Guide](../../static/creating_inference_endpoint.pdf).
+### Deploying the Summarization LLM (Optional)
 
-After deploying your model, you can hook the inference endpoint to the RAG ingestion pipeline and agentic inference pipeline, by settings the `HUGGINGFACE_DEDICATED_ENDPOINT` and `HUGGINGFACE_ACCESS_TOKEN` in the `.env` file, as follows (you can use the same HF token you used so far):
+**This step is optional**, in case you want to learn to deploy your fine-tuned LLM and use it in the agentic app. We are offering the possability to use OpenAI instead of our custom fine-tuned LLM, to avoid forcing you to deploy the model resulting in additional costs.
+
+We will use [Hugging Face Inference Endpoints](https://endpoints.huggingface.co/) to deploy the fine-tuned LLM.
+
+To deploy the model, you have to follow these steps:
+1. Login to [Hugging Face Inference Endpoints](https://endpoints.huggingface.co/)
+2. Add your billing information
+3. Use our step-by-step guide to deploy the model: [Creating Inference Endpoint Guide](../../static/creating_inference_endpoint.pdf)
+
+> [!IMPORTANT]
+> We will use an A10G GPU to deploy the model, which costs ~$1.00 per hour.
+
+To hook the Hugging Face Inference Endpoint to the code and the RAG ingestion pipeline, you need to set the `HUGGINGFACE_DEDICATED_ENDPOINT` and `HUGGINGFACE_ACCESS_TOKEN` environment variables in the `.env` file, as follows (you can use the same HF token you used so far):
 ```
 HUGGINGFACE_DEDICATED_ENDPOINT=https://um18v2aeit3f6g1b.eu-west-1.aws.endpoints.huggingface.cloud/v1/
 HUGGINGFACE_ACCESS_TOKEN=hf_...
 ```
 
-You can access the URL from the Hugging Face Inference Endpoints dashboard, as seen in the image below:
+> [!IMPORTANT]
+> When configuring the `HUGGINGFACE_DEDICATED_ENDPOINT`, you need to make sure that the endpoint URL ends with `/v1/`, as seen in the image above. You can copy the valid URL from the **API** tab in the **Playground** section of the dashboard, as seen in the image below.
 
 ![Hugging Face Inference Endpoints Dashboard](../../static/inference_endpoint_dashboard.png)
 
+After setting the environment variables, you can check that it works by running the following command:
+```bash
+make check-huggingface-dedicated-endpoint
+```
+
+You should see something about the **Eiffel Tower** in the output:
+```console
+The main facts of the Eiffel Tower from the text are as follows :
+- **Height :** The Eiffel Tower stands at a height of 324 metres (1,063 ft).
+- **Bases measurement:** The base of the tower is a square with each side measuring 125 metres (410 ft).
+....
+```
+
+## Module 5: RAG Feature Pipeline - Populate the RAG Vector Database
+
+We support multiple RAG ingestion methods using either OpenAI or your deployed Hugging Face models, with parent or contextual retrieval algorithms.
+
+**Recommended progression:**
+
+1. Start with parent retrieval (fastest, simplest)
+2. Move to simple contextual retrieval with OpenAI
+3. Try simple contextual with Hugging Face Inference Endpoints (if you've deployed your model)
+4. Finally, run the full-fledged contextual retrieval algorithm with OpenAI models
+
 > [!IMPORTANT]
-> When configuring the `HUGGINGFACE_DEDICATED_ENDPOINT`, you need to make sure that the endpoint URL ends with `/v1/`, as seen in the image above.
+> Before switching algorithms, run `make delete-rag-collection` to clear existing embeddings.
 
+To make the ingestion faster or cheaper, you can adjust the ingestion parameters in `configs/*.yaml`:
+- `fetch_limit`: Number of documents to process
+- `content_quality_score_threshold`: Filtering aggressiveness
 
-## Lesson 5: Compute RAG vector index
+### 5.1. Parent Retrieval Algorithm with OpenAI models
 
-Depending on what RAG ingestion method you want to use, we support multiple algorithms, such as choosing between OpenAI and Hugging Face models (the ones you deployed and open-source embedding models) or parent/contextual ingestion algorithms.
-
-First, we recommend starting with the parent retrieval algorithm, as it is the simplest one and runs the fastest. Using it, you can check that everything works fine.
-
-Afterward, depending if you deployed the fine-tuned LLM to Hugging Face Inference Endpoints or not, you can use the Hugging Face simple contextual or if you haven't deployed it yet, you can use the OpenAI simple contextual retrieval algorithms.
-
-Also, to follow the contextual retrieval algorithm by the book, you can run the full-fledged contextual retrieval algorithm with OpenAI models, but that will take a while to run, as it makes more calls to the API, which is slower and more expensive.
-
-Thus, our recommendation is to start with the parent retrieval algorithm, then move to the simple contextual retrieval algorithm with OpenAI models, and finally to the simple contextual retrieval algorithm with your deployed Hugging Face models.
-
-To tweak the ingestion time of any version from above, you can increase/decrease the `fetch_limit` parameters tofetch more/less documents or the `content_quality_score_threshold` parameter to make the filtering more aggresive or not. Find the associated YAML configuration files in the `configs/` folder, for example: `configs/compute_rag_vector_index_openai_contextual_simple.yaml`.
-
-> [!IMPORTANT]
-> Between recomputing the vector index with different algorithms, it's mandatory to delete the "rag" MongoDB collection using the `make delete-rag-collection` command. Otherwise the new embeddings will be appended to the existing ones resulting in errors or incorrect results.
-
-### Parent Retrieval Algorithm with OpenAI models
-
-Run the ingestion pipeline:
 ```bash
 make delete-rag-collection
 make compute-rag-vector-index-openai-parent-pipeline
 ```
-For indexing all the docs:
-* Running costs: ~$0.05
-* Running time: ~2 minutes
+Running criteria:
+- Cost: ~$0.05
+- Time: ~2 minutes
+- Indexes all docs
 
 Check that the RAG ingestion worked:
 
@@ -256,56 +290,58 @@ Check that the RAG ingestion worked:
 make check-rag-openai-parent
 ```
 
-### Simple Contextual Retrieval Algorithm with OpenAI models
+### 5.2. Simple Contextual Retrieval Algorithm with OpenAI models
 
 Run the ingestion pipeline:
 ```bash
 make delete-rag-collection
 make compute-rag-vector-index-openai-contextual-simple-pipeline
 ```
-For indexing `~120 docs`:
-* Running costs: ~$0.15
-* Running time: ~20 minutes
+Running criteria:
+- Cost: ~$0.15
+- Time: ~20 minutes
+- Indexes ~120 docs
 
 Check that the RAG ingestion worked:
 ```bash
 make check-rag-openai-contextual-simple
 ```
 
-### Simple Contextual Retrieval Algorithm with Hugging Face models
+### 5.3. Simple Contextual Retrieval Algorithm with Hugging Face models
 
-Before running this step, make sure you have deployed your Hugging Face model to Hugging Face Inference Endpoints and that is not idle (it goes idle out-of-the-box after 15 minutes of inactivity). You can scale up the endpoint manually from the dashboard.
+Before running this step, make sure you have deployed your Hugging Face model to Hugging Face Inference Endpoints and that it is not idle (it goes idle out-of-the-box after 15 minutes of inactivity).
 
 Run the ingestion pipeline:
 ```bash
 make delete-rag-collection
 make compute-rag-vector-index-huggingface-contextual-simple-pipeline
 ```
-For indexing `~60 docs`:
-* Running costs: ~$0.6
-* Running time: ~40 minutes
+Running criteria:
+- Cost: ~$0.6
+- Time: ~40 minutes
+- Indexes ~60 docs
 
 Check that the RAG ingestion worked:
 ```bash
 make check-rag-huggingface-contextual-simple
 ```
 
-### Full-fledged Contextual Retrieval Algorithm with OpenAI models
+### 5.4. Full-fledged Contextual Retrieval Algorithm with OpenAI models
 
 Run the ingestion pipeline:
 ```bash
 make delete-rag-collection
 make compute-rag-vector-index-openai-contextual-pipeline
 ```
-For `~20 docs`:
-* Running costs: ~$0.1
-* Running time: ~11 minutes
+Running criteria:
+- Cost: ~$0.1
+- Time: ~11 minutes
+- Indexes ~20 docs
 
 Check that the RAG ingestion worked:
 ```bash
 make check-rag-openai-contextual
 ```
-
 
 ## Lesson 6: Agentic App
 
@@ -339,9 +375,9 @@ make test
 
 In case you want to use your own Notion data, you can follow these steps to set up an integration and read from your Notion database:
 
-1. Go to [https://www.notion.so/profile].
+1. Go to [https://www.notion.so/profile](https://www.notion.so/profile).
 2. Create an integration following [this tutorial](https://developers.notion.com/docs/authorization).
-3. Copy your integration secret to programatically read from Notion.
+3. Copy your integration secret, and set the `NOTION_SECRET_KEY` environment variable in the `.env` file.
 4. Share your database with the integration:
    - Open your Notion database
    - Click the '...' menu in the top right
@@ -353,4 +389,5 @@ In case you want to use your own Notion data, you can follow these steps to set 
      ```
      https://www.notion.so/{workspace}/{database_id}?v={view_id}
      ```
-   - The database ID is the part between the workspace name and the question mark
+     (The database ID is the part between the workspace name and the question mark)
+   - Update the `database_ids` parameter in the `configs/collect_notion_data.yaml` file with your database ID(s). Just make sure to remove ours and add only yours.

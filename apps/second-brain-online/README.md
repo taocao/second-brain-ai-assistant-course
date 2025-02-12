@@ -1,8 +1,8 @@
 # 🚀 Installation and Usage Guide for the Second Brain Online Module
 
-This guide will help you set up and run the Second Brain Online Module which contains the code for modules 6: the RAG agentic app and LLMOps layer.
+This guide will help you set up and run the Second Brain Online Module which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
 
-Note that this module is completely independent from the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements.
+Note that this module is completely independent from the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, it is required to have the offline ML pipelines running in order to use this module.
 
 # 📑 Table of Contents
 
@@ -15,11 +15,11 @@ Note that this module is completely independent from the offline ML pipelines. T
 
 # 📋 Prerequisites
 
-We depend on the same prerequisites as the offline ML pipelines. If modules 1 to 5 are working, you are good to go.
+We depend on the same prerequisites as the offline ML pipelines. If modules 1 to 5 are working, you are good to go. Just make sure to fill in the `.env` file with the correct credentials.
 
 ## Local Tools
 
-You'll need the following tools installed locally, starting with Module 1:
+For all the modules, you'll need the following tools installed locally:
 
 | Tool | Version | Purpose | Installation Link |
 |------|---------|---------|------------------|
@@ -31,7 +31,7 @@ You'll need the following tools installed locally, starting with Module 1:
 
 ## Cloud Services
 
-The project requires access to these cloud services:
+Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide | Starting with Module |
 |---------|---------|------|---------------------|-------------| ---------------------|
@@ -40,7 +40,9 @@ The project requires access to these cloud services:
 | [Comet ML](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
 | [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
-Other optional services in case you want to deploy the code. When working locally we setup the infrastructure using Docker. Thus, you can use the default values found in the `config.py` file:
+When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the `config.py` for all the infrastructure-related environment variables.
+
+But, in case you want to deploy the code, you'll need to setup the following services with their corresponding environment variables:
 
 | Service | Purpose | Cost | Required Credentials | Setup Guide |
 |---------|---------|------|---------------------|-------------| 
@@ -77,7 +79,7 @@ uv pip install -e .
 
 ## 3. Environment Configuration
 
-Before running any components:
+Before running any command, you have to set up your environment:
 1. Create your environment file:
    ```bash
    cp .env.example .env
@@ -86,7 +88,7 @@ Before running any components:
 
 # 📁 Project Structure
 
-At Decoding ML we teach how to build production ML systems, thus the course follows the structure of a real-world Python project:
+At Decoding ML we teach how to build production ML systems. Thus, instead of splitting the code into separate modules, the course follows the structure of a real-world Python project:
 
 ```bash
 .
@@ -104,41 +106,59 @@ At Decoding ML we teach how to build production ML systems, thus the course foll
 
 # 🏗️ Set Up Your Local Infrastructure
 
-To start the local infrastructure (MongoDB):
+We use Docker to setup the local infrastructure (MongoDB).
+
+To start it, run:
 ```bash
 make local-infrastructure-up
 ```
 
-To stop the local infrastructure (MongoDB):
+To stop it, run:
 ```bash
 make local-infrastructure-down
 ```
 
 # ⚡️ Running the Code for Each Module
 
-### Module 6: Running the RAG Agentic App and LLMOps Layer
+To simulate the course modules, we split the CLI commands and offline ML pipelines you must run per module so you know exactly where you are in the course.
+
+## Module 6: Running the RAG Agentic App and LLMOps Layer
 
 Quickly test the agent from the CLI with a predefined query:
 ```bash
 make run_agent_query RETRIEVER_CONFIG=configs/compute_rag_vector_index_openai_parent.yaml
 ```
+You should see something like this:
+```console
+Vector databases and vector indices are related concepts in the field of data storage and retrieval, particularly in contexts where high-dimensional vector representations of data are used, such as in machine learning and AI. Here are the key differences:
+
+1. **Vector Databases**:
+   - A vector database ...
+```
 
 > [!IMPORTANT]
 > Be sure that the retriever config is the exact same one as the one used in Module 5 during the RAG feature pipeline to populate the vector database. If they don't match, the used retriever will use different settings resulting in errors or unexpected results. Here is a quick reminder of when to use which config:
-> - Parent Retrieval with OpenAI models:  `configs/compute_rag_vector_index_openai_parent.yaml`
-> - Simple Contextual Retrieval with OpenAI models: `configs/compute_rag_vector_index_openai_contextual_simple.yaml`
-> - Simple Contextual Retrieval with Hugging Face models: `configs/compute_rag_vector_index_huggingface_contextual_simple.yaml`
-> - Full-fledged Contextual Retrieval with OpenAI models: `configs/compute_rag_vector_index_openai_contextual.yaml`
+> 1. Parent Retrieval with OpenAI models:  `configs/compute_rag_vector_index_openai_parent.yaml`
+> 2. Simple Contextual Retrieval with OpenAI models: `configs/compute_rag_vector_index_openai_contextual_simple.yaml`
+> 3. Simple Contextual Retrieval with Hugging Face models: `configs/compute_rag_vector_index_huggingface_contextual_simple.yaml`
+> 4. Full-fledged Contextual Retrieval with OpenAI models: `configs/compute_rag_vector_index_openai_contextual.yaml`
 
-Spin-up the Gradio UI to test the agent with a custom queries:
+You can also spin-up a Gradio UI to test the agent with custom queries similar to any other chatbot:
 ```bash
 make run_agent_app RETRIEVER_CONFIG=configs/compute_rag_vector_index_openai_parent.yaml
 ```
+You should see something like this:
+
+![Gradio UI](../../static/gradio_ui_example.png)
 
 Evaluate the agent with our predefined evaluation queries (found under `tools/evaluate_app.py`):
 ```bash
 make evaluate_agent RETRIEVER_CONFIG=configs/compute_rag_vector_index_openai_parent.yaml
 ```
+
+After running the evaluation, open [Opik](https://rebrand.ly/second-brain-course-opik-dashboard) to see the evaluation results, as seen in the image below:
+
+![Opik Evaluation Results](../../static/opik_evaluation_results_example.png)
 
 For running the evaluation, plus playing around with the agent (~20 queries), the costs and running time are:
 - Running costs OpenAI: ~$0.5
