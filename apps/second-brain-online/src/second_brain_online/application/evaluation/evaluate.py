@@ -67,7 +67,7 @@ def evaluate_agent(prompts: list[str], retriever_config_path: Path) -> None:
             task=evaluation_task,
             scoring_metrics=scoring_metrics,
             experiment_config=experiment_config,
-            task_threads=2
+            task_threads=2,
         )
     else:
         logger.error("Can't run the evaluation as the dataset items are empty.")

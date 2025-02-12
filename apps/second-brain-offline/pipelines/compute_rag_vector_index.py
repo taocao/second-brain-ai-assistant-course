@@ -54,7 +54,7 @@ def compute_rag_vector_index(
     Returns:
         None
     """
-    
+
     documents = fetch_from_mongodb(
         collection_name=extract_collection_name, limit=fetch_limit
     )

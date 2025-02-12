@@ -20,7 +20,7 @@ def create_histograms(
     Returns:
         PIL.Image: Combined histogram chart showing both distributions
     """
-    
+
     # Extract content lengths and quality scores
     content_lengths = [len(doc.content) for doc in documents]
     quality_scores = [

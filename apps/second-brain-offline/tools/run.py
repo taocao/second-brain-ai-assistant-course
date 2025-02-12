@@ -168,7 +168,9 @@ def main(
     if run_compute_rag_vector_index_huggingface_contextual_simple_pipeline:
         run_args = {}
         pipeline_args["config_path"] = (
-            root_dir / "configs" / "compute_rag_vector_index_huggingface_contextual_simple.yaml"
+            root_dir
+            / "configs"
+            / "compute_rag_vector_index_huggingface_contextual_simple.yaml"
         )
         assert pipeline_args["config_path"].exists(), (
             f"Config file not found: {pipeline_args['config_path']}"
@@ -181,7 +183,9 @@ def main(
     if run_compute_rag_vector_index_openai_contextual_simple_pipeline:
         run_args = {}
         pipeline_args["config_path"] = (
-            root_dir / "configs" / "compute_rag_vector_index_openai_contextual_simple.yaml"
+            root_dir
+            / "configs"
+            / "compute_rag_vector_index_openai_contextual_simple.yaml"
         )
         assert pipeline_args["config_path"].exists(), (
             f"Config file not found: {pipeline_args['config_path']}"
