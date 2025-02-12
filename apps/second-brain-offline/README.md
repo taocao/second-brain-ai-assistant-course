@@ -215,7 +215,7 @@ HUGGINGFACE_ACCESS_TOKEN=hf_...
 
 You can access the URL from the Hugging Face Inference Endpoints dashboard, as seen in the image below:
 
-![Hugging Face Inference Endpoints Dashboard](../../static/huggingface_inference_endpoints_dashboard.png)
+![Hugging Face Inference Endpoints Dashboard](../../static/inference_endpoint_dashboard.png)
 
 > [!IMPORTANT]
 > When configuring the `HUGGINGFACE_DEDICATED_ENDPOINT`, you need to make sure that the endpoint URL ends with `/v1/`, as seen in the image above.
