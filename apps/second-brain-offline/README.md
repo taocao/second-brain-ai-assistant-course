@@ -349,7 +349,7 @@ The Agentic App sits in the online environment, which is implemented as a differ
 
 Go to the [apps/second-brain-online](../second-brain-online/) folder and follow the instructions there to set it up and run it.
 
-<video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"/></video>
+<video src="https://github.com/user-attachments/assets/bfea8e24-6d52-4a33-8857-5d05154ab69e"/></video>
 
 # 🔧 Utlity Commands
 
