@@ -36,8 +36,9 @@ While we use Notion for this course, the code is adaptable to other sources like
 - Fine-tune and deploy LLMs
 - Use industry tools: OpenAI, Hugging Face, MongoDB, ZenML, Opik, Comet, Unsloth, and more
 
+After completing this course, you'll have access to your own Second Brain AI assistant, as seen in the video below:
 
-<video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"/></video>
+<video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"/>
 
 
 ## 🎯 What You'll Learn
