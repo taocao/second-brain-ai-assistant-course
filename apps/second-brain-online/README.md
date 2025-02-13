@@ -149,7 +149,7 @@ make run_agent_app RETRIEVER_CONFIG=configs/compute_rag_vector_index_openai_pare
 ```
 You should see something like this:
 
-![Gradio UI](../../static/gradio_ui_example.png)
+<video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"/></video>
 
 Evaluate the agent with our predefined evaluation queries (found under `tools/evaluate_app.py`):
 ```bash
