@@ -20,7 +20,7 @@ This course is part of Decoding ML's open-source series, teaching you how to bui
 
 By the end of this course, you'll be able to architect and implement a production-ready agentic RAG and LLM system from scratch.
 
-#### So What Is the Second Brain AI Assistant?
+### So What Is the Second Brain AI Assistant?
 
 The Second Brain, a concept by Tiago Forte, is your personal knowledge base of notes, ideas, and resources. Our AI Assistant leverages this knowledge to answer questions, summarize documents, and provide insights.
 
