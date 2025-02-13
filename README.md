@@ -36,6 +36,8 @@ While we use Notion for this course, the code is adaptable to other sources like
 - Fine-tune and deploy LLMs
 - Use industry tools: OpenAI, Hugging Face, MongoDB, ZenML, Opik, Comet, Unsloth, and more
 
+<video src='static/gradio_ui_example.mp4'/>
+
 ## 🎯 What You'll Learn
 
 While building the Second Brain AI assistant, you'll master:
