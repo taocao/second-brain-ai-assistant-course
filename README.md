@@ -36,7 +36,9 @@ While we use Notion for this course, the code is adaptable to other sources like
 - Fine-tune and deploy LLMs
 - Use industry tools: OpenAI, Hugging Face, MongoDB, ZenML, Opik, Comet, Unsloth, and more
 
-<video src='static/gradio_ui_example.mp4' width=180/>
+
+video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"></video>
+
 
 ## 🎯 What You'll Learn
 
