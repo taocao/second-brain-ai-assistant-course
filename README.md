@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Building your Second Brain AI assistant using LLMs and RAG</h1>
+  <h1>Building Your Second Brain AI Assistant Using Agents, LLMs and RAG</h1>
   <h3>Learn how to access the collective wisdom of your own mind</h3>
   <p class="tagline">Open-source course by <a href="https://decodingml.substack.com">Decoding ML</a> in collaboration with </br> <a href="https://rebrand.ly/second-brain-course-mongodb">MongoDB</a>, <a href="https://rebrand.ly/second-brain-course-comet">Comet</a>, <a href="https://rebrand.ly/second-brain-course-opik">Opik</a>, <a href="https://rebrand.ly/second-brain-course-unsloth">Unsloth</a> and <a href="https://rebrand.ly/second-brain-course-zenml">ZenML</a>.</p>
 </div>
