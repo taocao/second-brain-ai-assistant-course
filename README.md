@@ -38,8 +38,7 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 After completing this course, you'll have access to your own Second Brain AI assistant, as seen in the video below:
 
-<video src="https://github.com/user-attachments/assets/84c21860-9d78-40cd-9f0f-7b90b75e1d3d"/></video>
-
+<video src="https://github.com/user-attachments/assets/bfea8e24-6d52-4a33-8857-5d05154ab69e"/></video>
 
 ## 🎯 What You'll Learn
 
