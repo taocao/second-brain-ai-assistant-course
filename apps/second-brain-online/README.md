@@ -109,7 +109,7 @@ At Decoding ML we teach how to build production ML systems. Thus, instead of spl
 We use Docker to setup the local infrastructure (MongoDB).
 
 > [!WARNING]
-> Before starting the pipeline, ensure that you do not have a local instance of MongoDB (or any other container) already running on the same port. 
+> Before starting the pipeline, ensure that you do not have a local instance of MongoDB (or any other container) already running on the `27017` port. 
 
 To start it, run:
 ```bash
