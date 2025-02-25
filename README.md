@@ -46,7 +46,7 @@ While we use Notion for this course, the code is adaptable to other sources like
   </tr>
 </table>
 
-<div align="center" style="transform: scale(1.5)">
+<div align="center" style="transform: scale(2.0)">
 
 [![](https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black)](https://decodingml.substack.com/)
 [![](https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black)](https://decodingml.substack.com/)
