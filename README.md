@@ -30,14 +30,14 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 ----
 
-<table>
-  <tr>
-    <td width="20%">
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <td width="20%" style="border: none;">
       <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
         <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
       </a>
     </td>
-    <td width="80%">
+    <td width="80%" style="border: none;">
       <div>
         <h2>Stay Updated</h2>
         <p><b>Join Decoding ML</b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
