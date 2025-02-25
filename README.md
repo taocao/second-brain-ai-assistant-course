@@ -48,11 +48,10 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black&logoColor=white&scale=2" alt="Newsletter" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black&scale=2" alt="Newsletter" height="40">
   </a>
-  &nbsp;&nbsp;
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black&logoColor=white&scale=2" alt="Blog" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black&scale=2" alt="Blog" height="40">
   </a>
 </p>
 
