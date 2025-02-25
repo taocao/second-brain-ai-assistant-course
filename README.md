@@ -12,28 +12,6 @@
   </a>
 </p>
 
-<table style="border-collapse: collapse; border: none;">
-  <tr style="border: none;">
-    <td width="20%" style="border: none;">
-      <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
-        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
-      </a>
-    </td>
-    <td width="80%" style="border: none;">
-      <div>
-        <h2>📬 Stay Updated</h2>
-        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
-      </div>
-    </td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
-  </a>
-</p>
-
 ## 📖 About This Course
 
 This course is part of Decoding ML's open-source series, teaching you how to build production-ready GenAI systems using LLMs, RAG, agents and LLMOps.
@@ -61,6 +39,28 @@ While we use Notion for this course, the code is adaptable to other sources like
 After completing this course, you'll have access to your own Second Brain AI assistant, as seen in the video below:
 
 <video src="https://github.com/user-attachments/assets/bfea8e24-6d52-4a33-8857-5d05154ab69e"/></video>
+
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <td width="20%" style="border: none;">
+      <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
+        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
+      </a>
+    </td>
+    <td width="80%" style="border: none;">
+      <div>
+        <h2>📬 Stay Updated</h2>
+        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <a href="https://decodingml.substack.com/">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+  </a>
+</p>
 
 ## 🎯 What You'll Learn
 
