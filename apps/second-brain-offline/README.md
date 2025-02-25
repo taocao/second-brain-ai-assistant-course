@@ -146,6 +146,11 @@ To stop it, run:
 make local-infrastructure-down
 ```
 
+> [!NOTE]
+> To visualize the raw and RAG data from MongoDB, we recommend using [MongoDB Compass](https://rebrand.ly/second-brain-course-mongodb-compass) or Mongo's official IDE plugin (e.g., `MongoDB for VS Code`). To connect to the working MongoDB instance, use the `MONGODB_URI` value from the `.env` file or found inside the `config.py` file.
+
+![mongodb_atlas_example.png](../../static/mongodb_atlas_example.png)
+
 # ⚡️ Running the Code for Each Module
 
 To simulate the course modules, we split the CLI commands and offline ML pipelines you must run per module so you know exactly where you are in the course.
