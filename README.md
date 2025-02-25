@@ -28,6 +28,35 @@ Imagine asking your AI Assistant to recommend agent courses, list top PDF parsin
 
 While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
 
+----
+
+<table>
+  <tr>
+    <td width="20%">
+      <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
+        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
+      </a>
+    </td>
+    <td width="80%">
+      <div>
+        <h2>Stay Updated</h2>
+        <p><b>Join Decoding ML</b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
+      </div>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  <a href="https://decodingml.substack.com/">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black" alt="Newsletter">
+  </a>
+  <a href="https://decodingml.substack.com/">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black" alt="Blog">
+  </a>
+</p>
+
+----
+
 ### What You'll Do:
 
 - Build an agentic RAG system powered by your Second Brain
@@ -63,7 +92,7 @@ While building the Second Brain AI assistant, you'll master:
 | Target Audience | Why Join? |
 |-----------------|-----------|
 | ML/AI Engineers | Build production-ready agentic RAG & LLM systems |
-| Data/Software Engineers & Data Scientists | Level-up to production AI systems |
+| Data/Software Engineers & Data Scientists | Level-up to production AI systems and LLMOps |
 
 **Note:** Hands-on engineering, not theory.
 
