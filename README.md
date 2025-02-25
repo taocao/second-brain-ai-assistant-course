@@ -12,24 +12,6 @@
   </a>
 </p>
 
-## 📖 About This Course
-
-This course is part of Decoding ML's open-source series, teaching you how to build production-ready GenAI systems using LLMs, RAG, agents and LLMOps.
-
-**The Second Brain AI Assistant** course contains **6 modules** that will teach you how to build an **advanced RAG and LLM system using LLMOps and ML systems best practices**. You'll learn to build an end-to-end AI assistant that chats with your Second Brain - your personal knowledge base of notes, resources, and storage.
-
-By the end of this course, you'll be able to architect and implement a production-ready agentic RAG and LLM system from scratch.
-
-### So What Is the Second Brain AI Assistant?
-
-The Second Brain, a concept by Tiago Forte, is your personal knowledge base of notes, ideas, and resources. Our AI Assistant leverages this knowledge to answer questions, summarize documents, and provide insights.
-
-Imagine asking your AI Assistant to recommend agent courses, list top PDF parsing tools, or summarize LLM optimization methods - all based on your research, without manually searching through notes.
-
-While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
-
-----
-
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td width="20%" style="border: none;">
@@ -52,7 +34,21 @@ While we use Notion for this course, the code is adaptable to other sources like
   </a>
 </p>
 
-----
+## 📖 About This Course
+
+This course is part of Decoding ML's open-source series, teaching you how to build production-ready GenAI systems using LLMs, RAG, agents and LLMOps.
+
+**The Second Brain AI Assistant** course contains **6 modules** that will teach you how to build an **advanced RAG and LLM system using LLMOps and ML systems best practices**. You'll learn to build an end-to-end AI assistant that chats with your Second Brain - your personal knowledge base of notes, resources, and storage.
+
+By the end of this course, you'll be able to architect and implement a production-ready agentic RAG and LLM system from scratch.
+
+### So What Is the Second Brain AI Assistant?
+
+The Second Brain, a concept by Tiago Forte, is your personal knowledge base of notes, ideas, and resources. Our AI Assistant leverages this knowledge to answer questions, summarize documents, and provide insights.
+
+Imagine asking your AI Assistant to recommend agent courses, list top PDF parsing tools, or summarize LLM optimization methods - all based on your research, without manually searching through notes.
+
+While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
 
 ### What You'll Do:
 
