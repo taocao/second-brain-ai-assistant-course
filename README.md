@@ -30,27 +30,31 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 ----
 
-<table style="border-collapse: collapse; border: none;">
-  <tr style="border: none;">
-    <td width="20%" style="border: none;">
-      <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
-        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
-      </a>
-    </td>
-    <td width="80%" style="border: none;">
-      <div>
-        <h2>Stay Updated</h2>
-        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
-      </div>
-    </td>
-  </tr>
-</table>
-
-<p align="center">
-  <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Join&style=for-the-badge&color=black&scale=2" alt="Join" height="40">
-  </a>
-</p>
+<div class="newsletter-container" align="center" style="background-color: #f8f9fa; padding: 2rem; border-radius: 10px; margin: 2rem 0;">
+  <table style="border-collapse: collapse; border: none; width: 100%; max-width: 800px;">
+    <tr style="border: none;">
+      <td width="25%" style="border: none; vertical-align: middle; padding: 1rem;">
+        <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
+          <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150" style="max-width: 100%; height: auto;"/>
+        </a>
+      </td>
+      <td width="75%" style="border: none; padding: 1rem;">
+        <div style="text-align: left;">
+          <h2 style="margin: 0 0 1rem 0; color: #2d3748;">📬 Stay Updated</h2>
+          <p style="margin: 0; font-size: 1.1rem; line-height: 1.5;">
+            <b><a href="https://decodingml.substack.com/" style="color: #4a5568; text-decoration: none; border-bottom: 2px solid #4a5568;">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.
+          </p>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <div style="margin-top: 1.5rem;">
+    <a href="https://decodingml.substack.com/" style="text-decoration: none;">
+      <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe" height="40" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    </a>
+  </div>
+</div>
 
 ----
 
