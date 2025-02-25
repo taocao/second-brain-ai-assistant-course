@@ -50,7 +50,7 @@ While we use Notion for this course, the code is adaptable to other sources like
   <a href="https://decodingml.substack.com/">
     <img src="https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black&scale=2" alt="Newsletter" height="40">
   </a>
-  &nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <a href="https://decodingml.substack.com/">
     <img src="https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black&scale=2" alt="Blog" height="40">
   </a>
