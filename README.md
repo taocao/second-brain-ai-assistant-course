@@ -48,8 +48,8 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 <div align="center">
 
-[![](https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black&scale=2)](https://decodingml.substack.com/)
-[![](https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black&scale=2)](https://decodingml.substack.com/)
+[![](https://img.shields.io/static/v1?label&logo=substack&message=Newsletter&style=for-the-badge&color=black&scale=4)](https://decodingml.substack.com/)
+[![](https://img.shields.io/static/v1?label&logo=substack&message=Blog&style=for-the-badge&color=black&scale=4)](https://decodingml.substack.com/)
 
 </div>
 
