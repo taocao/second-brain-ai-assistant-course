@@ -238,8 +238,8 @@ For the full fine-tuning we used Google Colab Pro, with an L4 GPU. But the noteb
 | Purpose | Notebook | Useful Resources |
 |---------|----------|------------------|
 | Training | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/finetuning.ipynb) | [Example of an experiment using the Comet experiment tracker](https://rebrand.ly/second-brain-course-comet-example) |
-| Inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) | - |
-| Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/evaluate.ipynb) | - |
+| Inference | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/inference.ipynb) | [Our fine-tuned LLM available on Hugging Face](https://huggingface.co/pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization) |
+| Evaluation | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/decodingml/second-brain-ai-assistant-course/blob/main/apps/second-brain-offline/src/second_brain_offline/application/models/evaluate.ipynb) | [Our fine-tuned LLM available on Hugging Face](https://huggingface.co/pauliusztin/Meta-Llama-3.1-8B-Instruct-Second-Brain-Summarization) |
 
 Running criteria:
 - Running costs: $0 (running on Google Colab free tier)
