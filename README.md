@@ -82,13 +82,13 @@ While building the Second Brain AI assistant, you'll master:
 
 ## 👥 Who Should Join?
 
+People interested in learning how to design and build GenAI/LLM applications and systems.
+
 | Target Audience | Why Join? |
 |-----------------|-----------|
-| ML/AI Engineers | Learn to build production-ready agentic RAG & LLM systems (beyond Notebook tutorials). |
-| Data/Software Engineers | Learn to build end-to-end agentic RAG and LLM applications. |
-| Data Scientists | Learn to build production AI systems using LLMOps and SWE best practices. |
-
-**Note:** Hands-on engineering, not theory.
+| ML/AI Engineers | Build production-ready agentic RAG & LLM systems (beyond Notebook tutorials). |
+| Data/Software Engineers | Architect end-to-end agentic RAG and LLM applications. |
+| Data Scientists | Implement production AI systems using LLMOps and SWE best practices. |
 
 ## 🎓 Prerequisites
 
