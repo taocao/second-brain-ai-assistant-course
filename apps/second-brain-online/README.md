@@ -20,6 +20,8 @@
   </a>
 </p>
 
+------
+
 # 🚀 Installation and Usage Guide for the Second Brain Online Module
 
 This guide will help you set up and run the Second Brain Online Module which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
