@@ -20,6 +20,8 @@
   </a>
 </p>
 
+------
+
 # 🚀 Installation and Usage Guide for the Second Brain Offline Module
 
 This guide will help you set up and run the Second Brain Offline Module which contains the code for **Modules 1-5**.
