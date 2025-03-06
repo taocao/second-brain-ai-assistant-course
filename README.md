@@ -40,6 +40,8 @@ After completing this course, you'll have access to your own Second Brain AI ass
 
 <video src="https://github.com/user-attachments/assets/bfea8e24-6d52-4a33-8857-5d05154ab69e"/></video>
 
+-------
+
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <td width="20%" style="border: none;">
@@ -134,6 +136,8 @@ Our recommendation for getting the most out of this course:
 | 4 | [Playbook to fine-tune and deploy LLMs](https://decodingml.substack.com/p/playbook-to-fine-tune-and-deploy) | Fine-tune an open-source LLM (Llama 3.1 8B) to specialize in summarizing documents. Deploy it as a real-time API endpoint. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | [apps/second-brain-online](apps/second-brain-online) |
+
+------
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
@@ -279,6 +283,8 @@ We will deeply appreciate your support for the AI community and future readers ð
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+------
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
