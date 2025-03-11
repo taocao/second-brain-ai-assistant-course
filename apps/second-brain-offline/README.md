@@ -45,7 +45,7 @@ For all the modules, you'll need the following tools installed locally:
 
 | Tool | Version | Purpose | Installation Link |
 |------|---------|---------|------------------|
-| Python | 3.11 | Programming language runtime | [Download](https://www.python.org/downloads/) |
+| Python | 3.12 | Programming language runtime | [Download](https://www.python.org/downloads/) |
 | uv | ≥ 0.4.30 | Python package installer and virtual environment manager | [Download](https://github.com/astral-sh/uv) |
 | GNU Make | ≥ 3.81 | Build automation tool | [Download](https://www.gnu.org/software/make/) |
 | Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
@@ -59,8 +59,8 @@ Also, the course requires access to these cloud services. The authentication to 
 |---------|---------|------|---------------------|-------------| ---------------------|
 | [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
 | [Hugging Face](https://huggingface.com/) | MLOps | Free tier | `HUGGINGFACE_ACCESS_TOKEN` | [Quick Start Guide](https://huggingface.co/docs/hub/en/security-tokens) | Module 3 |
-| [Comet ML](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
-| [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier  | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
+| [Comet](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
+| [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier (Hosted on Comet - same API Key) | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
 When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the `config.py` for all the infrastructure-related environment variables.
 
