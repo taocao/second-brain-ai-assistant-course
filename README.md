@@ -216,6 +216,8 @@ You can always contribute by:
 - Fixing the bug
 - Creating a pull request
 
+📍 [For more details, see the contributing guide.](CONTRIBUTING.md)
+
 We will deeply appreciate your support for the AI community and future readers 🤗
 
 ## Sponsors
