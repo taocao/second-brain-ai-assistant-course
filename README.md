@@ -134,7 +134,7 @@ Our recommendation for getting the most out of this course:
 | 2 | [Data pipelines for AI assistants](https://decodingml.substack.com/p/data-pipelines-for-ai-assistants) | Build a data ETL pipeline to process custom Notion data, crawl documents, compute a quality score using LLMs & heuristics, and ingest them into a document database. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 3 | [From noisy docs to fine-tuning datasets](https://decodingml.substack.com/p/from-noisy-docs-to-fine-tuning-datasets) | Use the Notion and crawled data to generate a high-quality summarization instruct dataset using distillation. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 4 | [Playbook to fine-tune and deploy LLMs](https://decodingml.substack.com/p/playbook-to-fine-tune-and-deploy) | Fine-tune an open-source LLM (Llama 3.1 8B) to specialize in summarizing documents. Deploy it as a real-time API endpoint. | [apps/second-brain-offline](apps/second-brain-offline) |
-| 5 | RAG feature pipelines for building AI assistants (WIP) | Implement an RAG feature pipeline using advanced techniques such as context retrieval. | [apps/second-brain-offline](apps/second-brain-offline) |
+| 5 | [Build RAG pipelines that actually work](https://decodingml.substack.com/p/build-rag-pipelines-that-actually) | Implement a modular RAG feature pipeline using advanced techniques such as context and parent retrieval. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | [apps/second-brain-online](apps/second-brain-online) |
 
 ------
