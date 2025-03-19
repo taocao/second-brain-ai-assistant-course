@@ -64,7 +64,7 @@ Also, the course requires access to these cloud services. The authentication to 
 | [Comet](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
 | [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier (Hosted on Comet - same API Key) | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
 
-When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the `config.py` for all the infrastructure-related environment variables.
+When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](src/second_brain_online/config.py) file for all the infrastructure-related environment variables.
 
 But, in case you want to deploy the code, you'll need to setup the following services with their corresponding environment variables:
 
