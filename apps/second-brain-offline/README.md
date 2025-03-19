@@ -26,7 +26,6 @@
 
 This guide will help you set up and run the Second Brain Offline Module which contains the code for **Modules 1-5**.
 
-
 # 📑 Table of Contents
 
 - [📋 Prerequisites](#-prerequisites)
@@ -161,12 +160,12 @@ We use Docker to set up the local infrastructure (ZenML, MongoDB).
 > [!WARNING]
 > Before running the command below, ensure you do not have any processes running on port `27017` (MongoDB) and `8237` (ZenML).
 
-To start it, run:
+To start the Docker infrastructure, run:
 ```bash
 make local-infrastructure-up
 ```
 
-To stop it, run:
+To stop the Docker infrastructure, run:
 ```bash
 make local-infrastructure-down
 ```

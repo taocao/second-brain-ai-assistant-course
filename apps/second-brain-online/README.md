@@ -135,12 +135,12 @@ We use Docker to setup the local infrastructure (MongoDB).
 > [!WARNING]
 > Before running the command below, ensure you do not have any processes running on port `27017` (MongoDB).
 
-To start it, run:
+To start the Docker infrastructure, run:
 ```bash
 make local-infrastructure-up
 ```
 
-To stop it, run:
+To stop the Docker infrastructure, run:
 ```bash
 make local-infrastructure-down
 ```
