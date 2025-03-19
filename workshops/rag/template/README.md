@@ -50,12 +50,9 @@ For all the modules, you'll need the following tools installed locally:
 
 Also, the course requires access to these cloud services. The authentication to these services is done by adding the corresponding environment variables to the `.env` file:
 
-| Service | Purpose | Cost | Environment Variable | Setup Guide | Starting with Module |
-|---------|---------|------|---------------------|-------------| ---------------------|
-| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) | Module 2 |
-| [Hugging Face](https://huggingface.com/) | MLOps | Free tier | `HUGGINGFACE_ACCESS_TOKEN` | [Quick Start Guide](https://huggingface.co/docs/hub/en/security-tokens) | Module 3 |
-| [Comet](https://rebrand.ly/second-brain-course-comet)  | Experiment tracking |  Free tier | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 4 |
-| [Opik](https://rebrand.ly/second-brain-course-opik) | LLM evaluation and prompt monitoring | Free tier (Hosted on Comet - same API Key) | `COMET_API_KEY` | [Quick Start Guide](https://rebrand.ly/second-brain-course-comet-quickstart) | Module 6 |
+| Service | Purpose | Cost | Environment Variable | Setup Guide |
+|---------|---------|------|---------------------|-------------|
+| [OpenAI API](https://openai.com/index/openai-api/) | LLM API | Pay-per-use | `OPENAI_API_KEY` | [Quick Start Guide](https://platform.openai.com/docs/quickstart) |
 
 When working locally, the infrastructure is set up using Docker. Thus, you can use the default values found in the [config.py](src/second_brain_offline/config.py) file for all the infrastructure-related environment variables.
 
