@@ -84,7 +84,9 @@ While building the Second Brain AI assistant, you'll master:
 
 ## 👥 Who Should Join?
 
-People interested in learning how to design and build GenAI/LLM applications and systems.
+People interested in learning how to design and build LLM/RAG applications and systems.
+
+**This course is tailored for people who learn by building.** After completing the course, you will have your own code template and enough inspiration to develop your personal GenAI applications.
 
 | Target Audience | Why Join? |
 |-----------------|-----------|
