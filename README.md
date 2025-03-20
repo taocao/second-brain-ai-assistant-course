@@ -137,7 +137,7 @@ Our recommendation for getting the most out of this course:
 | 3 | [From noisy docs to fine-tuning datasets](https://decodingml.substack.com/p/from-noisy-docs-to-fine-tuning-datasets) | Use the Notion and crawled data to generate a high-quality summarization instruct dataset using distillation. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 4 | [Playbook to fine-tune and deploy LLMs](https://decodingml.substack.com/p/playbook-to-fine-tune-and-deploy) | Fine-tune an open-source LLM (Llama 3.1 8B) to specialize in summarizing documents. Deploy it as a real-time API endpoint. | [apps/second-brain-offline](apps/second-brain-offline) |
 | 5 | [Build RAG pipelines that actually work](https://decodingml.substack.com/p/build-rag-pipelines-that-actually) | Implement a modular RAG feature pipeline using advanced techniques such as context and parent retrieval. | [apps/second-brain-offline](apps/second-brain-offline) |
-| 6 | Agents and LLMOps (WIP) | Implement the agentic inference pipeline together with an observation pipeline to monitor and evaluate the performance of the AI assistant. | [apps/second-brain-online](apps/second-brain-online) |
+| 6 | [LLMOps for production agentic RAG](https://decodingml.substack.com/p/llmops-for-production-agentic-rag)| Implement the RAG agentic inference pipeline and an observation pipeline to monitor and evaluate the performance of the AI assistant. | [apps/second-brain-online](apps/second-brain-online) |
 
 ------
 
