@@ -187,6 +187,8 @@ We recommend to read the [first lesson](https://decodingml.substack.com/p/build-
 
 ## Module 2: ETL pipeline
 
+Populate the MongoDB database with the Notion and crawled raw data (required for `Module 3` and `Module 5`).
+
 ### Prepare Notion data
 
 Download our prepared Notion dataset from S3 (recommended):
@@ -224,6 +226,8 @@ make etl-precomputed-pipeline
 > If running `make download-crawled-dataset` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/crawled/crawled.zip` in your browser to download the dataset manually. Unzip `crawled.zip` and place it under the `data` directory as follows: `data/crawled` (create the `data` directory if it doesn't exist).
 
 ## Module 3: Generate Fine-tuning Dataset
+
+**NOTE:** To run this module, you must populate MongoDB with raw data as described in `Module 2`.
 
 ```bash
 make generate-dataset-pipeline
@@ -294,6 +298,8 @@ The main facts of the Eiffel Tower from the text are as follows :
 ```
 
 ## Module 5: RAG Feature Pipeline - Populate the RAG Vector Database
+
+**NOTE:** To run this module, you must populate MongoDB with raw data as described in [Module 2](#module-2-etl-pipeline).
 
 We support multiple RAG ingestion methods using either OpenAI or your deployed Hugging Face models, with parent or contextual retrieval algorithms.
 
