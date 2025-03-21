@@ -24,9 +24,9 @@
 
 # 🚀 Installation and Usage Guide for the Second Brain Online Module
 
-This guide will help you set up and run the Second Brain Online Module which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
+This guide will help you set up and run the Second Brain Online Module, which contains the code for **Module 6: the RAG agentic app and LLMOps layer**.
 
-Note that this module is completely independent from the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, it is required to have the offline ML pipelines running in order to use this module.
+Note that this module is entirely independent of the offline ML pipelines. Thus, it comes with its own set of dependencies and requirements. Also, to run this module, you must first go through the steps from the [Offline ML Pipelines](../second-brain-offline) part of the course, which will populate the vector database and other required resources.
 
 # 📑 Table of Contents
 
