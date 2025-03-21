@@ -51,7 +51,7 @@ For all the modules, you'll need the following tools installed locally:
 | Docker | ≥27.4.0 | Containerization platform | [Download](https://www.docker.com/get-started/) |
 
 <details>
-<summary><b>📌 Windows Users: Installing WSL (Click to expand)</b></summary>
+<summary><b>📌 Windows users also need to install WSL (Click to expand)</b></summary>
 
 We will be using Unix commands across the course, so if you are using Windows, you will need to **install WSL**, which will install a Linux kernel on your Windows machine and allow you to use the Unix commands from our course (this is the recommended way to write software on Windows). 
 
