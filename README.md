@@ -28,7 +28,6 @@ Imagine asking your AI Assistant to recommend agent courses, list top PDF parsin
 
 While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
 
-
 <table>
   <tr>
     <td align="center" width="50%">
@@ -94,6 +93,17 @@ While building the Second Brain AI assistant, you'll master:
 - Modern Python tooling (uv, ruff)
 
 🥷 With these skills, you'll become a ninja in building **advanced agentic RAG and LLM systems using LLMOps and ML systems best practices**. 
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+        <img src="static/dataset_generation_pipeline_architecture.png" alt="Dataset Generation Pipeline Architecture" width="100%">
+    </td>
+    <td align="center" width="50%">
+        <img src="static/training_pipeline_architecture.png" alt="Training Pipeline Architecture" width="100%">
+    </td>
+  </tr>
+</table>
 
 ## 👥 Who Should Join?
 
