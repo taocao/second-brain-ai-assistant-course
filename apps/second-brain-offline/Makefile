@@ -1,5 +1,5 @@
 ifeq (,$(wildcard .env))
-$(error .env file is missing. Please create one based on .env.example)
+$(error .env file is missing. Please create one based on .env.example. Run: "cp .env.example .env" and fill in the missing values.)
 endif
 
 include .env

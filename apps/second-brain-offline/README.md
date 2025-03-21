@@ -200,6 +200,11 @@ make download-notion-dataset
 make collect-notion-data-pipeline
 ```
 
+[Download here](https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip)
+
+> [!IMPORTANT]
+> If running `make collect-notion-data-pipeline` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip` in your browser to download the dataset manually. Unzip `notion.zip` and place it under the `data` directory as follows: `data/notion` (create the `data` directory if it doesn't exist).
+
 ### Run the ETL pipeline
 
 Run the ETL pipeline to crawl, score and ingest the Notion data into MongoDB:
@@ -210,12 +215,15 @@ Running criteria:
 - Running costs: ~$0.5
 - Running time: ~30 minutes
 
-**OR** if you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail, you can use this command to skip the crawling step (the outcome will be the same as using `make etl-pipeline`):
+**OR** if you want to avoid any costs or waiting times, you can use our pre-computed dataset to populate MongoDB. Also, as crawling can often fail and it is more compute-heavy, you can use this command to skip the crawling step (the outcome will be the same as using `make etl-pipeline`):
 ```bash
 make download-crawled-dataset
 # Validate using test: make test-download-crawled-dataset
 make etl-precomputed-pipeline
 ```
+
+> [!IMPORTANT]
+> If running `make download-crawled-dataset` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/crawled/crawled.zip` in your browser to download the dataset manually. Unzip `crawled.zip` and place it under the `data` directory as follows: `data/crawled` (create the `data` directory if it doesn't exist).
 
 ## Module 3: Generate Fine-tuning Dataset
 
