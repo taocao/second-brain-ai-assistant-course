@@ -200,10 +200,8 @@ make download-notion-dataset
 make collect-notion-data-pipeline
 ```
 
-[Download here](https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip)
-
 > [!IMPORTANT]
-> If running `make collect-notion-data-pipeline` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip` in your browser to download the dataset manually. Unzip `notion.zip` and place it under the `data` directory as follows: `data/notion` (create the `data` directory if it doesn't exist).
+> If running `make download-notion-dataset` fails, type `https://decodingml-public-data.s3.eu-central-1.amazonaws.com/second_brain_course/notion/notion.zip` in your browser to download the dataset manually. Unzip `notion.zip` and place it under the `data` directory as follows: `data/notion` (create the `data` directory if it doesn't exist).
 
 ### Run the ETL pipeline
 
