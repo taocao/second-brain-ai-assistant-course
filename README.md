@@ -30,13 +30,19 @@ While we use Notion for this course, the code is adaptable to other sources like
 
 
 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
-    <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="450">
-  </a>
+  <div style="flex: 1; min-width: 300px; text-align: center;">
+    <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+      <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="450">
+    </a>
+    <p><strong>RAG Feature Pipeline Architecture</strong></p>
+  </div>
   
-  <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
-    <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="450">
-  </a>
+  <div style="flex: 1; min-width: 300px; text-align: center;">
+    <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+      <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="450">
+    </a>
+    <p><strong>Agentic RAG Architecture</strong></p>
+  </div>
 </div>
 
 
