@@ -28,6 +28,18 @@ Imagine asking your AI Assistant to recommend agent courses, list top PDF parsin
 
 While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
 
+
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+  <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+    <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="450">
+  </a>
+  
+  <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+    <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="450">
+  </a>
+</div>
+
+
 ### What You'll Do:
 
 - Build an agentic RAG system powered by your Second Brain
