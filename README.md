@@ -35,13 +35,11 @@ While we use Notion for this course, the code is adaptable to other sources like
       <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
         <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="100%">
       </a>
-      <p><strong>RAG Feature Pipeline Architecture</strong></p>
     </td>
     <td align="center" width="50%">
       <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
         <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="100%">
       </a>
-      <p><strong>Agentic RAG Architecture</strong></p>
     </td>
   </tr>
 </table>
