@@ -227,7 +227,7 @@ make etl-precomputed-pipeline
 
 ## Module 3: Generate Fine-tuning Dataset
 
-**NOTE:** To run this module, you must populate MongoDB with raw data as described in `Module 2`.
+**NOTE:** To run this module, you must populate MongoDB with raw data as described in [Module 2](#module-2-etl-pipeline).
 
 ```bash
 make generate-dataset-pipeline
