@@ -50,6 +50,7 @@ For all the modules, you'll need the following tools installed locally:
 | Git | ≥2.44.0 | Version control | [Download](https://git-scm.com/downloads) |
 | Docker | ≥27.4.0 | Containerization platform | [Download](https://www.docker.com/get-started/) |
 
+<br/>
 <details>
 <summary><b>📌 Windows users also need to install WSL (Click to expand)</b></summary>
 
