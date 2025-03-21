@@ -29,21 +29,22 @@ Imagine asking your AI Assistant to recommend agent courses, list top PDF parsin
 While we use Notion for this course, the code is adaptable to other sources like Google Drive or Calendar. We'll provide our curated AI/ML resource list from Notion, covering GenAI, LLMs, RAG, MLOps, and more. **No Notion account needed** - but if you want to use yours, our flexible pipeline supports any Notion database.
 
 
-<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-  <div style="flex: 1; min-width: 300px; text-align: center;">
-    <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
-      <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="450">
-    </a>
-    <p><strong>RAG Feature Pipeline Architecture</strong></p>
-  </div>
-  
-  <div style="flex: 1; min-width: 300px; text-align: center;">
-    <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
-      <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="450">
-    </a>
-    <p><strong>Agentic RAG Architecture</strong></p>
-  </div>
-</div>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+        <img src="static/rag_feature_pipeline_architecture.png" alt="RAG Feature Pipeline Architecture" width="100%">
+      </a>
+      <p><strong>RAG Feature Pipeline Architecture</strong></p>
+    </td>
+    <td align="center" width="50%">
+      <a href="https://decodingml.substack.com/p/build-your-second-brain-ai-assistant">
+        <img src="static/agentic_rag_architecture.png" alt="Agentic RAG Architecture" width="100%">
+      </a>
+      <p><strong>Agentic RAG Architecture</strong></p>
+    </td>
+  </tr>
+</table>
 
 
 ### What You'll Do:
