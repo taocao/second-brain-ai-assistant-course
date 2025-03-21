@@ -152,6 +152,8 @@ make local-infrastructure-down
 
 # ⚡️ Running the Code for Each Module
 
+**NOTE:** To run this module, you must first go through the steps from the [Offline ML Pipelines](../second-brain-offline) part of the course.
+
 To simulate the course modules, we split the CLI commands and offline ML pipelines you must run per module so you know exactly where you are in the course.
 
 ## Module 6: Running the RAG Agentic App and LLMOps Layer
