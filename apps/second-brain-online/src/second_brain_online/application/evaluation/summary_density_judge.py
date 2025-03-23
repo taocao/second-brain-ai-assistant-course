@@ -34,7 +34,7 @@ class SummaryDensityJudge(base_metric.BaseMetric):
         self.prompt_template = """
         You are an impartial expert judge. Evaluate the quality of a given answer to an instruction based on how long the answer it is. 
 
-How to decide wether the lengths of the answer is appropriate:
+How to decide whether the lengths of the answer is appropriate:
 1 (Poor): Too short, does not answer the question OR too long, it contains too much noise and unrequired information, where the answer could be more concise.
 2 (Good): Good lengthbalance of the answer, but the answer is still too short OR too long.
 3 (Excellent): The length of the answer is appropriate, it answers the question and is not too long or too short.
