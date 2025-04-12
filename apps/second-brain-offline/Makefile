@@ -42,6 +42,8 @@ local-infrastructure-up: local-docker-infrastructure-up local-zenml-server-stop 
 
 local-infrastructure-stop: local-docker-infrastructure-stop local-zenml-server-stop
 
+local-infrastructure-down:
+	docker compose -f ../infrastructure/docker/docker-compose.yml down
 # --- AWS ---
 
 validate_aws_boto3:
