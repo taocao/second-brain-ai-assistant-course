@@ -58,13 +58,13 @@ After completing this course, you'll have access to your own Second Brain AI ass
   <tr style="border: none;">
     <td width="20%" style="border: none;">
       <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
-        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
+        <img src="https://github.com/user-attachments/assets/f2f2f9c0-54b7-4ae3-bf8d-23a359c86982" alt="Decoding ML Logo" width="150"/>
       </a>
     </td>
     <td width="80%" style="border: none;">
       <div>
         <h2>📬 Stay Updated</h2>
-        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
+        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on designing, coding, and deploying production-grade AI systems with software engineering and MLOps best practices to help you ship AI applications. Every week, straight to your inbox.</p>
       </div>
     </td>
   </tr>
@@ -72,7 +72,7 @@ After completing this course, you'll have access to your own Second Brain AI ass
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
 
@@ -168,13 +168,13 @@ Our recommendation for getting the most out of this course:
   <tr style="border: none;">
     <td width="20%" style="border: none;">
       <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
-        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
+        <img src="https://github.com/user-attachments/assets/f2f2f9c0-54b7-4ae3-bf8d-23a359c86982" alt="Decoding ML Logo" width="150"/>
       </a>
     </td>
     <td width="80%" style="border: none;">
       <div>
         <h2>📬 Stay Updated</h2>
-        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
+        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on designing, coding, and deploying production-grade AI systems with software engineering and MLOps best practices to help you ship AI applications. Every week, straight to your inbox.</p>
       </div>
     </td>
   </tr>
@@ -182,7 +182,7 @@ Our recommendation for getting the most out of this course:
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
 
@@ -317,13 +317,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   <tr style="border: none;">
     <td width="20%" style="border: none;">
       <a href="https://decodingml.substack.com/" aria-label="Decoding ML">
-        <img src="static/dml_logo.png" alt="Decoding ML Logo" width="150"/>
+        <img src="https://github.com/user-attachments/assets/f2f2f9c0-54b7-4ae3-bf8d-23a359c86982" alt="Decoding ML Logo" width="150"/>
       </a>
     </td>
     <td width="80%" style="border: none;">
       <div>
         <h2>📬 Stay Updated</h2>
-        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on production-grade AI, GenAI, and information retrieval systems. Every week, straight to your inbox.</p>
+        <p><b><a href="https://decodingml.substack.com/">Join Decoding ML</a></b> for proven content on designing, coding, and deploying production-grade AI systems with software engineering and MLOps best practices to help you ship AI applications. Every week, straight to your inbox.</p>
       </div>
     </td>
   </tr>
@@ -331,6 +331,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <p align="center">
   <a href="https://decodingml.substack.com/">
-    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
+    <img src="https://img.shields.io/static/v1?label&logo=substack&message=Subscribe%20Now&style=for-the-badge&color=black&scale=2" alt="Subscribe Now" height="40">
   </a>
 </p>
